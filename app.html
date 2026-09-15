@@ -24,7 +24,6 @@ button{cursor:pointer}
  --accent:#ff315c;
  --accent2:#7c5cff;
 }
-
 body.light{
  --bg:#f5f5f5;
  --card:#fff;
@@ -33,125 +32,80 @@ body.light{
  --muted:#666;
  --line:#ddd;
 }
-
 body{background:var(--bg);color:var(--text)}
 .app{max-width:700px;margin:auto;min-height:100vh;padding-bottom:80px}
 
 .top{
- position:sticky;
- top:0;
- z-index:50;
- background:rgba(5,5,5,.94);
- backdrop-filter:blur(12px);
- border-bottom:1px solid var(--line);
- padding:12px 14px;
+position:sticky;top:0;z-index:50;
+background:rgba(5,5,5,.94);
+backdrop-filter:blur(12px);
+border-bottom:1px solid var(--line);
+padding:12px 14px
 }
 body.light .top{background:rgba(245,245,245,.94)}
-
 .toprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.logo{
- font-size:21px;
- font-weight:900;
- letter-spacing:-.5px;
-}
+.logo{font-size:21px;font-weight:900}
 .logo span{color:var(--accent)}
 .topbuttons{display:flex;gap:7px}
 .iconbtn{
- width:38px;height:38px;border:1px solid var(--line);
- background:var(--card);color:var(--text);
- border-radius:50%;
+width:38px;height:38px;border:1px solid var(--line);
+background:var(--card);color:var(--text);border-radius:50%
 }
-
 .search{
- margin-top:10px;
- width:100%;
- padding:11px 14px;
- border:1px solid var(--line);
- border-radius:25px;
- background:var(--card);
- color:var(--text);
- outline:none;
+margin-top:10px;width:100%;padding:11px 14px;
+border:1px solid var(--line);border-radius:25px;
+background:var(--card);color:var(--text);outline:none
 }
 
 .page{padding:14px}
 .section{margin-bottom:16px}
 .notice{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:18px;
- padding:22px;
- text-align:center;
- color:var(--muted);
+background:var(--card);border:1px solid var(--line);
+border-radius:18px;padding:22px;text-align:center;color:var(--muted)
 }
-
 .hero{
- background:linear-gradient(135deg,#151515,#24101a);
- border:1px solid var(--line);
- border-radius:22px;
- padding:22px;
- margin-bottom:16px;
+background:linear-gradient(135deg,#151515,#24101a);
+border:1px solid var(--line);border-radius:22px;
+padding:22px;margin-bottom:16px
 }
 .hero h1{margin:0 0 8px;font-size:28px}
 .hero p{margin:0;color:#bbb;line-height:1.5}
 
-.authbox{
- max-width:460px;
- margin:50px auto;
- padding:22px;
- background:var(--card);
- border:1px solid var(--line);
- border-radius:22px;
-}
-.authbox h2{margin-top:0}
 .field{
- width:100%;
- padding:13px;
- margin:7px 0;
- border:1px solid var(--line);
- border-radius:12px;
- background:var(--bg);
- color:var(--text);
- outline:none;
+width:100%;padding:13px;margin:7px 0;
+border:1px solid var(--line);border-radius:12px;
+background:var(--bg);color:var(--text);outline:none
 }
 .primary{
- width:100%;
- padding:13px;
- border:0;
- border-radius:14px;
- color:#fff;
- font-weight:800;
- background:linear-gradient(135deg,var(--accent),var(--accent2));
- margin-top:8px;
+width:100%;padding:13px;border:0;border-radius:14px;
+color:#fff;font-weight:800;
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+margin-top:8px
 }
 .secondary{
- padding:11px 14px;
- border:1px solid var(--line);
- border-radius:12px;
- background:var(--card2);
- color:var(--text);
- font-weight:700;
+padding:11px 14px;border:1px solid var(--line);
+border-radius:12px;background:var(--card2);
+color:var(--text);font-weight:700
 }
-.textbtn{
- background:none;border:0;color:var(--accent);
- padding:8px 0;font-weight:700;
+.textbtn{background:none;border:0;color:var(--accent);padding:8px 0;font-weight:700}
+
+.authbox{
+max-width:460px;margin:50px auto;padding:22px;
+background:var(--card);border:1px solid var(--line);
+border-radius:22px
 }
+.authbox h2{margin-top:0}
 
 .profileHead{
- display:flex;
- align-items:center;
- gap:15px;
- background:var(--card);
- border:1px solid var(--line);
- border-radius:20px;
- padding:18px;
+display:flex;align-items:center;gap:15px;
+background:var(--card);border:1px solid var(--line);
+border-radius:20px;padding:18px
 }
 .avatar{
- width:70px;height:70px;border-radius:50%;
- background:linear-gradient(135deg,var(--accent),var(--accent2));
- display:flex;align-items:center;justify-content:center;
- font-size:30px;font-weight:900;
- overflow:hidden;
- flex-shrink:0;
+width:70px;height:70px;border-radius:50%;
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+display:flex;align-items:center;justify-content:center;
+font-size:30px;font-weight:900;overflow:hidden;flex-shrink:0
 }
 .avatar img{width:100%;height:100%;object-fit:cover}
 .profileName{font-size:20px;font-weight:900}
@@ -161,246 +115,144 @@ body.light .top{background:rgba(245,245,245,.94)}
 .stat small{color:var(--muted)}
 
 .tabs{
- display:flex;
- gap:5px;
- background:var(--card);
- border-radius:14px;
- padding:5px;
- margin:14px 0;
+display:flex;gap:5px;background:var(--card);
+border-radius:14px;padding:5px;margin:14px 0
 }
 .tabs button{
- flex:1;border:0;background:none;color:var(--muted);
- padding:10px;border-radius:10px;
+flex:1;border:0;background:none;color:var(--muted);
+padding:10px;border-radius:10px
 }
-.tabs button.active{
- background:var(--card2);
- color:var(--text);
- font-weight:800;
-}
+.tabs button.active{background:var(--card2);color:var(--text);font-weight:800}
 
 .createBox{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:20px;
- padding:18px;
+background:var(--card);border:1px solid var(--line);
+border-radius:20px;padding:18px
 }
 .filelabel{
- display:flex;
- align-items:center;
- justify-content:center;
- min-height:120px;
- border:2px dashed #555;
- border-radius:18px;
- color:var(--muted);
- text-align:center;
- padding:15px;
+display:flex;align-items:center;justify-content:center;
+min-height:120px;border:2px dashed #555;border-radius:18px;
+color:var(--muted);text-align:center;padding:15px
 }
 .filelabel input{display:none}
 .filename{
- margin-top:10px;
- padding:10px;
- border-radius:10px;
- background:var(--card2);
- font-size:13px;
- word-break:break-all;
+margin-top:10px;padding:10px;border-radius:10px;
+background:var(--card2);font-size:13px;word-break:break-all
 }
-
 .progress{
- height:8px;
- background:#292929;
- border-radius:20px;
- overflow:hidden;
- margin:12px 0;
+height:8px;background:#292929;border-radius:20px;
+overflow:hidden;margin:12px 0
 }
 .progress div{
- width:0%;
- height:100%;
- background:linear-gradient(90deg,var(--accent),var(--accent2));
- transition:.2s;
+width:0%;height:100%;
+background:linear-gradient(90deg,var(--accent),var(--accent2));
+transition:.2s
 }
 
 .post{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:20px;
- overflow:hidden;
- margin-bottom:18px;
+background:var(--card);border:1px solid var(--line);
+border-radius:20px;overflow:hidden;margin-bottom:18px
 }
-.posthead{
- display:flex;
- align-items:center;
- gap:10px;
- padding:13px;
-}
+.posthead{display:flex;align-items:center;gap:10px;padding:13px}
 .postavatar{
- width:42px;height:42px;border-radius:50%;
- background:linear-gradient(135deg,var(--accent),var(--accent2));
- display:flex;align-items:center;justify-content:center;
- font-weight:900;
- overflow:hidden;
+width:42px;height:42px;border-radius:50%;
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+display:flex;align-items:center;justify-content:center;
+font-weight:900;overflow:hidden
 }
 .postavatar img{width:100%;height:100%;object-fit:cover}
 .postuser{font-weight:800}
 .postuser small{display:block;color:var(--muted);font-weight:400;margin-top:2px}
 .postmedia{
- width:100%;
- max-height:75vh;
- object-fit:contain;
- display:block;
- background:#000;
+width:100%;max-height:75vh;object-fit:contain;
+display:block;background:#000
 }
 .postbody{padding:13px}
 .caption{line-height:1.45;white-space:pre-wrap}
 .location{color:var(--muted);font-size:13px;margin-top:6px}
-.actions{
- display:flex;
- gap:7px;
- margin-top:12px;
-}
+.actions{display:flex;gap:7px;margin-top:12px}
 .action{
- flex:1;
- padding:10px 5px;
- border:1px solid var(--line);
- border-radius:12px;
- background:var(--card2);
- color:var(--text);
- font-size:13px;
+flex:1;padding:10px 5px;border:1px solid var(--line);
+border-radius:12px;background:var(--card2);
+color:var(--text);font-size:13px
 }
 .action.liked{color:var(--accent);border-color:var(--accent)}
-.comments{
- margin-top:12px;
- border-top:1px solid var(--line);
- padding-top:12px;
-}
+.comments{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
 .commentrow{display:flex;gap:8px;margin-top:7px}
 .comment{
- background:var(--card2);
- border-radius:12px;
- padding:8px 10px;
- flex:1;
- font-size:13px;
+background:var(--card2);border-radius:12px;
+padding:8px 10px;flex:1;font-size:13px
 }
-.commentInput{
- display:flex;
- gap:7px;
- margin-top:10px;
-}
+.commentInput{display:flex;gap:7px;margin-top:10px}
 .commentInput input{
- flex:1;
- padding:10px;
- border:1px solid var(--line);
- border-radius:12px;
- background:var(--bg);
- color:var(--text);
+flex:1;padding:10px;border:1px solid var(--line);
+border-radius:12px;background:var(--bg);color:var(--text)
 }
 
-.grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:10px;
-}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .card{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:16px;
- padding:15px;
+background:var(--card);border:1px solid var(--line);
+border-radius:16px;padding:15px
 }
 .card h3{margin:0 0 7px}
 .card p{margin:0;color:var(--muted);line-height:1.4}
 
 .menu{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:20px;
- overflow:hidden;
+background:var(--card);border:1px solid var(--line);
+border-radius:20px;overflow:hidden
 }
 .menu button{
- width:100%;
- padding:16px;
- border:0;
- border-bottom:1px solid var(--line);
- background:none;
- color:var(--text);
- text-align:left;
+width:100%;padding:16px;border:0;border-bottom:1px solid var(--line);
+background:none;color:var(--text);text-align:left
 }
 .menu button:last-child{border-bottom:0}
 .danger{color:#ff4d67!important}
 
 .bottom{
- position:fixed;
- bottom:0;
- left:0;
- right:0;
- height:68px;
- background:rgba(5,5,5,.96);
- backdrop-filter:blur(15px);
- border-top:1px solid var(--line);
- display:flex;
- justify-content:center;
- z-index:100;
+position:fixed;bottom:0;left:0;right:0;height:68px;
+background:rgba(5,5,5,.96);backdrop-filter:blur(15px);
+border-top:1px solid var(--line);display:flex;
+justify-content:center;z-index:100
 }
 body.light .bottom{background:rgba(245,245,245,.96)}
-.bottominner{
- width:700px;
- display:flex;
-}
+.bottominner{width:700px;display:flex}
 .navbtn{
- flex:1;
- border:0;
- background:none;
- color:var(--muted);
- font-size:11px;
+flex:1;border:0;background:none;color:var(--muted);font-size:11px
 }
 .navbtn b{display:block;font-size:21px;margin-bottom:2px}
 .navbtn.active{color:var(--text)}
 .navbtn.create b{color:var(--accent)}
 
 .toast{
- position:fixed;
- left:50%;
- bottom:85px;
- transform:translateX(-50%);
- background:#fff;
- color:#111;
- padding:12px 16px;
- border-radius:14px;
- font-weight:700;
- max-width:90%;
- z-index:500;
- box-shadow:0 8px 30px rgba(0,0,0,.4);
+position:fixed;left:50%;bottom:85px;
+transform:translateX(-50%);
+background:#fff;color:#111;padding:12px 16px;
+border-radius:14px;font-weight:700;max-width:90%;
+z-index:500;box-shadow:0 8px 30px rgba(0,0,0,.4)
 }
 
 .modal{
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.7);
- display:flex;
- align-items:center;
- justify-content:center;
- padding:18px;
- z-index:400;
+position:fixed;inset:0;background:rgba(0,0,0,.7);
+display:flex;align-items:center;justify-content:center;
+padding:18px;z-index:400
 }
 .modalbox{
- width:min(500px,100%);
- background:var(--card);
- border:1px solid var(--line);
- border-radius:22px;
- padding:20px;
- max-height:85vh;
- overflow:auto;
+width:min(500px,100%);background:var(--card);
+border:1px solid var(--line);border-radius:22px;
+padding:20px;max-height:85vh;overflow:auto
 }
+.loading{text-align:center;padding:40px 20px;color:var(--muted)}
 
-.loading{
- text-align:center;
- padding:40px 20px;
- color:var(--muted);
+.statusbox{
+margin-top:12px;padding:13px;border-radius:12px;
+background:var(--card2);border:1px solid var(--line);
+font-size:13px;line-height:1.5
 }
 
 @media(max-width:480px){
- .page{padding:10px}
- .grid{grid-template-columns:1fr}
- .hero h1{font-size:24px}
- .stats{gap:12px}
+.page{padding:10px}
+.grid{grid-template-columns:1fr}
+.hero h1{font-size:24px}
+.stats{gap:12px}
 }
 </style>
 </head>
@@ -412,217 +264,294 @@ body.light .bottom{background:rgba(245,245,245,.96)}
 <div id="app" class="app">
 
 <header class="top">
- <div class="toprow">
-  <div class="logo">🌍 <span>WorldVibe</span> 🎬</div>
-  <div class="topbuttons">
-   <button class="iconbtn" onclick="toggleTheme()">☀️</button>
-   <button class="iconbtn" onclick="openSearch()">🔍</button>
-  </div>
- </div>
- <input id="searchBox" class="search hidden" placeholder="Search creators, captions, hashtags..." oninput="searchPosts(this.value)">
+<div class="toprow">
+<div class="logo">🌍 <span>WorldVibe</span> 🎬</div>
+<div class="topbuttons">
+<button class="iconbtn" onclick="toggleTheme()">☀️</button>
+<button class="iconbtn" onclick="openSearch()">🔍</button>
+</div>
+</div>
+
+<input id="searchBox" class="search hidden"
+placeholder="Search creators, captions, hashtags..."
+oninput="searchPosts(this.value)">
 </header>
 
 <main id="pageHome" class="page">
- <div class="hero">
-  <h1>Share your world. 🌍</h1>
-  <p>Discover everyone's vibe, create videos and connect with people around the world.</p>
- </div>
 
- <div class="section">
-  <h2>For You 🔥</h2>
-  <div id="feed" class="loading">Loading WorldVibe...</div>
- </div>
+<div class="hero">
+<h1>Share your world. 🌍</h1>
+<p>Discover everyone's vibe, create videos and connect with people around the world.</p>
+</div>
+
+<div class="section">
+<h2>For You 🔥</h2>
+<div id="feed" class="loading">Loading WorldVibe... ⏳</div>
+</div>
+
 </main>
 
 <main id="pageDiscover" class="page hidden">
- <div class="hero">
-  <h1>Discover 🔎</h1>
-  <p>Find new creators and discover WorldVibe posts.</p>
- </div>
- <div id="discoverContent"></div>
+<div class="hero">
+<h1>Discover 🔎</h1>
+<p>Find creators and discover WorldVibe posts.</p>
+</div>
+<div id="discoverContent"></div>
 </main>
 
 <main id="pageCreate" class="page hidden">
- <div class="section">
-  <h2>Create 🎬</h2>
 
-  <div class="createBox">
+<div class="section">
+<h2>Create 🎬</h2>
 
-   <label class="filelabel">
-    <input id="mediaFile" type="file" accept="video/*,image/*" onchange="selectMedia(this)">
-    <span>🎥<br><br>Select Video or Photo</span>
-   </label>
+<div class="createBox">
 
-   <div id="fileName" class="filename hidden"></div>
+<label class="filelabel">
+<input id="mediaFile" type="file"
+accept="video/*,image/*"
+onchange="selectMedia(this)">
+<span>🎥<br><br>Select Video or Photo</span>
+</label>
 
-   <textarea id="caption" class="field" rows="4" placeholder="Write a caption... #WorldVibe"></textarea>
+<div id="fileName" class="filename hidden"></div>
 
-   <input id="location" class="field" placeholder="Location (optional)">
+<textarea id="caption" class="field"
+rows="4"
+placeholder="Write a caption... #WorldVibe"></textarea>
 
-   <label style="display:block;margin:12px 0">
-    <input id="allowComments" type="checkbox" checked>
-    Allow comments
-   </label>
+<input id="location" class="field"
+placeholder="Location (optional)">
 
-   <div class="progress">
-    <div id="progressBar"></div>
-   </div>
+<label style="display:block;margin:12px 0">
+<input id="allowComments" type="checkbox" checked>
+Allow comments
+</label>
 
-   <button class="primary" onclick="publishPost()">Publish to WorldVibe 🚀</button>
-   <button class="secondary" style="width:100%;margin-top:8px" onclick="saveDraft()">Save Draft</button>
+<div class="progress">
+<div id="progressBar"></div>
+</div>
 
-   <div style="margin-top:18px">
-    <b>Drafts</b>
-    <div id="drafts" class="notice" style="margin-top:8px">No drafts</div>
-   </div>
+<div id="uploadStatus" class="statusbox hidden"></div>
 
-  </div>
- </div>
+<button id="publishButton"
+class="primary"
+onclick="publishPost()">
+Publish to WorldVibe 🚀
+</button>
+
+<button class="secondary"
+style="width:100%;margin-top:8px"
+onclick="saveDraft()">
+Save Draft
+</button>
+
+<div style="margin-top:18px">
+<b>Drafts</b>
+<div id="drafts" class="notice" style="margin-top:8px">
+No drafts
+</div>
+</div>
+
+</div>
+</div>
 </main>
 
 <main id="pageAlerts" class="page hidden">
- <div class="hero">
-  <h1>Alerts 🔔</h1>
-  <p>Your WorldVibe activity will appear here.</p>
- </div>
- <div id="alertsContent" class="notice">No new alerts.</div>
+<div class="hero">
+<h1>Alerts 🔔</h1>
+<p>Your WorldVibe activity will appear here.</p>
+</div>
+<div class="notice">No new alerts.</div>
 </main>
 
 <main id="pageProfile" class="page hidden">
- <div id="profileArea"></div>
+<div id="profileArea"></div>
 </main>
 
 </div>
 
 <nav class="bottom">
- <div class="bottominner">
+<div class="bottominner">
 
-  <button id="navHome" class="navbtn active" onclick="showPage('home',this)">
-   <b>🏠</b>Home
-  </button>
+<button id="navHome"
+class="navbtn active"
+onclick="showPage('home',this)">
+<b>🏠</b>Home
+</button>
 
-  <button id="navDiscover" class="navbtn" onclick="showPage('discover',this)">
-   <b>🔎</b>Discover
-  </button>
+<button id="navDiscover"
+class="navbtn"
+onclick="showPage('discover',this)">
+<b>🔎</b>Discover
+</button>
 
-  <button id="navCreate" class="navbtn create" onclick="showPage('create',this)">
-   <b>➕</b>Create
-  </button>
+<button id="navCreate"
+class="navbtn create"
+onclick="showPage('create',this)">
+<b>➕</b>Create
+</button>
 
-  <button id="navAlerts" class="navbtn" onclick="showPage('alerts',this)">
-   <b>🔔</b>Alerts
-  </button>
+<button id="navAlerts"
+class="navbtn"
+onclick="showPage('alerts',this)">
+<b>🔔</b>Alerts
+</button>
 
-  <button id="navProfile" class="navbtn" onclick="showPage('profile',this)">
-   <b>👤</b>Profile
-  </button>
+<button id="navProfile"
+class="navbtn"
+onclick="showPage('profile',this)">
+<b>👤</b>Profile
+</button>
 
- </div>
+</div>
 </nav>
 
 <div id="authModal" class="modal">
- <div class="authbox modalbox">
 
-  <h2>🌍 WorldVibe 🎬</h2>
-  <p style="color:var(--muted)">Create your account or login.</p>
+<div class="authbox modalbox">
 
-  <input id="authEmail" class="field" type="email" placeholder="Email">
+<h2>🌍 WorldVibe 🎬</h2>
 
-  <input id="authPassword" class="field" type="password" placeholder="Password">
+<p style="color:var(--muted)">
+Create your account or login.
+</p>
 
-  <button class="primary" onclick="firebaseLogin()">Login</button>
+<input id="authEmail"
+class="field"
+type="email"
+placeholder="Email">
 
-  <button class="secondary" style="width:100%;margin-top:8px" onclick="firebaseSignup()">
-   Create Account
-  </button>
+<input id="authPassword"
+class="field"
+type="password"
+placeholder="Password">
 
-  <button class="textbtn" onclick="forgotPassword()">
-   Forgot password?
-  </button>
+<button class="primary"
+onclick="firebaseLogin()">
+Login
+</button>
 
-  <div id="authStatus" style="margin-top:10px;color:var(--muted);font-size:13px"></div>
+<button class="secondary"
+style="width:100%;margin-top:8px"
+onclick="firebaseSignup()">
+Create Account
+</button>
 
- </div>
+<button class="textbtn"
+onclick="forgotPassword()">
+Forgot password?
+</button>
+
+<div id="authStatus"
+style="margin-top:10px;color:var(--muted);font-size:13px">
+</div>
+
+</div>
 </div>
 
 <div id="editModal" class="modal hidden">
- <div class="modalbox">
-  <h2>Edit Profile</h2>
 
-  <input id="editName" class="field" placeholder="Your name">
+<div class="modalbox">
 
-  <input id="editUsername" class="field" placeholder="Username">
+<h2>Edit Profile</h2>
 
-  <input id="editPhoto" class="field" placeholder="Profile photo URL (optional)">
+<input id="editName"
+class="field"
+placeholder="Your name">
 
-  <textarea id="editBio" class="field" rows="3" placeholder="Bio"></textarea>
+<input id="editUsername"
+class="field"
+placeholder="Username">
 
-  <button class="primary" onclick="saveProfile()">Save Profile</button>
+<input id="editPhoto"
+class="field"
+placeholder="Profile photo URL (optional)">
 
-  <button class="secondary" style="width:100%;margin-top:8px" onclick="closeEdit()">
-   Cancel
-  </button>
- </div>
+<textarea id="editBio"
+class="field"
+rows="3"
+placeholder="Bio"></textarea>
+
+<button class="primary"
+onclick="saveProfile()">
+Save Profile
+</button>
+
+<button class="secondary"
+style="width:100%;margin-top:8px"
+onclick="closeEdit()">
+Cancel
+</button>
+
+</div>
 </div>
 
 <script type="module">
 
 import {
- initializeApp
+initializeApp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 import {
- getAuth,
- onAuthStateChanged,
- createUserWithEmailAndPassword,
- signInWithEmailAndPassword,
- sendPasswordResetEmail,
- signOut,
- deleteUser,
- updateProfile
+getAuth,
+onAuthStateChanged,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+sendPasswordResetEmail,
+signOut,
+deleteUser,
+updateProfile
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
- getFirestore,
- collection,
- addDoc,
- getDocs,
- getDoc,
- doc,
- setDoc,
- updateDoc,
- deleteDoc,
- query,
- orderBy,
- limit,
- serverTimestamp,
- arrayUnion,
- arrayRemove
+getFirestore,
+collection,
+addDoc,
+getDocs,
+getDoc,
+doc,
+setDoc,
+updateDoc,
+deleteDoc,
+query,
+orderBy,
+limit,
+serverTimestamp,
+arrayUnion,
+arrayRemove
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 import {
- getStorage,
- ref,
- uploadBytesResumable,
- getDownloadURL
+getStorage,
+ref,
+uploadBytes,
+getDownloadURL
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
 
-const firebaseConfig = {
- apiKey: "AIzaSyArCb63lgx3tGMm1QPYQzeLNN7awL8Gx3A",
- authDomain: "worldvibe-9f531.firebaseapp.com",
- projectId: "worldvibe-9f531",
- storageBucket: "worldvibe-9f531.firebasestorage.app",
- messagingSenderId: "148680723994",
- appId: "1:148680723994:web:c9cf32cd47d7a3ec190ba3",
- measurementId: "G-WZ9G2B2EDP"
+/* =========================
+   FIREBASE
+========================= */
+
+const firebaseConfig={
+apiKey:"AIzaSyArCb63lgx3tGMm1QPYQzeLNN7awL8Gx3A",
+authDomain:"worldvibe-9f531.firebaseapp.com",
+projectId:"worldvibe-9f531",
+storageBucket:"worldvibe-9f531.firebasestorage.app",
+messagingSenderId:"148680723994",
+appId:"1:148680723994:web:c9cf32cd47d7a3ec190ba3",
+measurementId:"G-WZ9G2B2EDP"
 };
 
+const firebaseApp=initializeApp(firebaseConfig);
+const auth=getAuth(firebaseApp);
+const db=getFirestore(firebaseApp);
+const storage=getStorage(firebaseApp);
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
-const storage=getStorage(app);
+
+/* =========================
+   APP STATE
+========================= */
 
 let currentUser=null;
 let currentProfile=null;
@@ -631,1691 +560,1995 @@ let filteredPosts=[];
 let selectedFile=null;
 let drafts=[];
 let activePage="home";
+let publishing=false;
 
+
+/* =========================
+   HELPERS
+========================= */
 
 window.showToast=function(message){
 
- const area=document.getElementById("toastArea");
+const area=document.getElementById("toastArea");
 
- const el=document.createElement("div");
- el.className="toast";
- el.textContent=message;
+const el=document.createElement("div");
 
- area.appendChild(el);
+el.className="toast";
+el.textContent=message;
 
- setTimeout(()=>{
-  el.remove();
- },3500);
+area.appendChild(el);
+
+setTimeout(()=>{
+el.remove();
+},4000);
+
 };
 
 
 function initials(name){
 
- if(!name)return "W";
+if(!name)return "W";
 
- return name
-  .split(" ")
-  .filter(Boolean)
-  .slice(0,2)
-  .map(x=>x[0])
-  .join("")
-  .toUpperCase();
+return String(name)
+.split(" ")
+.filter(Boolean)
+.slice(0,2)
+.map(x=>x[0])
+.join("")
+.toUpperCase();
+
 }
 
 
 function escapeHTML(value){
 
- return String(value||"")
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
+return String(value??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
 }
 
 
 function extractHashtags(text){
 
- const matches=String(text||"").match(/#[a-zA-Z0-9_]+/g);
+return String(text||"").match(/#[a-zA-Z0-9_]+/g)||[];
 
- return matches || [];
 }
 
 
+function showUploadStatus(message,show=true){
+
+const box=document.getElementById("uploadStatus");
+
+if(!box)return;
+
+box.innerHTML=escapeHTML(message);
+
+if(show){
+box.classList.remove("hidden");
+}else{
+box.classList.add("hidden");
+}
+
+}
+
+
+/* =========================
+   THEME
+========================= */
+
 window.toggleTheme=function(){
 
- document.body.classList.toggle("light");
+document.body.classList.toggle("light");
 
- localStorage.setItem(
-  "worldvibe_theme",
-  document.body.classList.contains("light")
-  ? "light"
-  : "dark"
- );
+localStorage.setItem(
+"worldvibe_theme",
+document.body.classList.contains("light")
+?"light"
+:"dark"
+);
+
 };
 
 
 if(localStorage.getItem("worldvibe_theme")==="light"){
- document.body.classList.add("light");
+document.body.classList.add("light");
 }
 
 
+/* =========================
+   SEARCH
+========================= */
+
 window.openSearch=function(){
 
- const box=document.getElementById("searchBox");
+const box=document.getElementById("searchBox");
 
- box.classList.toggle("hidden");
+box.classList.toggle("hidden");
 
- if(!box.classList.contains("hidden")){
-  box.focus();
- }
+if(!box.classList.contains("hidden")){
+box.focus();
+}
+
 };
 
 
 window.searchPosts=function(value){
 
- const q=String(value||"").trim().toLowerCase();
+const text=String(value||"").trim().toLowerCase();
 
- if(!q){
-  filteredPosts=posts;
- }else{
+if(!text){
 
-  filteredPosts=posts.filter(p=>
-   String(p.caption||"").toLowerCase().includes(q) ||
-   String(p.username||"").toLowerCase().includes(q) ||
-   String(p.userName||"").toLowerCase().includes(q) ||
-   (Array.isArray(p.hashtags) &&
-    p.hashtags.some(h=>
-     String(h).toLowerCase().includes(q)
-    ))
-  );
- }
+filteredPosts=posts;
 
- renderFeed(filteredPosts);
+}else{
+
+filteredPosts=posts.filter(p=>
+String(p.caption||"").toLowerCase().includes(text)||
+String(p.username||"").toLowerCase().includes(text)||
+String(p.userName||"").toLowerCase().includes(text)||
+(Array.isArray(p.hashtags)&&
+p.hashtags.some(h=>
+String(h).toLowerCase().includes(text)
+))
+);
+
+}
+
+renderFeed(filteredPosts);
+
 };
 
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
 
 window.showPage=function(page,button){
 
- activePage=page;
+activePage=page;
 
- document
-  .querySelectorAll("main")
-  .forEach(x=>x.classList.add("hidden"));
+document
+.querySelectorAll("main")
+.forEach(x=>x.classList.add("hidden"));
 
- const target=document.getElementById(
-  "page"+
-  page.charAt(0).toUpperCase()+
-  page.slice(1)
- );
+const target=document.getElementById(
+"page"+
+page.charAt(0).toUpperCase()+
+page.slice(1)
+);
 
- if(target)target.classList.remove("hidden");
+if(target){
+target.classList.remove("hidden");
+}
 
- document
-  .querySelectorAll(".navbtn")
-  .forEach(x=>x.classList.remove("active"));
+document
+.querySelectorAll(".navbtn")
+.forEach(x=>x.classList.remove("active"));
 
- if(button)button.classList.add("active");
+if(button){
+button.classList.add("active");
+}
 
- if(page==="profile")renderProfile();
+if(page==="profile")renderProfile();
 
- if(page==="discover")renderDiscover();
+if(page==="discover")renderDiscover();
 
- if(page==="create")renderDrafts();
+if(page==="create")renderDrafts();
 
- window.scrollTo({
-  top:0,
-  behavior:"smooth"
- });
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
 };
 
 
+/* =========================
+   AUTH
+========================= */
+
 function authModal(show){
 
- const modal=document.getElementById("authModal");
+const modal=document.getElementById("authModal");
 
- if(show){
-  modal.classList.remove("hidden");
- }else{
-  modal.classList.add("hidden");
- }
+if(show){
+modal.classList.remove("hidden");
+}else{
+modal.classList.add("hidden");
+}
+
 }
 
 
 window.firebaseLogin=async function(){
 
- const email=document
-  .getElementById("authEmail")
-  .value
-  .trim();
+const email=document
+.getElementById("authEmail")
+.value.trim();
 
- const password=document
-  .getElementById("authPassword")
-  .value;
+const password=document
+.getElementById("authPassword")
+.value;
 
- const status=document.getElementById("authStatus");
+const status=document.getElementById("authStatus");
 
- if(!email || !password){
-  status.textContent="Enter email and password.";
-  return;
- }
+if(!email||!password){
 
- try{
+status.textContent="Enter email and password.";
 
-  status.textContent="Logging in...";
+return;
+}
 
-  await signInWithEmailAndPassword(
-   auth,
-   email,
-   password
-  );
+try{
 
-  status.textContent="Login successful ✅";
+status.textContent="Logging in...";
 
- }catch(error){
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
-  console.error(error);
+status.textContent="Login successful ✅";
 
-  status.textContent=
-   "Login error: "+
-   (error.message||"Unknown error");
- }
+}catch(error){
+
+console.error(error);
+
+status.textContent=
+"Login error: "+
+(error.message||"Unknown Firebase error");
+
+}
+
 };
 
 
 window.firebaseSignup=async function(){
 
- const email=document
-  .getElementById("authEmail")
-  .value
-  .trim();
+const email=document
+.getElementById("authEmail")
+.value.trim();
 
- const password=document
-  .getElementById("authPassword")
-  .value;
+const password=document
+.getElementById("authPassword")
+.value;
 
- const status=document.getElementById("authStatus");
+const status=document.getElementById("authStatus");
 
- if(!email || !password){
-  status.textContent="Enter email and password.";
-  return;
- }
+if(!email||!password){
 
- if(password.length<6){
-  status.textContent="Password must be at least 6 characters.";
-  return;
- }
+status.textContent="Enter email and password.";
 
- try{
+return;
+}
 
-  status.textContent="Creating account...";
+if(password.length<6){
 
-  const result=
-   await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-   );
+status.textContent=
+"Password must be at least 6 characters.";
 
-  await createUserProfile(result.user);
+return;
+}
 
-  status.textContent="Account created ✅";
+try{
 
- }catch(error){
+status.textContent="Creating account...";
 
-  console.error(error);
+const result=
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
 
-  if(error.code==="auth/email-already-in-use"){
-   status.textContent=
-    "This email already has an account. Please Login.";
-  }else{
-   status.textContent=
-    "Signup error: "+
-    (error.message||"Unknown error");
-  }
- }
+await createUserProfile(result.user);
+
+status.textContent="Account created ✅";
+
+}catch(error){
+
+console.error(error);
+
+if(error.code==="auth/email-already-in-use"){
+
+status.textContent=
+"This email already has an account. Please Login.";
+
+}else{
+
+status.textContent=
+"Signup error: "+
+(error.message||"Unknown Firebase error");
+
+}
+
+}
+
 };
 
 
 window.forgotPassword=async function(){
 
- const email=document
-  .getElementById("authEmail")
-  .value
-  .trim();
+const email=document
+.getElementById("authEmail")
+.value.trim();
 
- const status=document.getElementById("authStatus");
+const status=document.getElementById("authStatus");
 
- if(!email){
-  status.textContent="Enter your email first.";
-  return;
- }
+if(!email){
 
- try{
+status.textContent="Enter your email first.";
 
-  await sendPasswordResetEmail(auth,email);
+return;
+}
 
-  status.textContent=
-   "Password reset email sent ✅";
+try{
 
- }catch(error){
+await sendPasswordResetEmail(auth,email);
 
-  status.textContent=
-   "Reset error: "+
-   (error.message||"Unknown error");
- }
+status.textContent=
+"Password reset email sent ✅";
+
+}catch(error){
+
+status.textContent=
+"Reset error: "+
+(error.message||"Unknown Firebase error");
+
+}
+
 };
 
 
+/* =========================
+   PROFILE DATA
+========================= */
+
 async function createUserProfile(user){
 
- const username=
-  "user_"+user.uid.slice(0,6);
+const profile={
+uid:user.uid,
+email:user.email||"",
+name:user.displayName||"WorldVibe User",
+username:"user_"+user.uid.slice(0,6),
+photoURL:user.photoURL||"",
+bio:"",
+followers:0,
+following:0,
+likes:0,
+views:0,
+createdAt:serverTimestamp()
+};
 
- const profile={
-  uid:user.uid,
-  email:user.email||"",
-  name:user.displayName||"WorldVibe User",
-  username,
-  photoURL:user.photoURL||"",
-  bio:"",
-  followers:0,
-  following:0,
-  likes:0,
-  views:0,
-  createdAt:serverTimestamp()
- };
+try{
 
- try{
+await setDoc(
+doc(db,"users",user.uid),
+profile,
+{merge:true}
+);
 
-  await setDoc(
-   doc(db,"users",user.uid),
-   profile,
-   {merge:true}
-  );
+currentProfile=profile;
 
-  currentProfile=profile;
+}catch(error){
 
- }catch(error){
+console.error("PROFILE CREATE ERROR",error);
 
-  console.error(
-   "PROFILE CREATE ERROR",
-   error
-  );
- }
+}
+
 }
 
 
 async function loadProfile(){
 
- if(!currentUser)return;
+if(!currentUser)return;
 
- try{
+try{
 
-  const snap=
-   await getDoc(
-    doc(db,"users",currentUser.uid)
-   );
+const snap=await getDoc(
+doc(db,"users",currentUser.uid)
+);
 
-  if(snap.exists()){
+if(snap.exists()){
 
-   currentProfile={
-    uid:currentUser.uid,
-    ...snap.data()
-   };
+currentProfile={
+uid:currentUser.uid,
+...snap.data()
+};
 
-  }else{
+}else{
 
-   await createUserProfile(currentUser);
-  }
+await createUserProfile(currentUser);
 
- }catch(error){
+}
 
-  console.error(
-   "PROFILE LOAD ERROR",
-   error
-  );
+}catch(error){
 
-  currentProfile={
-   uid:currentUser.uid,
-   name:currentUser.displayName||"WorldVibe User",
-   username:"user",
-   photoURL:currentUser.photoURL||"",
-   bio:""
-  };
- }
+console.error("PROFILE LOAD ERROR",error);
+
+currentProfile={
+uid:currentUser.uid,
+name:currentUser.displayName||"WorldVibe User",
+username:"user",
+photoURL:currentUser.photoURL||"",
+bio:"",
+followers:0,
+following:0
+};
+
+}
+
 }
 
 
+/* =========================
+   AUTH STATE
+========================= */
+
 onAuthStateChanged(auth,async user=>{
 
- currentUser=user;
+currentUser=user;
 
- if(!user){
+if(!user){
 
-  authModal(true);
+authModal(true);
 
-  return;
- }
+const feed=document.getElementById("feed");
 
- authModal(false);
+if(feed){
+feed.innerHTML=
+`<div class="notice">
+Please login to use WorldVibe.
+</div>`;
+}
 
- await loadProfile();
+return;
+}
 
- await loadPosts();
+authModal(false);
 
- renderProfile();
+await loadProfile();
+
+await loadPosts();
+
+renderProfile();
 
 });
 
 
-async function getPostsNormal(){
+/* =========================
+   FIRESTORE FEED
+========================= */
 
- const result=[];
+async function getPosts(){
 
- const snap=
-  await getDocs(
-   query(
-    collection(db,"posts"),
-    limit(50)
-   )
-  );
+const snap=await getDocs(
+query(
+collection(db,"posts"),
+orderBy("createdAt","desc"),
+limit(50)
+)
+);
 
- snap.forEach(item=>{
+return snap.docs.map(item=>({
+id:item.id,
+...item.data()
+}));
 
-  result.push({
-   id:item.id,
-   ...item.data()
-  });
-
- });
-
- return result;
-}
-
-
-async function getPostsOrdered(){
-
- const result=[];
-
- const snap=
-  await getDocs(
-   query(
-    collection(db,"posts"),
-    orderBy("createdAt","desc"),
-    limit(50)
-   )
-  );
-
- snap.forEach(item=>{
-
-  result.push({
-   id:item.id,
-   ...item.data()
-  });
-
- });
-
- return result;
 }
 
 
 async function loadPosts(){
 
- const feed=document.getElementById("feed");
+const feed=document.getElementById("feed");
 
- if(feed){
-  feed.innerHTML=
-   '<div class="loading">Loading WorldVibe... ⏳</div>';
- }
+if(feed){
 
- try{
+feed.innerHTML=
+'<div class="loading">Loading WorldVibe... ⏳</div>';
 
-  let result=[];
-
-  try{
-
-   result=await getPostsOrdered();
-
-  }catch(orderError){
-
-   console.warn(
-    "Ordered query failed. Using fallback.",
-    orderError
-   );
-
-   result=await getPostsNormal();
-  }
-
-  result.sort((a,b)=>{
-
-   const ta=
-    a.createdAt?.seconds ||
-    a.createdAt?.toMillis?.() ||
-    0;
-
-   const tb=
-    b.createdAt?.seconds ||
-    b.createdAt?.toMillis?.() ||
-    0;
-
-   return tb-ta;
-  });
-
-  posts=result;
-  filteredPosts=result;
-
- }catch(error){
-
-  console.error(
-   "WORLDVIBE LOAD POSTS ERROR:",
-   error
-  );
-
-  posts=[];
-  filteredPosts=[];
-
-  if(feed){
-
-   feed.innerHTML=
-    `<div class="notice">
-      Feed could not be loaded.<br><br>
-      <small>${escapeHTML(error.message||"Unknown Firebase error")}</small>
-     </div>`;
-  }
-
-  return;
- }
-
- renderFeed();
- renderDiscover();
- renderProfile();
 }
 
+try{
+
+let result=[];
+
+try{
+
+result=await getPosts();
+
+}catch(orderError){
+
+console.warn(
+"Ordered feed failed. Trying normal query.",
+orderError
+);
+
+const snap=await getDocs(
+query(
+collection(db,"posts"),
+limit(50)
+)
+);
+
+snap.forEach(item=>{
+
+result.push({
+id:item.id,
+...item.data()
+});
+
+});
+
+}
+
+result.sort((a,b)=>{
+
+const ta=
+a.createdAt?.seconds||
+(a.createdAt?.toMillis?
+a.createdAt.toMillis():0)||
+0;
+
+const tb=
+b.createdAt?.seconds||
+(b.createdAt?.toMillis?
+b.createdAt.toMillis():0)||
+0;
+
+return tb-ta;
+
+});
+
+posts=result;
+filteredPosts=result;
+
+renderFeed(result);
+renderDiscover();
+renderProfile();
+
+}catch(error){
+
+console.error("FEED ERROR",error);
+
+posts=[];
+filteredPosts=[];
+
+if(feed){
+
+feed.innerHTML=
+`<div class="notice">
+<b>Feed error</b><br><br>
+${escapeHTML(error.message||"Unknown Firebase error")}
+</div>`;
+
+}
+
+}
+
+}
+
+
+/* =========================
+   POST DATE
+========================= */
 
 function postDate(post){
 
- if(!post.createdAt)return "";
+try{
 
- try{
+if(post.createdAt?.toDate){
 
-  if(post.createdAt.toDate){
+return post.createdAt
+.toDate()
+.toLocaleString();
 
-   return post.createdAt
-    .toDate()
-    .toLocaleString();
-  }
-
- }catch(e){}
-
- return "";
 }
 
+}catch(e){}
+
+return "";
+
+}
+
+
+/* =========================
+   POST CARD
+========================= */
 
 function postCard(post){
 
- const liked=
-  Array.isArray(post.likedBy) &&
-  currentUser &&
-  post.likedBy.includes(currentUser.uid);
+const liked=
+Array.isArray(post.likedBy)&&
+currentUser&&
+post.likedBy.includes(currentUser.uid);
 
- const saved=
-  Array.isArray(post.savedBy) &&
-  currentUser &&
-  post.savedBy.includes(currentUser.uid);
+const saved=
+Array.isArray(post.savedBy)&&
+currentUser&&
+post.savedBy.includes(currentUser.uid);
 
- const photo=post.userPhoto||"";
+const photo=post.userPhoto||"";
 
- const avatar=photo
-  ? `<img src="${escapeHTML(photo)}" alt="">`
-  : initials(post.userName||post.username||"W");
+const avatar=photo
+?`<img src="${escapeHTML(photo)}" alt="">`
+:initials(post.userName||post.username||"W");
 
- let media="";
+let media="";
 
- if(post.mediaType==="image"){
+if(post.mediaType==="image"){
 
-  media=
-   `<img class="postmedia"
-      src="${escapeHTML(post.mediaURL||"")}"
-      alt="WorldVibe post"
-      loading="lazy">`;
+media=
+`<img class="postmedia"
+src="${escapeHTML(post.mediaURL||"")}"
+alt="WorldVibe post"
+loading="lazy">`;
 
- }else{
+}else{
 
-  media=
-   `<video
-      class="postmedia"
-      src="${escapeHTML(post.mediaURL||"")}"
-      controls
-      playsinline
-      preload="metadata">
-    </video>`;
- }
+media=
+`<video class="postmedia"
+src="${escapeHTML(post.mediaURL||"")}"
+controls
+playsinline
+preload="metadata">
+</video>`;
 
- const comments=
-  Array.isArray(post.comments)
-  ? post.comments
-  : [];
-
- return `
- <article class="post">
-
-  <div class="posthead">
-
-   <div class="postavatar">
-    ${avatar}
-   </div>
-
-   <div>
-    <div class="postuser">
-     ${escapeHTML(post.userName||"WorldVibe User")}
-    </div>
-    <small>
-     @${escapeHTML(post.username||"user")}
-     ${postDate(post)
-      ? " • "+escapeHTML(postDate(post))
-      : ""}
-    </small>
-   </div>
-
-  </div>
-
-  ${media}
-
-  <div class="postbody">
-
-   ${
-    post.caption
-    ? `<div class="caption">${escapeHTML(post.caption)}</div>`
-    : ""
-   }
-
-   ${
-    post.location
-    ? `<div class="location">📍 ${escapeHTML(post.location)}</div>`
-    : ""
-   }
-
-   <div class="actions">
-
-    <button
-     class="action ${liked?"liked":""}"
-     onclick="toggleLike('${post.id}')">
-     ${liked?"❤️":"🤍"} ${post.likes||0}
-    </button>
-
-    <button
-     class="action"
-     onclick="focusComment('${post.id}')">
-     💬 ${comments.length}
-    </button>
-
-    <button
-     class="action ${saved?"liked":""}"
-     onclick="toggleSave('${post.id}')">
-     ${saved?"🔖":"📑"}
-    </button>
-
-    <button
-     class="action"
-     onclick="sharePost('${post.id}')">
-     ↗️
-    </button>
-
-   </div>
-
-   <div class="comments">
-
-    ${
-     comments.slice(-5).map(c=>`
-      <div class="commentrow">
-       <div class="comment">
-        <b>${escapeHTML(c.username||"user")}</b>
-        ${escapeHTML(c.text||"")}
-       </div>
-      </div>
-     `).join("")
-    }
-
-    ${
-     post.allowComments===false
-     ? `<div style="color:var(--muted);font-size:12px;margin-top:8px">
-         Comments disabled
-        </div>`
-     : `
-       <div class="commentInput">
-        <input
-         id="comment-${post.id}"
-         placeholder="Write a comment...">
-        <button
-         class="secondary"
-         onclick="addComment('${post.id}')">
-         Send
-        </button>
-       </div>
-      `
-    }
-
-   </div>
-
-  </div>
-
- </article>
- `;
 }
 
+const comments=
+Array.isArray(post.comments)
+?post.comments
+:[];
+
+return`
+
+<article class="post">
+
+<div class="posthead">
+
+<div class="postavatar">
+${avatar}
+</div>
+
+<div>
+
+<div class="postuser">
+${escapeHTML(post.userName||"WorldVibe User")}
+</div>
+
+<small>
+@${escapeHTML(post.username||"user")}
+${postDate(post)
+?" • "+escapeHTML(postDate(post))
+:""}
+</small>
+
+</div>
+
+</div>
+
+${media}
+
+<div class="postbody">
+
+${post.caption
+?`<div class="caption">${escapeHTML(post.caption)}</div>`
+:""}
+
+${post.location
+?`<div class="location">
+📍 ${escapeHTML(post.location)}
+</div>`
+:""}
+
+<div class="actions">
+
+<button class="action ${liked?"liked":""}"
+onclick="toggleLike('${post.id}')">
+${liked?"❤️":"🤍"} ${post.likes||0}
+</button>
+
+<button class="action"
+onclick="focusComment('${post.id}')">
+💬 ${comments.length}
+</button>
+
+<button class="action ${saved?"liked":""}"
+onclick="toggleSave('${post.id}')">
+${saved?"🔖":"📑"}
+</button>
+
+<button class="action"
+onclick="sharePost('${post.id}')">
+↗️
+</button>
+
+</div>
+
+<div class="comments">
+
+${
+comments.slice(-5).map(c=>`
+<div class="commentrow">
+<div class="comment">
+<b>${escapeHTML(c.username||"user")}</b>
+${escapeHTML(c.text||"")}
+</div>
+</div>
+`).join("")
+}
+
+${
+post.allowComments===false
+?`<div style="color:var(--muted);font-size:12px;margin-top:8px">
+Comments disabled
+</div>`
+:
+`<div class="commentInput">
+<input
+id="comment-${post.id}"
+placeholder="Write a comment...">
+<button class="secondary"
+onclick="addComment('${post.id}')">
+Send
+</button>
+</div>`
+}
+
+</div>
+
+</div>
+
+</article>
+
+`;
+
+}
+
+
+/* =========================
+   FEED RENDER
+========================= */
 
 function renderFeed(list=posts){
 
- const feed=document.getElementById("feed");
+const feed=document.getElementById("feed");
 
- if(!feed)return;
+if(!feed)return;
 
- if(!list.length){
+if(!list.length){
 
-  feed.innerHTML=
-   `<div class="notice">
-     No videos yet.<br>
-     Be the first creator on WorldVibe 🚀
-    </div>`;
+feed.innerHTML=
+`<div class="notice">
+No videos yet.<br>
+Be the first creator on WorldVibe 🚀
+</div>`;
 
-  return;
- }
+return;
 
- feed.innerHTML=
-  list.map(postCard).join("");
+}
+
+feed.innerHTML=
+list.map(postCard).join("");
+
 }
 
 
+/* =========================
+   LIKE
+========================= */
+
 window.toggleLike=async function(postId){
 
- if(!currentUser)return;
+if(!currentUser)return;
 
- const post=posts.find(p=>p.id===postId);
+const post=posts.find(p=>p.id===postId);
 
- if(!post)return;
+if(!post)return;
 
- const liked=
-  Array.isArray(post.likedBy) &&
-  post.likedBy.includes(currentUser.uid);
+const liked=
+Array.isArray(post.likedBy)&&
+post.likedBy.includes(currentUser.uid);
 
- try{
+try{
 
-  const postRef=doc(db,"posts",postId);
+await updateDoc(
+doc(db,"posts",postId),
+liked
+?{
+likedBy:arrayRemove(currentUser.uid),
+likes:Math.max(0,(post.likes||0)-1)
+}
+:{
+likedBy:arrayUnion(currentUser.uid),
+likes:(post.likes||0)+1
+}
+);
 
-  await updateDoc(
-   postRef,
-   liked
-   ? {
-      likedBy:arrayRemove(currentUser.uid),
-      likes:Math.max(0,(post.likes||0)-1)
-     }
-   : {
-      likedBy:arrayUnion(currentUser.uid),
-      likes:(post.likes||0)+1
-     }
-  );
+post.likes=
+liked
+?Math.max(0,(post.likes||0)-1)
+:(post.likes||0)+1;
 
-  post.likes=
-   liked
-   ? Math.max(0,(post.likes||0)-1)
-   : (post.likes||0)+1;
+post.likedBy=
+Array.isArray(post.likedBy)
+?post.likedBy
+:[];
 
-  post.likedBy=
-   Array.isArray(post.likedBy)
-   ? post.likedBy
-   : [];
+if(liked){
 
-  if(liked){
-   post.likedBy=
-    post.likedBy.filter(
-     id=>id!==currentUser.uid
-    );
-  }else{
-   post.likedBy.push(currentUser.uid);
-  }
+post.likedBy=
+post.likedBy.filter(
+id=>id!==currentUser.uid
+);
 
-  renderFeed(filteredPosts);
+}else{
 
- }catch(error){
+post.likedBy.push(currentUser.uid);
 
-  console.error(error);
+}
 
-  showToast(
-   "Like failed: "+
-   (error.message||"Unknown error")
-  );
- }
+renderFeed(filteredPosts);
+
+}catch(error){
+
+console.error(error);
+
+showToast(
+"Like failed: "+
+(error.message||"Unknown error")
+);
+
+}
+
 };
 
+
+/* =========================
+   SAVE
+========================= */
 
 window.toggleSave=async function(postId){
 
- if(!currentUser)return;
+if(!currentUser)return;
 
- const post=posts.find(p=>p.id===postId);
+const post=posts.find(p=>p.id===postId);
 
- if(!post)return;
+if(!post)return;
 
- const saved=
-  Array.isArray(post.savedBy) &&
-  post.savedBy.includes(currentUser.uid);
+const saved=
+Array.isArray(post.savedBy)&&
+post.savedBy.includes(currentUser.uid);
 
- try{
+try{
 
-  await updateDoc(
-   doc(db,"posts",postId),
-   saved
-   ? {
-      savedBy:arrayRemove(currentUser.uid)
-     }
-   : {
-      savedBy:arrayUnion(currentUser.uid)
-     }
-  );
+await updateDoc(
+doc(db,"posts",postId),
+saved
+?{
+savedBy:arrayRemove(currentUser.uid)
+}
+:{
+savedBy:arrayUnion(currentUser.uid)
+}
+);
 
-  post.savedBy=
-   Array.isArray(post.savedBy)
-   ? post.savedBy
-   : [];
+post.savedBy=
+Array.isArray(post.savedBy)
+?post.savedBy
+:[];
 
-  if(saved){
-   post.savedBy=
-    post.savedBy.filter(
-     id=>id!==currentUser.uid
-    );
-  }else{
-   post.savedBy.push(currentUser.uid);
-  }
+if(saved){
 
-  renderFeed(filteredPosts);
+post.savedBy=
+post.savedBy.filter(
+id=>id!==currentUser.uid
+);
 
- }catch(error){
+}else{
 
-  console.error(error);
+post.savedBy.push(currentUser.uid);
 
-  showToast(
-   "Save failed: "+
-   (error.message||"Unknown error")
-  );
- }
+}
+
+renderFeed(filteredPosts);
+
+}catch(error){
+
+console.error(error);
+
+showToast(
+"Save failed: "+
+(error.message||"Unknown error")
+);
+
+}
+
 };
 
 
+/* =========================
+   COMMENTS
+========================= */
+
 window.addComment=async function(postId){
 
- if(!currentUser)return;
+if(!currentUser)return;
 
- const input=
-  document.getElementById(
-   "comment-"+postId
-  );
+const input=
+document.getElementById(
+"comment-"+postId
+);
 
- if(!input)return;
+if(!input)return;
 
- const text=input.value.trim();
+const text=input.value.trim();
 
- if(!text)return;
+if(!text)return;
 
- const post=posts.find(p=>p.id===postId);
+const post=posts.find(p=>p.id===postId);
 
- if(!post)return;
+if(!post)return;
 
- const comment={
-  uid:currentUser.uid,
-  username:
-   currentProfile?.username ||
-   "user",
-  text,
-  createdAt:new Date().toISOString()
- };
+const comment={
+uid:currentUser.uid,
+username:
+currentProfile?.username||
+"user",
+text,
+createdAt:new Date().toISOString()
+};
 
- try{
+try{
 
-  await updateDoc(
-   doc(db,"posts",postId),
-   {
-    comments:arrayUnion(comment)
-   }
-  );
+await updateDoc(
+doc(db,"posts",postId),
+{
+comments:arrayUnion(comment)
+}
+);
 
-  post.comments=
-   Array.isArray(post.comments)
-   ? post.comments
-   : [];
+post.comments=
+Array.isArray(post.comments)
+?post.comments
+:[];
 
-  post.comments.push(comment);
+post.comments.push(comment);
 
-  input.value="";
+input.value="";
 
-  renderFeed(filteredPosts);
+renderFeed(filteredPosts);
 
- }catch(error){
+}catch(error){
 
-  console.error(error);
+console.error(error);
 
-  showToast(
-   "Comment failed: "+
-   (error.message||"Unknown error")
-  );
- }
+showToast(
+"Comment failed: "+
+(error.message||"Unknown error")
+);
+
+}
+
 };
 
 
 window.focusComment=function(postId){
 
- const input=
-  document.getElementById(
-   "comment-"+postId
-  );
+const input=
+document.getElementById(
+"comment-"+postId
+);
 
- if(input){
+if(input){
 
-  input.focus();
+input.focus();
 
-  input.scrollIntoView({
-   behavior:"smooth",
-   block:"center"
-  });
- }
+input.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+}
+
 };
 
+
+/* =========================
+   SHARE
+========================= */
 
 window.sharePost=async function(postId){
 
- const url=
-  location.href.split("#")[0]+
-  "#post-"+postId;
+const url=
+location.href.split("#")[0]+
+"#post-"+postId;
 
- try{
+try{
 
-  if(navigator.share){
+if(navigator.share){
 
-   await navigator.share({
-    title:"WorldVibe",
-    text:"Check this WorldVibe post 🌍🎬",
-    url
-   });
+await navigator.share({
+title:"WorldVibe",
+text:"Check this WorldVibe post 🌍🎬",
+url
+});
 
-  }else{
+}else{
 
-   await navigator.clipboard.writeText(url);
+await navigator.clipboard.writeText(url);
 
-   showToast("Post link copied ✅");
-  }
+showToast("Post link copied ✅");
 
- }catch(error){
+}
 
-  console.log(error);
- }
+}catch(error){
+
+console.log(error);
+
+}
+
 };
 
+
+/* =========================
+   SELECT MEDIA
+========================= */
 
 window.selectMedia=function(input){
 
- selectedFile=
-  input.files &&
-  input.files[0]
-  ? input.files[0]
-  : null;
+selectedFile=
+input.files&&input.files[0]
+?input.files[0]
+:null;
 
- const name=
-  document.getElementById("fileName");
+const name=
+document.getElementById("fileName");
 
- if(!selectedFile){
+if(!selectedFile){
 
-  name.classList.add("hidden");
-  name.textContent="";
-  return;
- }
+name.classList.add("hidden");
+name.textContent="";
+return;
 
- name.textContent=
-  selectedFile.name+
-  " • "+
-  Math.round(selectedFile.size/1024/1024*10)/10+
-  " MB";
+}
 
- name.classList.remove("hidden");
+name.textContent=
+selectedFile.name+
+" • "+
+Math.round(
+selectedFile.size/1024/1024*10
+)/10+
+" MB";
+
+name.classList.remove("hidden");
+
+showUploadStatus(
+"Ready to upload: "+selectedFile.name
+);
+
 };
 
+
+/* =========================
+   PUBLISH
+========================= */
 
 window.publishPost=async function(){
 
- if(!currentUser){
+if(publishing){
 
-  showToast("Please login first.");
-  return;
- }
+showToast("Upload already running... ⏳");
 
- if(!selectedFile){
+return;
 
-  showToast(
-   "Please select a video or photo first."
-  );
+}
 
-  return;
- }
+if(!currentUser){
 
- if(selectedFile.size>300*1024*1024){
+showToast("Please login first.");
 
-  showToast(
-   "Maximum file size is 300MB."
-  );
+return;
 
-  return;
- }
+}
 
- const caption=
-  document.getElementById("caption")
-  .value
-  .trim();
+if(!selectedFile){
 
- const location=
-  document.getElementById("location")
-  .value
-  .trim();
+showToast(
+"Please select a video or photo first."
+);
 
- const allowComments=
-  document.getElementById("allowComments")
-  .checked;
+return;
 
- const progress=
-  document.getElementById("progressBar");
+}
 
- try{
+if(selectedFile.size>300*1024*1024){
 
-  showToast("Starting upload... ⏳");
+showToast(
+"Maximum file size is 300MB."
+);
 
-  progress.style.width="1%";
+return;
 
-  const safeName=
-   Date.now()+
-   "_"+
-   selectedFile.name.replace(
-    /[^a-zA-Z0-9._-]/g,
-    "_"
-   );
+}
 
-  const path=
-   "posts/"+
-   currentUser.uid+
-   "/"+
-   safeName;
+const caption=
+document.getElementById("caption")
+.value.trim();
 
-  const storageRef=
-   ref(storage,path);
+const locationText=
+document.getElementById("location")
+.value.trim();
 
-  const task=
-   uploadBytesResumable(
-    storageRef,
-    selectedFile,
-    {
-     contentType:
-      selectedFile.type ||
-      "application/octet-stream"
-    }
-   );
+const allowComments=
+document.getElementById("allowComments")
+.checked;
 
-  task.on(
-   "state_changed",
+const progress=
+document.getElementById("progressBar");
 
-   snapshot=>{
+const button=
+document.getElementById("publishButton");
 
-    const percent=
-     snapshot.totalBytes
-     ? snapshot.bytesTransferred/
-       snapshot.totalBytes*100
-     : 0;
+publishing=true;
 
-    progress.style.width=
-     percent+"%";
-   },
+button.disabled=true;
+button.style.opacity=".6";
 
-   error=>{
+try{
 
-    console.error(
-     "STORAGE ERROR",
-     error
-    );
+/* STEP 1 */
 
-    showToast(
-     "Upload failed: "+
-     (error.message||"Firebase Storage error")
-    );
+showUploadStatus(
+"1/4 Uploading media to Firebase Storage... ⏳"
+);
 
-    progress.style.width="0%";
-   },
+showToast("Starting upload... ⏳");
 
-   async()=>{
+progress.style.width="5%";
 
-    try{
+const safeName=
+Date.now()+
+"_"+
+selectedFile.name.replace(
+/[^a-zA-Z0-9._-]/g,
+"_"
+);
 
-     showToast(
-      "Video uploaded. Saving post... ⏳"
-     );
+const storagePath=
+"posts/"+
+currentUser.uid+
+"/"+
+safeName;
 
-     const mediaURL=
-      await getDownloadURL(
-       task.snapshot.ref
-      );
+const storageRef=
+ref(storage,storagePath);
 
-     const mediaType=
-      selectedFile.type.startsWith("image/")
-      ? "image"
-      : "video";
 
-     const postData={
+/* STEP 2 */
 
-      uid:currentUser.uid,
+showUploadStatus(
+"2/4 Uploading: "+
+selectedFile.name+
+" ..."
+);
 
-      userName:
-       currentProfile?.name||
-       currentUser.displayName||
-       "WorldVibe User",
+const uploadResult=
+await uploadBytes(
+storageRef,
+selectedFile,
+{
+contentType:
+selectedFile.type||
+"application/octet-stream"
+}
+);
 
-      username:
-       currentProfile?.username||
-       "user",
+progress.style.width="70%";
 
-      userPhoto:
-       currentProfile?.photoURL||
-       currentUser.photoURL||
-       "",
+console.log(
+"UPLOAD COMPLETE",
+uploadResult
+);
 
-      mediaURL,
-      mediaType,
 
-      caption,
-      location,
-      allowComments,
+/* STEP 3 */
 
-      likes:0,
-      shares:0,
-      views:0,
+showUploadStatus(
+"3/4 Getting media URL... ⏳"
+);
 
-      likedBy:[],
-      savedBy:[],
-      comments:[],
+const mediaURL=
+await getDownloadURL(
+uploadResult.ref
+);
 
-      hashtags:
-       extractHashtags(caption),
+if(!mediaURL){
 
-      createdAt:
-       serverTimestamp()
-     };
+throw new Error(
+"Firebase did not return a media URL."
+);
 
-     await addDoc(
-      collection(db,"posts"),
-      postData
-     );
+}
 
-     selectedFile=null;
+progress.style.width="80%";
 
-     document.getElementById(
-      "mediaFile"
-     ).value="";
 
-     document.getElementById(
-      "fileName"
-     ).classList.add("hidden");
+/* STEP 4 */
 
-     document.getElementById(
-      "caption"
-     ).value="";
+showUploadStatus(
+"4/4 Saving post to Firestore... ⏳"
+);
 
-     document.getElementById(
-      "location"
-     ).value="";
+const mediaType=
+selectedFile.type.startsWith("image/")
+?"image"
+:"video";
 
-     document.getElementById(
-      "progressBar"
-     ).style.width="0%";
+const postData={
 
-     showToast(
-      "Published successfully 🚀"
-     );
+uid:currentUser.uid,
 
-     await loadPosts();
+userName:
+currentProfile?.name||
+currentUser.displayName||
+"WorldVibe User",
 
-     showPage(
-      "home",
-      document.getElementById("navHome")
-     );
+username:
+currentProfile?.username||
+"user",
 
-    }catch(error){
+userPhoto:
+currentProfile?.photoURL||
+currentUser.photoURL||
+"",
 
-     console.error(
-      "FIRESTORE POST ERROR",
-      error
-     );
+mediaURL,
+mediaType,
 
-     showToast(
-      "Post save failed: "+
-      (error.message||"Unknown error")
-     );
-    }
-   }
-  );
+caption,
+location:locationText,
 
- }catch(error){
+allowComments,
 
-  console.error(error);
+likes:0,
+shares:0,
+views:0,
 
-  showToast(
-   "Unable to start upload: "+
-   (error.message||"Unknown error")
-  );
- }
+likedBy:[],
+savedBy:[],
+comments:[],
+
+hashtags:
+extractHashtags(caption),
+
+createdAt:
+serverTimestamp()
+
+};
+
+console.log(
+"CREATING FIRESTORE POST",
+postData
+);
+
+const postRef=
+await addDoc(
+collection(db,"posts"),
+postData
+);
+
+console.log(
+"FIRESTORE POST CREATED",
+postRef.id
+);
+
+progress.style.width="100%";
+
+
+/* SUCCESS */
+
+showUploadStatus(
+"Published successfully 🚀 Post ID: "+
+postRef.id
+);
+
+showToast(
+"Published successfully 🚀"
+);
+
+
+/* CLEAR FORM */
+
+selectedFile=null;
+
+document.getElementById(
+"mediaFile"
+).value="";
+
+document.getElementById(
+"fileName"
+).classList.add("hidden");
+
+document.getElementById(
+"caption"
+).value="";
+
+document.getElementById(
+"location"
+).value="";
+
+await loadPosts();
+
+showPage(
+"home",
+document.getElementById("navHome")
+);
+
+}catch(error){
+
+console.error(
+"=========================="
+);
+
+console.error(
+"WORLDVIBE PUBLISH ERROR",
+error
+);
+
+console.error(
+"ERROR CODE:",
+error.code
+);
+
+console.error(
+"ERROR MESSAGE:",
+error.message
+);
+
+let message=
+"Publish failed: "+
+(error.message||"Unknown Firebase error");
+
+if(error.code==="storage/unauthorized"){
+
+message=
+"Storage permission denied. Firebase Storage Rules need to allow this upload.";
+
+}
+
+if(error.code==="storage/unknown"){
+
+message=
+"Firebase Storage error. Please try again.";
+
+}
+
+if(
+error.code==="permission-denied"||
+error.code==="firestore/permission-denied"
+){
+
+message=
+"Firestore permission denied. Post could not be saved.";
+
+}
+
+showUploadStatus(
+message
+);
+
+showToast(message);
+
+progress.style.width="0%";
+
+}finally{
+
+publishing=false;
+
+button.disabled=false;
+button.style.opacity="1";
+
+}
+
 };
 
 
+/* =========================
+   DRAFTS
+========================= */
+
 window.saveDraft=function(){
 
- const caption=
-  document.getElementById("caption")
-  .value
-  .trim();
+const caption=
+document.getElementById("caption")
+.value.trim();
 
- const location=
-  document.getElementById("location")
-  .value
-  .trim();
+const locationText=
+document.getElementById("location")
+.value.trim();
 
- if(!caption && !selectedFile){
+if(!caption&&!selectedFile){
 
-  showToast("Nothing to save.");
+showToast("Nothing to save.");
 
-  return;
- }
+return;
 
- drafts=
-  JSON.parse(
-   localStorage.getItem(
-    "worldvibe_drafts"
-   )||"[]"
-  );
+}
 
- drafts.push({
-  caption,
-  location,
-  fileName:
-   selectedFile?.name||"",
-  savedAt:
-   new Date().toISOString()
- });
+drafts=
+JSON.parse(
+localStorage.getItem(
+"worldvibe_drafts"
+)||"[]"
+);
 
- localStorage.setItem(
-  "worldvibe_drafts",
-  JSON.stringify(drafts)
- );
+drafts.push({
 
- renderDrafts();
+caption,
+location:locationText,
 
- showToast("Draft saved ✅");
+fileName:
+selectedFile?.name||"",
+
+savedAt:
+new Date().toISOString()
+
+});
+
+localStorage.setItem(
+"worldvibe_drafts",
+JSON.stringify(drafts)
+);
+
+renderDrafts();
+
+showToast("Draft saved ✅");
+
 };
 
 
 function renderDrafts(){
 
- const box=
-  document.getElementById("drafts");
+const box=
+document.getElementById("drafts");
 
- drafts=
-  JSON.parse(
-   localStorage.getItem(
-    "worldvibe_drafts"
-   )||"[]"
-  );
+if(!box)return;
 
- if(!drafts.length){
+drafts=
+JSON.parse(
+localStorage.getItem(
+"worldvibe_drafts"
+)||"[]"
+);
 
-  box.textContent="No drafts";
-  return;
- }
+if(!drafts.length){
 
- box.innerHTML=
-  drafts.map((d,i)=>`
-   <div class="card" style="margin-top:8px">
-    <b>${escapeHTML(d.fileName||"Draft")}</b>
-    <p>${escapeHTML(d.caption||"No caption")}</p>
-    <button
-     class="textbtn"
-     onclick="deleteDraft(${i})">
-     Delete
-    </button>
-   </div>
-  `).join("");
+box.textContent="No drafts";
+
+return;
+
+}
+
+box.innerHTML=
+drafts.map((d,i)=>`
+
+<div class="card" style="margin-top:8px">
+
+<b>
+${escapeHTML(d.fileName||"Draft")}
+</b>
+
+<p>
+${escapeHTML(d.caption||"No caption")}
+</p>
+
+<button class="textbtn"
+onclick="deleteDraft(${i})">
+Delete
+</button>
+
+</div>
+
+`).join("");
+
 }
 
 
 window.deleteDraft=function(index){
 
- drafts.splice(index,1);
+drafts.splice(index,1);
 
- localStorage.setItem(
-  "worldvibe_drafts",
-  JSON.stringify(drafts)
- );
+localStorage.setItem(
+"worldvibe_drafts",
+JSON.stringify(drafts)
+);
 
- renderDrafts();
+renderDrafts();
+
 };
 
+
+/* =========================
+   DISCOVER
+========================= */
 
 function renderDiscover(){
 
- const box=
-  document.getElementById(
-   "discoverContent"
-  );
+const box=
+document.getElementById(
+"discoverContent"
+);
 
- if(!box)return;
+if(!box)return;
 
- if(!posts.length){
+if(!posts.length){
 
-  box.innerHTML=
-   `<div class="notice">
-     No creators yet.
-    </div>`;
+box.innerHTML=
+`<div class="notice">
+No creators yet.
+</div>`;
 
-  return;
- }
+return;
 
- const creators={};
-
- posts.forEach(p=>{
-
-  const key=p.uid||p.username;
-
-  if(!creators[key]){
-
-   creators[key]={
-    name:p.userName||"WorldVibe User",
-    username:p.username||"user",
-    photo:p.userPhoto||"",
-    posts:0
-   };
-  }
-
-  creators[key].posts++;
- });
-
- box.innerHTML=`
-  <div class="grid">
-   ${
-    Object.values(creators)
-    .map(c=>`
-     <div class="card">
-      <div class="avatar" style="width:55px;height:55px;font-size:22px">
-       ${
-        c.photo
-        ? `<img src="${escapeHTML(c.photo)}">`
-        : initials(c.name)
-       }
-      </div>
-      <h3 style="margin-top:10px">
-       ${escapeHTML(c.name)}
-      </h3>
-      <p>@${escapeHTML(c.username)}</p>
-      <p>${c.posts} post${c.posts===1?"":"s"}</p>
-     </div>
-    `).join("")
-   }
-  </div>
- `;
 }
 
+const creators={};
+
+posts.forEach(p=>{
+
+const key=p.uid||p.username;
+
+if(!creators[key]){
+
+creators[key]={
+name:p.userName||"WorldVibe User",
+username:p.username||"user",
+photo:p.userPhoto||"",
+posts:0
+};
+
+}
+
+creators[key].posts++;
+
+});
+
+box.innerHTML=`
+
+<div class="grid">
+
+${
+Object.values(creators)
+.map(c=>`
+
+<div class="card">
+
+<div class="avatar"
+style="width:55px;height:55px;font-size:22px">
+
+${
+c.photo
+?`<img src="${escapeHTML(c.photo)}">`
+:initials(c.name)
+}
+
+</div>
+
+<h3 style="margin-top:10px">
+${escapeHTML(c.name)}
+</h3>
+
+<p>@${escapeHTML(c.username)}</p>
+
+<p>
+${c.posts}
+post${c.posts===1?"":"s"}
+</p>
+
+</div>
+
+`).join("")
+}
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   PROFILE
+========================= */
 
 function renderProfile(){
 
- const area=
-  document.getElementById("profileArea");
+const area=
+document.getElementById("profileArea");
 
- if(!area || !currentUser)return;
+if(!area||!currentUser)return;
 
- const name=
-  currentProfile?.name||
-  currentUser.displayName||
-  "WorldVibe User";
+const name=
+currentProfile?.name||
+currentUser.displayName||
+"WorldVibe User";
 
- const username=
-  currentProfile?.username||
-  "user";
+const username=
+currentProfile?.username||
+"user";
 
- const photo=
-  currentProfile?.photoURL||
-  currentUser.photoURL||
-  "";
+const photo=
+currentProfile?.photoURL||
+currentUser.photoURL||
+"";
 
- const myPosts=
-  posts.filter(
-   p=>p.uid===currentUser.uid
-  );
+const myPosts=
+posts.filter(
+p=>p.uid===currentUser.uid
+);
 
- const liked=
-  posts.filter(
-   p=>
-    Array.isArray(p.likedBy)&&
-    p.likedBy.includes(currentUser.uid)
-  );
+area.innerHTML=`
 
- const saved=
-  posts.filter(
-   p=>
-    Array.isArray(p.savedBy)&&
-    p.savedBy.includes(currentUser.uid)
-  );
+<div class="profileHead">
 
- area.innerHTML=`
+<div class="avatar">
 
-  <div class="profileHead">
+${
+photo
+?`<img src="${escapeHTML(photo)}">`
+:initials(name)
+}
 
-   <div class="avatar">
-    ${
-     photo
-     ? `<img src="${escapeHTML(photo)}">`
-     : initials(name)
-    }
-   </div>
+</div>
 
-   <div style="flex:1">
+<div style="flex:1">
 
-    <div class="profileName">
-     ${escapeHTML(name)}
-    </div>
+<div class="profileName">
+${escapeHTML(name)}
+</div>
 
-    <div class="username">
-     @${escapeHTML(username)}
-    </div>
+<div class="username">
+@${escapeHTML(username)}
+</div>
 
-    <div class="stats">
+<div class="stats">
 
-     <div class="stat">
-      <b>${currentProfile?.followers||0}</b>
-      <small>Followers</small>
-     </div>
+<div class="stat">
+<b>${currentProfile?.followers||0}</b>
+<small>Followers</small>
+</div>
 
-     <div class="stat">
-      <b>${currentProfile?.following||0}</b>
-      <small>Following</small>
-     </div>
+<div class="stat">
+<b>${currentProfile?.following||0}</b>
+<small>Following</small>
+</div>
 
-     <div class="stat">
-      <b>${myPosts.length}</b>
-      <small>Posts</small>
-     </div>
+<div class="stat">
+<b>${myPosts.length}</b>
+<small>Posts</small>
+</div>
 
-    </div>
+</div>
 
-   </div>
+</div>
 
-  </div>
+</div>
 
-  <div style="margin-top:12px">
+${
+currentProfile?.bio
+?`
+<div class="card" style="margin-top:12px">
+${escapeHTML(currentProfile.bio)}
+</div>
+`
+:""
+}
 
-   ${
-    currentProfile?.bio
-    ? `<div class="card">
-        ${escapeHTML(currentProfile.bio)}
-       </div>`
-    : ""
-   }
+<button
+class="secondary"
+style="width:100%;margin-top:10px"
+onclick="openEdit()">
+Edit Profile
+</button>
 
-   <button
-    class="secondary"
-    style="width:100%;margin-top:10px"
-    onclick="openEdit()">
-    Edit Profile
-   </button>
+<div class="tabs">
 
-  </div>
+<button class="active"
+onclick="profileTab('posts',this)">
+Posts
+</button>
 
-  <div class="tabs">
+<button
+onclick="profileTab('saved',this)">
+Saved
+</button>
 
-   <button class="active" onclick="profileTab('posts',this)">
-    Posts
-   </button>
+<button
+onclick="profileTab('liked',this)">
+Liked
+</button>
 
-   <button onclick="profileTab('saved',this)">
-    Saved
-   </button>
+</div>
 
-   <button onclick="profileTab('liked',this)">
-    Liked
-   </button>
+<div id="profileContent">
 
-  </div>
+${
+myPosts.length
+?myPosts.map(postCard).join("")
+:`<div class="notice">
+Your videos will appear here.
+</div>`
+}
 
-  <div id="profileContent">
+</div>
 
-   ${
-    myPosts.length
-    ? myPosts.map(postCard).join("")
-    : `<div class="notice">
-        Your videos will appear here.
-       </div>`
-   }
+<div class="menu" style="margin-top:18px">
 
-  </div>
+<button onclick="toggleTheme()">
+Theme
+</button>
 
-  <div class="menu" style="margin-top:18px">
+<button onclick="logout()">
+Logout
+</button>
 
-   <button onclick="toggleTheme()">
-    Theme
-   </button>
+<button class="danger"
+onclick="removeAccount()">
+Delete Account
+</button>
 
-   <button onclick="logout()">
-    Logout
-   </button>
+</div>
 
-   <button class="danger" onclick="removeAccount()">
-    Delete Account
-   </button>
+`;
 
-  </div>
- `;
 }
 
 
+/* =========================
+   PROFILE TABS
+========================= */
+
 window.profileTab=function(tab,button){
 
- document
-  .querySelectorAll("#pageProfile .tabs button")
-  .forEach(b=>b.classList.remove("active"));
+document
+.querySelectorAll("#pageProfile .tabs button")
+.forEach(b=>b.classList.remove("active"));
 
- button.classList.add("active");
+button.classList.add("active");
 
- let list=[];
+let list=[];
 
- if(tab==="posts"){
+if(tab==="posts"){
 
-  list=
-   posts.filter(
-    p=>p.uid===currentUser.uid
-   );
+list=posts.filter(
+p=>p.uid===currentUser.uid
+);
 
- }else if(tab==="saved"){
+}else if(tab==="saved"){
 
-  list=
-   posts.filter(
-    p=>
-     Array.isArray(p.savedBy)&&
-     p.savedBy.includes(currentUser.uid)
-   );
+list=posts.filter(
+p=>
+Array.isArray(p.savedBy)&&
+p.savedBy.includes(currentUser.uid)
+);
 
- }else{
+}else{
 
-  list=
-   posts.filter(
-    p=>
-     Array.isArray(p.likedBy)&&
-     p.likedBy.includes(currentUser.uid)
-   );
- }
+list=posts.filter(
+p=>
+Array.isArray(p.likedBy)&&
+p.likedBy.includes(currentUser.uid)
+);
 
- const content=
-  document.getElementById(
-   "profileContent"
-  );
+}
 
- content.innerHTML=
-  list.length
-  ? list.map(postCard).join("")
-  : `<div class="notice">Nothing here yet.</div>`;
+const content=
+document.getElementById(
+"profileContent"
+);
+
+content.innerHTML=
+list.length
+?list.map(postCard).join("")
+:`<div class="notice">
+Nothing here yet.
+</div>`;
+
 };
 
 
+/* =========================
+   EDIT PROFILE
+========================= */
+
 window.openEdit=function(){
 
- document
-  .getElementById("editModal")
-  .classList.remove("hidden");
+document
+.getElementById("editModal")
+.classList.remove("hidden");
 
- document.getElementById("editName").value=
-  currentProfile?.name||"";
+document.getElementById("editName").value=
+currentProfile?.name||"";
 
- document.getElementById("editUsername").value=
-  currentProfile?.username||"";
+document.getElementById("editUsername").value=
+currentProfile?.username||"";
 
- document.getElementById("editPhoto").value=
-  currentProfile?.photoURL||"";
+document.getElementById("editPhoto").value=
+currentProfile?.photoURL||"";
 
- document.getElementById("editBio").value=
-  currentProfile?.bio||"";
+document.getElementById("editBio").value=
+currentProfile?.bio||"";
+
 };
 
 
 window.closeEdit=function(){
 
- document
-  .getElementById("editModal")
-  .classList.add("hidden");
+document
+.getElementById("editModal")
+.classList.add("hidden");
+
 };
 
 
 window.saveProfile=async function(){
 
- if(!currentUser)return;
+if(!currentUser)return;
 
- const name=
-  document.getElementById("editName")
-  .value.trim()||
-  "WorldVibe User";
+const name=
+document.getElementById("editName")
+.value.trim()||
+"WorldVibe User";
 
- const username=
-  document.getElementById("editUsername")
-  .value.trim()
-  .replace(/^@/,"")||
-  "user";
+const username=
+document.getElementById("editUsername")
+.value.trim()
+.replace(/^@/,"")||
+"user";
 
- const photoURL=
-  document.getElementById("editPhoto")
-  .value.trim();
+const photoURL=
+document.getElementById("editPhoto")
+.value.trim();
 
- const bio=
-  document.getElementById("editBio")
-  .value.trim();
+const bio=
+document.getElementById("editBio")
+.value.trim();
 
- try{
+try{
 
-  await setDoc(
-   doc(db,"users",currentUser.uid),
-   {
-    uid:currentUser.uid,
-    name,
-    username,
-    photoURL,
-    bio,
-    email:currentUser.email||""
-   },
-   {merge:true}
-  );
+await setDoc(
+doc(db,"users",currentUser.uid),
+{
+uid:currentUser.uid,
+name,
+username,
+photoURL,
+bio,
+email:currentUser.email||""
+},
+{merge:true}
+);
 
-  try{
+try{
 
-   await updateProfile(
-    currentUser,
-    {
-     displayName:name,
-     photoURL:photoURL||null
-    }
-   );
+await updateProfile(
+currentUser,
+{
+displayName:name,
+photoURL:photoURL||null
+}
+);
 
-  }catch(e){
-   console.warn(e);
-  }
+}catch(e){
 
-  currentProfile={
-   ...currentProfile,
-   name,
-   username,
-   photoURL,
-   bio
-  };
+console.warn(
+"AUTH PROFILE UPDATE",
+e
+);
 
-  closeEdit();
-  renderProfile();
+}
 
-  showToast("Profile updated ✅");
-
- }catch(error){
-
-  console.error(error);
-
-  showToast(
-   "Profile update failed: "+
-   (error.message||"Unknown error")
-  );
- }
+currentProfile={
+...currentProfile,
+name,
+username,
+photoURL,
+bio
 };
 
+closeEdit();
+
+renderProfile();
+
+showToast(
+"Profile updated ✅"
+);
+
+}catch(error){
+
+console.error(error);
+
+showToast(
+"Profile update failed: "+
+(error.message||"Unknown error")
+);
+
+}
+
+};
+
+
+/* =========================
+   LOGOUT
+========================= */
 
 window.logout=async function(){
 
- try{
+try{
 
-  await signOut(auth);
+await signOut(auth);
 
-  showToast("Logged out.");
+showToast("Logged out.");
 
- }catch(error){
+}catch(error){
 
-  showToast(
-   error.message||"Logout failed."
-  );
- }
+showToast(
+error.message||
+"Logout failed."
+);
+
+}
+
 };
 
+
+/* =========================
+   DELETE ACCOUNT
+========================= */
 
 window.removeAccount=async function(){
 
- if(!currentUser)return;
+if(!currentUser)return;
 
- const ok=
-  confirm(
-   "Delete your WorldVibe account?"
-  );
+const ok=confirm(
+"Delete your WorldVibe account?"
+);
 
- if(!ok)return;
+if(!ok)return;
 
- try{
+try{
 
-  await deleteDoc(
-   doc(db,"users",currentUser.uid)
-  );
+await deleteDoc(
+doc(db,"users",currentUser.uid)
+);
 
-  await deleteUser(currentUser);
+await deleteUser(currentUser);
 
- }catch(error){
+}catch(error){
 
-  console.error(error);
+console.error(error);
 
-  showToast(
-   "Account deletion failed. "+
-   (error.message||"You may need to login again.")
-  );
- }
+showToast(
+"Account deletion failed: "+
+(error.message||
+"You may need to login again.")
+);
+
+}
+
 };
 
+
+/* =========================
+   START
+========================= */
 
 renderDrafts();
 
