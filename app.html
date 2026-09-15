@@ -207,7 +207,7 @@ deleteUser,updateProfile
 }from"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import{
-getFirestore,collection,addDoc,getDocs,getDoc,doc,setDoc,
+initializeFirestore,collection,addDoc,getDocs,getDoc,doc,setDoc,
 updateDoc,deleteDoc,query,orderBy,limit,serverTimestamp,
 arrayUnion,arrayRemove
 }from"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
@@ -231,7 +231,7 @@ measurementId:"G-WZ9G2B2EDP"
 
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
-const db=getFirestore(app);
+const db=initializeFirestore(app,{},'default');
 const storage=getStorage(app);
 
 let currentUser=null;
