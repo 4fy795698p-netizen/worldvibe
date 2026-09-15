@@ -1,2388 +1,585 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#050505">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>WorldVibe 🌍🎬</title>
-
-<style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#050505;color:#fff;font-family:Arial,Helvetica,sans-serif}
-body.light{background:#f5f5f5;color:#111}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.app{width:100%;max-width:620px;margin:auto;min-height:100vh;background:#050505}
-body.light .app{background:#f5f5f5}
-
-.top{
-position:sticky;top:0;z-index:50;
-height:58px;padding:8px 12px;
-display:flex;align-items:center;justify-content:space-between;
-background:rgba(5,5,5,.94);backdrop-filter:blur(15px);
-border-bottom:1px solid #222
-}
-body.light .top{background:rgba(255,255,255,.94);border-color:#ddd}
-
-.brand{font-size:21px;font-weight:900}
-.brand span{font-size:11px;display:block;color:#999;font-weight:500}
-
-.topActions{display:flex;gap:7px}
-.icon{
-border:0;background:#171717;color:#fff;border-radius:50%;
-width:38px;height:38px;font-size:18px
-}
-body.light .icon{background:#e8e8e8;color:#111}
-
-.page{display:none;padding-bottom:78px}
-.page.active{display:block}
-
-.nav{
-position:fixed;z-index:100;bottom:0;left:50%;transform:translateX(-50%);
-width:100%;max-width:620px;height:67px;
-display:flex;background:rgba(8,8,8,.97);
-border-top:1px solid #242424
-}
-body.light .nav{background:rgba(255,255,255,.98);border-color:#ddd}
-
-.nav button{
-flex:1;border:0;background:none;color:#888;font-size:10px;
-display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px
-}
-.nav button b{font-size:21px}
-.nav button.active{color:#fff}
-body.light .nav button.active{color:#111}
-
-.section{padding:14px}
-.sectionTitle{font-size:20px;font-weight:800;margin-bottom:12px}
-
-.card{
-background:#111;border:1px solid #242424;border-radius:16px;
-padding:14px;margin-bottom:12px
-}
-body.light .card{background:#fff;border-color:#ddd}
-
-.notice{
-padding:16px;border-radius:14px;background:#151515;color:#aaa;
-text-align:center
-}
-
-.tabs{display:flex;gap:7px;overflow:auto;margin-bottom:12px}
-.tabs button{
-border:1px solid #333;background:#111;color:#aaa;
-border-radius:20px;padding:9px 14px;white-space:nowrap
-}
-.tabs button.active{background:#fff;color:#000}
-body.light .tabs button{background:#fff;border-color:#ccc;color:#555}
-body.light .tabs button.active{background:#111;color:#fff}
-
-.post{
-background:#101010;border-bottom:1px solid #252525;
-margin-bottom:10px
-}
-body.light .post{background:#fff;border-color:#ddd}
-
-.postHead{display:flex;align-items:center;padding:12px;gap:9px}
-.avatar{
-width:40px;height:40px;border-radius:50%;object-fit:cover;
-background:#222
-}
-.userName{font-weight:800;font-size:14px}
-.handle{font-size:11px;color:#888}
-.followBtn{
-margin-left:auto;border:0;border-radius:18px;
-padding:7px 13px;background:#fff;color:#000;font-weight:700
-}
-.followBtn.following{background:#333;color:#fff}
-
-.videoWrap{
-position:relative;width:100%;background:#000;
-aspect-ratio:9/14;overflow:hidden
-}
-.videoWrap video,.videoWrap img{
-width:100%;height:100%;object-fit:cover
-}
-.videoPlaceholder{
-width:100%;height:100%;display:flex;align-items:center;
-justify-content:center;color:#777;font-size:40px
-}
-
-.postText{padding:10px 12px 4px;font-size:14px;line-height:1.45}
-.hashtag{color:#55aaff}
-
-.postActions{
-display:flex;align-items:center;padding:8px 10px;gap:2px
-}
-.action{
-border:0;background:none;color:#ddd;padding:7px 9px;
-font-size:13px
-}
-.action b{font-size:21px;display:block}
-.action.liked{color:#ff4568}
-body.light .action{color:#333}
-
-.commentBox{display:flex;gap:8px;margin-top:10px}
-.commentBox input{
-flex:1;padding:12px;border-radius:12px;border:1px solid #333;
-background:#151515;color:#fff;outline:none
-}
-body.light .commentBox input{background:#fff;color:#111;border-color:#ccc}
-
-.primary{
-width:100%;padding:13px;border:0;border-radius:12px;
-background:#fff;color:#000;font-weight:800
-}
-.secondary{
-width:100%;padding:13px;border:1px solid #333;border-radius:12px;
-background:#151515;color:#fff;font-weight:700
-}
-.danger{background:#ff3b30!important;color:#fff!important}
-
-input,textarea,select{
-width:100%;padding:13px;border-radius:11px;
-border:1px solid #333;background:#151515;color:#fff;
-outline:none;margin-bottom:10px
-}
-body.light input,body.light textarea,body.light select{
-background:#fff;color:#111;border-color:#ccc
-}
-
-label{font-size:12px;color:#999;display:block;margin:7px 0}
-
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-
-.stat{
-text-align:center;padding:12px;background:#151515;border-radius:12px
-}
-body.light .stat{background:#eee}
-.stat strong{display:block;font-size:18px}
-.stat span{font-size:11px;color:#888}
-
-.profileHead{text-align:center;padding:22px 14px}
-.profileAvatar{
-width:92px;height:92px;border-radius:50%;object-fit:cover;
-border:3px solid #fff;margin:auto
-}
-.profileName{font-size:23px;font-weight:900;margin-top:9px}
-.profileHandle{color:#888;margin:3px}
-.bio{font-size:13px;color:#aaa;margin:10px auto;max-width:420px}
-
-.searchRow{display:flex;gap:8px}
-.searchRow input{margin:0}
-.searchRow button{width:48px;border:0;border-radius:11px}
-
-.creatorGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.creator{
-padding:14px;border-radius:14px;background:#151515;text-align:center
-}
-body.light .creator{background:#fff;border:1px solid #ddd}
-
-.creator img{width:65px;height:65px;border-radius:50%;object-fit:cover}
-
-.modal{
-display:none;position:fixed;z-index:500;inset:0;
-background:rgba(0,0,0,.72);align-items:flex-end
-}
-.modal.show{display:flex}
-.modalBox{
-width:100%;max-width:620px;margin:auto 0 0;
-max-height:90vh;overflow:auto;background:#111;
-border-radius:20px 20px 0 0;padding:18px
-}
-body.light .modalBox{background:#fff}
-.modalTop{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
-.close{border:0;background:#222;color:#fff;border-radius:50%;width:34px;height:34px}
-
-.toast{
-position:fixed;z-index:9999;left:50%;bottom:84px;
-transform:translateX(-50%);background:#fff;color:#000;
-padding:11px 16px;border-radius:20px;font-size:13px;
-display:none;max-width:90%;text-align:center
-}
-.toast.show{display:block}
-
-.loading{
-padding:30px;text-align:center;color:#888
-}
-
-.empty{
-padding:35px 15px;text-align:center;color:#777
-}
-
-.fileBox{
-border:2px dashed #444;border-radius:14px;padding:20px;
-text-align:center;margin-bottom:10px
-}
-.fileBox input{border:0;background:none}
-
-progress{width:100%;height:8px;margin:8px 0}
-
-.small{font-size:12px;color:#888}
-.success{color:#55d68b}
-.error{color:#ff657d}
-
-.setting{
-display:flex;align-items:center;justify-content:space-between;
-padding:14px 0;border-bottom:1px solid #292929
-}
-.settingText strong{display:block}
-.settingText span{font-size:11px;color:#888}
-
-.switch{
-width:45px;height:25px;border-radius:20px;background:#444;
-position:relative;border:0
-}
-.switch:after{
-content:"";position:absolute;width:19px;height:19px;
-border-radius:50%;background:#fff;top:3px;left:3px;
-transition:.2s
-}
-.switch.on{background:#fff}
-.switch.on:after{left:23px;background:#000}
-
-.comment{
-display:flex;gap:9px;padding:10px 0;border-bottom:1px solid #252525
-}
-.comment img{width:34px;height:34px;border-radius:50%}
-.commentBody strong{font-size:13px}
-.commentBody div{font-size:13px;margin-top:3px}
-
-@media(min-width:621px){
-body{background:#222}
-.app{box-shadow:0 0 35px #000}
-.nav{bottom:10px;border-radius:18px}
-}
-</style>
-</head>
-
-<body>
-<div class="app">
-
-<header class="top">
-<div class="brand">
-WorldVibe 🌍🎬
-<span>Short videos • Worldwide community</span>
-</div>
-<div class="topActions">
-<button class="icon" onclick="openSearch()">⌕</button>
-<button class="icon" onclick="openNotifications()">♧</button>
-<button class="icon" onclick="openAuth()">☻</button>
-</div>
-</header>
-
-<!-- HOME -->
-<main id="home" class="page active">
-<div class="tabs section">
-<button class="active" onclick="setFeed('foryou',this)">For You</button>
-<button onclick="setFeed('following',this)">Following</button>
-<button onclick="setFeed('latest',this)">Latest</button>
-<button onclick="setFeed('trending',this)">Trending</button>
-</div>
-<div id="feed"></div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#050505"><title>WorldVibe 🌍🎬</title><style>
+*{box-sizing:border-box}html,body{margin:0;background:#050505;color:#fff;font-family:Arial,sans-serif}body{padding-bottom:72px}.wrap{max-width:900px;margin:auto;padding:14px}.top{position:sticky;top:0;z-index:20;background:#050505ee;border-bottom:1px solid #222}.nav{display:flex;justify-content:space-between;align-items:center}.logo{font-size:21px;font-weight:800}.logo small{display:block;font-size:10px;color:#999;font-weight:400}button{border:0;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer}.btn{background:#fff;color:#000}.secondary,.ghost{background:#181818;color:#fff;border:1px solid #333}.danger{background:#c62828;color:#fff}.page{display:none}.page.active{display:block}.tabs{display:flex;gap:7px;overflow:auto;margin:12px 0}.tabs button{background:#151515;color:#aaa;white-space:nowrap}.tabs button.active{background:#fff;color:#000}.card,.notice{background:#101010;border:1px solid #282828;border-radius:16px;margin:12px 0;overflow:hidden}.notice{padding:16px}.posthead{display:flex;align-items:center;gap:10px;padding:12px}.avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#333}.postmedia{width:100%;max-height:650px;display:block;background:#000;object-fit:contain}.postbody{padding:12px}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.actions button{background:#191919;color:#fff;border:1px solid #303030}.muted{color:#999}input,textarea,select{width:100%;background:#0d0d0d;color:#fff;border:1px solid #333;border-radius:12px;padding:12px;margin:6px 0 12px}textarea{min-height:90px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:#111;border:1px solid #292929;border-radius:14px;padding:13px;text-align:center}.stat b{font-size:22px;display:block}.bottom{position:fixed;bottom:0;left:0;right:0;background:#080808f5;border-top:1px solid #282828;z-index:30}.bottomnav{max-width:900px;margin:auto;display:grid;grid-template-columns:repeat(6,1fr)}.bottom button{background:transparent;color:#aaa;padding:8px 2px;font-size:11px}.bottom b{display:block;font-size:18px;color:#fff}.modal{display:none;position:fixed;inset:0;background:#000b;z-index:100;align-items:flex-end;justify-content:center}.modal.show{display:flex}.sheet{width:min(700px,100%);max-height:92vh;overflow:auto;background:#101010;border:1px solid #333;border-radius:22px 22px 0 0;padding:18px}.close{float:right;background:#222;color:#fff}.preview{max-width:100%;max-height:300px;border-radius:14px}.toast{display:none;position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:#fff;color:#000;padding:11px 16px;border-radius:12px;z-index:200;font-weight:700;max-width:90%}@media(min-width:700px){.modal{align-items:center}.sheet{border-radius:22px}}
+body.light{background:#f5f5f5;color:#111}.light .top{background:#fffffff2;border-color:#ddd}.light .card,.light .notice,.light .sheet,.light .stat{background:#fff;border-color:#ddd}.light input,.light textarea,.light select{background:#fff;color:#111;border-color:#ccc}.light .bottom{background:#fffffff5;border-color:#ddd}.light .tabs button,.light .actions button,.light .secondary,.light .ghost{background:#eee;color:#111;border-color:#ddd}.light .muted{color:#666}.light .top .btn{background:#111;color:#fff}.light .bottom button{color:#555}.light .postmedia{background:#eee}.themeRow{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #292929}.progress{height:7px;background:#222;border-radius:99px;overflow:hidden;margin:8px 0}.progress i{display:block;height:100%;width:0;background:#fff;transition:width .2s}.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#222;color:#ddd;font-size:11px;margin:3px}.light .badge{background:#eee;color:#333}.empty{padding:24px;text-align:center;color:#999}
+.future-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.future-card{background:#111;border:1px solid #292929;border-radius:15px;padding:13px;margin:8px 0}.future-card h3{margin:0 0 7px}.future-card p{color:#999;font-size:12px;line-height:1.4}.future-card button{width:100%;margin-top:7px}.future-tools{display:flex;gap:7px;flex-wrap:wrap}.future-tools button{width:auto;background:#191919;color:#fff;border:1px solid #333}.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f33;margin-right:5px}@media(max-width:520px){.future-grid{grid-template-columns:1fr}}
+</style></head><body>
+<header class="top"><div class="nav wrap"><div class="logo">WorldVibe 🌍🎬<small>Short Video Social App</small></div><button id="headerAccount" class="btn" onclick="openPage('profile')">Login</button></div></header>
+<main class="wrap">
+<section id="home" class="page active"><h1>WorldVibe 🌍🎬</h1><p class="muted">Discover, create and share your world.</p><div class="tabs"><button class="active" onclick="loadFeed('latest',this)">Latest</button><button onclick="loadFeed('trending',this)">Trending</button><button onclick="loadFeed('following',this)">Following</button></div><div id="feed"><div class="notice">Loading...</div></div></section>
+<section id="discover" class="page"><h2>Discover 🔎</h2><div style="display:flex;gap:8px"><input id="searchInput" placeholder="Search users or usernames"><button class="btn" onclick="searchUsers()">Search</button></div><div id="searchResults"></div></section>
+<section id="create" class="page"><h2>Create 🎬</h2><div id="loginUpload" class="notice">Login required to upload.</div><div id="uploadArea" style="display:none"><input id="mediaFile" type="file" accept="video/*,image/*"><video id="vprev" class="preview" controls style="display:none"></video><img id="iprev" class="preview" style="display:none"><textarea id="caption" maxlength="2200" placeholder="Caption..."></textarea><input id="hashtags" placeholder="#worldvibe #travel"><select id="privacy"><option value="public">Public</option><option value="followers">Followers only</option><option value="private">Private</option></select><button id="publishBtn" class="btn" onclick="publishPost()">Publish</button><div class="progress"><i id="uploadProgress"></i></div><p id="uploadStatus" class="muted">Maximum upload size: 200 MB.</p></div></section>
+<section id="profile" class="page"><div id="profileContent"></div></section>
+<section id="notifications" class="page"><h2>Notifications 🔔</h2><div id="notificationsList" class="notice">Login to see notifications.</div></section>
+<section id="creator" class="page"><h2>Creator Center 📊</h2><div id="creatorStats"></div></section>
+<section id="settings" class="page"><h2>Settings ⚙️</h2><div class="card"><div class="postbody"><div class="themeRow"><span>Appearance</span><button class="btn secondary" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button></div><button class="btn secondary" style="width:100%;margin:5px 0" onclick="editProfile()">Edit Profile</button><button class="btn secondary" style="width:100%;margin:5px 0" onclick="resetPassword()">Reset Password</button><button class="btn secondary" style="width:100%;margin:5px 0" onclick="legal('privacy')">Privacy Policy</button><button class="btn secondary" style="width:100%;margin:5px 0" onclick="legal('terms')">Terms</button><button class="btn secondary" style="width:100%;margin:5px 0" onclick="legal('guidelines')">Community Guidelines</button><button class="btn danger" style="width:100%;margin:5px 0" onclick="deleteAccount()">Delete Account</button><button class="btn danger" style="width:100%;margin:5px 0" onclick="logout()">Logout</button></div></div></section>
+<section id="future" class="page"><h2>WorldVibe Future Hub 🚀</h2><p class="muted">All planned product areas are included here so the app has one place for future modules.</p><div class="future-grid">
+<div class="future-card"><h3>🎬 Video Editor</h3><p>Trim, speed, filters, text, voice, music, remix and slideshow.</p><div class="future-tools"><button onclick="future('Trim')">Trim</button><button onclick="future('Speed')">Speed</button><button onclick="future('Filters')">Filters</button><button onclick="future('Text')">Text</button><button onclick="future('Voice')">Voice</button><button onclick="future('Music')">Music</button><button onclick="future('Remix')">Remix</button></div></div>
+<div class="future-card"><h3>🔴 LIVE</h3><p>Live rooms, guests, live chat, gifts and creator controls.</p><button onclick="future('LIVE streaming')"><span class="live-dot"></span>Go LIVE</button></div>
+<div class="future-card"><h3>💬 Direct Messages</h3><p>Private chats, conversations, media sharing and message notifications.</p><button onclick="future('Direct Messages')">Open Messages</button></div>
+<div class="future-card"><h3>💰 Wallet & Monetization</h3><p>Coins, gifts, creator earnings, withdrawals, memberships and payment history.</p><button onclick="future('Wallet and Payments')">Open Wallet</button></div>
+<div class="future-card"><h3>📈 Promote</h3><p>Boost posts, campaigns, budgets, targeting and promotion analytics.</p><button onclick="future('Promote')">Promote</button></div>
+<div class="future-card"><h3>🗓️ Scheduled Posts</h3><p>Prepare content and publish it at a selected date and time.</p><button onclick="future('Scheduled Posts')">Schedule</button></div>
+<div class="future-card"><h3>⭐ Memberships</h3><p>Creator subscriptions, subscriber-only content and benefits.</p><button onclick="future('Memberships')">Memberships</button></div>
+<div class="future-card"><h3>🏆 Missions & Badges</h3><p>Challenges, levels, achievements, badges and creator milestones.</p><button onclick="future('Missions and Badges')">Open</button></div>
+<div class="future-card"><h3>🔎 Advanced Discovery</h3><p>Hashtags, sounds, creators, trends and personalized discovery.</p><button onclick="future('Advanced Discovery')">Explore</button></div>
+<div class="future-card"><h3>🛡️ Safety Center</h3><p>Block, mute, reports, moderation, age controls and account safety.</p><button onclick="future('Safety Center')">Safety</button></div>
+<div class="future-card"><h3>✓ Verification</h3><p>Creator verification and profile badges.</p><button onclick="future('Verification')">Apply</button></div>
+<div class="future-card"><h3>📊 Advanced Analytics</h3><p>Retention, audience, engagement, traffic sources and creator performance.</p><button onclick="future('Advanced Analytics')">Analytics</button></div>
+<div class="future-card"><h3>☁️ Cloud & Backup</h3><p>Cloud profiles, drafts, saved content, exports and account data.</p><button onclick="future('Cloud Backup')">Cloud</button></div>
+<div class="future-card"><h3>📱 PWA / Mobile App</h3><p>Installable app experience and mobile navigation.</p><button onclick="future('PWA')">Install</button></div>
+<div class="future-card"><h3>🌍 Global</h3><p>Languages, regions, localization and international creator support.</p><button onclick="future('Languages and Regions')">Languages</button></div>
+<div class="future-card"><h3>🤖 Smart Feed</h3><p>Personalized For You ranking, recommendations and interest signals.</p><button onclick="future('For You Algorithm')">For You</button></div>
+</div><div class="notice"><b>Important</b><br><span class="muted">These modules are included in the product structure. Real LIVE streaming, payment processing, secure private media, server-side moderation, anti-spam, scheduled jobs and App Store/Google Play distribution require backend/provider services and cannot be made genuinely operational by HTML alone.</span></div></section>
 </main>
-
-<!-- DISCOVER -->
-<main id="discover" class="page">
-<div class="section">
-<div class="sectionTitle">Discover</div>
-<div class="searchRow">
-<input id="discoverSearch" placeholder="Search videos, people, hashtags...">
-<button class="primary" onclick="discoverSearch()">⌕</button>
-</div>
-</div>
-
-<div class="section">
-<div class="sectionTitle">Popular creators</div>
-<div id="creators" class="creatorGrid"></div>
-</div>
-
-<div class="section">
-<div class="sectionTitle">Trending hashtags</div>
-<div id="hashtags" class="tabs"></div>
-</div>
-</main>
-
-<!-- CREATE -->
-<main id="create" class="page">
-<div class="section">
-<div class="sectionTitle">Create</div>
-
-<div class="card">
-<label>Video</label>
-<div class="fileBox">
-<input id="videoFile" type="file" accept="video/*" onchange="previewVideo(event)">
-<div id="videoPreviewText">Choose a video from your phone</div>
-</div>
-<video id="videoPreview" controls style="display:none;width:100%;border-radius:12px;max-height:420px"></video>
-<progress id="uploadProgress" value="0" max="100" style="display:none"></progress>
-</div>
-
-<div class="card">
-<label>Caption</label>
-<textarea id="caption" rows="4" placeholder="Share your vibe..."></textarea>
-
-<label>Hashtags</label>
-<input id="hashtagsInput" placeholder="#world #travel #fun">
-
-<label>Privacy</label>
-<select id="privacy">
-<option value="public">Public</option>
-<option value="followers">Followers</option>
-<option value="private">Private</option>
-</select>
-
-<button class="primary" onclick="publishVideo()">Publish video</button>
-<button class="secondary" style="margin-top:8px" onclick="saveDraft()">Save draft</button>
-</div>
-
-<div class="card">
-<div class="sectionTitle">Creator tools</div>
-<div class="grid2">
-<button class="secondary" onclick="futureTool('Video Trim')">✂ Trim</button>
-<button class="secondary" onclick="futureTool('Speed Control')">⚡ Speed</button>
-<button class="secondary" onclick="futureTool('Text Overlay')">T Text</button>
-<button class="secondary" onclick="futureTool('Filters')">◉ Filters</button>
-<button class="secondary" onclick="futureTool('Voice')">🎙 Voice</button>
-<button class="secondary" onclick="futureTool('Remix')">↪ Remix</button>
-</div>
-<p class="small">Advanced video processing requires a media-processing backend.</p>
-</div>
-</div>
-</main>
-
-<!-- PROFILE -->
-<main id="profile" class="page">
-<div id="profileContent"></div>
-</main>
-
-<!-- NOTIFICATIONS -->
-<main id="notifications" class="page">
-<div class="section">
-<div class="sectionTitle">Notifications</div>
-<div id="notificationList"></div>
-</div>
-</main>
-
-<!-- CREATOR -->
-<main id="creatorCenter" class="page">
-<div class="section">
-<div class="sectionTitle">Creator Center</div>
-
-<div class="grid2">
-<div class="stat"><strong id="creatorViews">0</strong><span>Views</span></div>
-<div class="stat"><strong id="creatorLikes">0</strong><span>Likes</span></div>
-<div class="stat"><strong id="creatorFollowers">0</strong><span>Followers</span></div>
-<div class="stat"><strong>0</strong><span>Earnings</span></div>
-</div>
-
-<div class="card" style="margin-top:12px">
-<h3>Monetization</h3>
-<p class="small">
-Creator earnings, paid memberships, gifts and withdrawals require a secure
-server/payment backend. This app does not pretend to process real money locally.
-</p>
-<button class="primary" onclick="futureTool('Creator Monetization')">Creator tools</button>
-</div>
-
-<div class="card">
-<h3>Creator features</h3>
-<div class="grid2">
-<button class="secondary" onclick="futureTool('LIVE')">🔴 LIVE</button>
-<button class="secondary" onclick="futureTool('Schedule')">📅 Schedule</button>
-<button class="secondary" onclick="futureTool('Promote')">🚀 Promote</button>
-<button class="secondary" onclick="futureTool('Badges')">🏅 Badges</button>
-</div>
-</div>
-</div>
-</main>
-
-<!-- WALLET -->
-<main id="wallet" class="page">
-<div class="section">
-<div class="sectionTitle">Wallet</div>
-
-<div class="card" style="text-align:center">
-<div class="small">WorldVibe Coins</div>
-<div id="coinBalance" style="font-size:42px;font-weight:900">0</div>
-<p class="small">Demo balance. Real payments require payment verification/backend.</p>
-</div>
-
-<div class="grid2">
-<button class="primary" onclick="buyCoins()">Buy Coins</button>
-<button class="secondary" onclick="openWithdraw()">Withdraw</button>
-</div>
-</div>
-</main>
-
-<!-- SETTINGS -->
-<main id="settings" class="page">
-<div class="section">
-<div class="sectionTitle">Settings</div>
-
-<div class="card">
-<div class="setting">
-<div class="settingText">
-<strong>Dark mode</strong>
-<span>Change app appearance</span>
-</div>
-<button id="themeSwitch" class="switch on" onclick="toggleTheme()"></button>
-</div>
-
-<div class="setting">
-<div class="settingText">
-<strong>Notifications</strong>
-<span>App notifications</span>
-</div>
-<button id="notificationSwitch" class="switch on" onclick="toggleSwitch(this)"></button>
-</div>
-
-<div class="setting">
-<div class="settingText">
-<strong>Private account</strong>
-<span>Account privacy preference</span>
-</div>
-<button class="switch" onclick="toggleSwitch(this)"></button>
-</div>
-</div>
-
-<div class="card">
-<button class="secondary" onclick="openPrivacy()">Privacy</button>
-<button class="secondary" style="margin-top:8px" onclick="openSecurity()">Security</button>
-<button class="secondary" style="margin-top:8px" onclick="exportData()">Export my data</button>
-<button class="secondary" style="margin-top:8px" onclick="showLegal()">Terms & Community Rules</button>
-<button class="secondary danger" style="margin-top:8px" onclick="deleteAccount()">Delete account</button>
-</div>
-</div>
-</main>
-
-<nav class="nav">
-<button class="active" onclick="showPage('home',this)"><b>⌂</b>Home</button>
-<button onclick="showPage('discover',this)"><b>⌕</b>Discover</button>
-<button onclick="showPage('create',this)"><b>＋</b>Create</button>
-<button onclick="showPage('profile',this)"><b>◉</b>Profile</button>
-<button onclick="showPage('settings',this)"><b>⚙</b>Settings</button>
-</nav>
-
-</div>
-
-<div id="toast" class="toast"></div>
-
-<!-- AUTH MODAL -->
-<div id="authModal" class="modal">
-<div class="modalBox">
-<div class="modalTop">
-<h2 id="authTitle">Login</h2>
-<button class="close" onclick="closeModal('authModal')">×</button>
-</div>
-
-<input id="authEmail" type="email" placeholder="Email">
-<input id="authPassword" type="password" placeholder="Password">
-
-<button id="authButton" class="primary" onclick="firebaseLogin()">Login</button>
-
-<button class="secondary" style="margin-top:8px" onclick="toggleAuthMode()">Create account</button>
-
-<button class="secondary" style="margin-top:8px" onclick="forgotPassword()">Forgot password?</button>
-
-<div id="authStatus" class="small" style="margin-top:10px"></div>
-</div>
-</div>
-
-<!-- SEARCH MODAL -->
-<div id="searchModal" class="modal">
-<div class="modalBox">
-<div class="modalTop">
-<h2>Search</h2>
-<button class="close" onclick="closeModal('searchModal')">×</button>
-</div>
-<div class="searchRow">
-<input id="searchInput" placeholder="Search WorldVibe">
-<button class="primary" onclick="runSearch()">⌕</button>
-</div>
-<div id="searchResults" style="margin-top:12px"></div>
-</div>
-</div>
-
-<!-- COMMENTS MODAL -->
-<div id="commentsModal" class="modal">
-<div class="modalBox">
-<div class="modalTop">
-<h2>Comments</h2>
-<button class="close" onclick="closeModal('commentsModal')">×</button>
-</div>
-<div id="commentsList"></div>
-<div class="commentBox">
-<input id="commentInput" placeholder="Write a comment...">
-<button class="primary" style="width:80px" onclick="addComment()">Send</button>
-</div>
-</div>
-</div>
-
-<!-- EDIT PROFILE -->
-<div id="editProfileModal" class="modal">
-<div class="modalBox">
-<div class="modalTop">
-<h2>Edit profile</h2>
-<button class="close" onclick="closeModal('editProfileModal')">×</button>
-</div>
-
-<label>Name</label>
-<input id="editName">
-
-<label>Username</label>
-<input id="editUsername">
-
-<label>Bio</label>
-<textarea id="editBio" rows="4"></textarea>
-
-<label>Profile photo</label>
-<input id="avatarFile" type="file" accept="image/*">
-
-<button class="primary" onclick="saveProfile()">Save profile</button>
-</div>
-</div>
-
-<!-- REPORT -->
-<div id="reportModal" class="modal">
-<div class="modalBox">
-<div class="modalTop">
-<h2>Report</h2>
-<button class="close" onclick="closeModal('reportModal')">×</button>
-</div>
-<select id="reportReason">
-<option>Spam</option>
-<option>Harassment</option>
-<option>Violence</option>
-<option>Adult content</option>
-<option>Copyright</option>
-<option>Other</option>
-</select>
-<textarea id="reportDetails" placeholder="Details (optional)"></textarea>
-<button class="primary" onclick="submitReport()">Submit report</button>
-</div>
-</div>
-
-<!-- PRIVACY -->
-<div id="privacyModal" class="modal">
-<div class="modalBox">
-<div class="modalTop">
-<h2>Privacy</h2>
-<button class="close" onclick="closeModal('privacyModal')">×</button>
-</div>
-<p class="small">
-Public videos can be discovered by other users. Followers/private settings
-are stored with the post, but true media access control requires Firebase
-Storage security rules and/or a trusted backend.
-</p>
-<button class="primary" onclick="closeModal('privacyModal')">Done</button>
-</div>
-</div>
-
-<!-- SECURITY -->
-<div id="securityModal" class="modal">
-<div class="modalBox">
-<div class="modalTop">
-<h2>Security</h2>
-<button class="close" onclick="closeModal('securityModal')">×</button>
-</div>
-<p class="small">
-Use a strong password and never share your password. WorldVibe authentication
-is handled by Firebase Authentication.
-</p>
-<button class="secondary" onclick="firebaseLogout()">Log out</button>
-</div>
-</div>
-
-<!-- LEGAL -->
-<div id="legalModal" class="modal">
-<div class="modalBox">
-<div class="modalTop">
-<h2>WorldVibe Rules</h2>
-<button class="close" onclick="closeModal('legalModal')">×</button>
-</div>
-
-<h3>Community Guidelines</h3>
-<p class="small">
-Do not upload illegal, abusive, threatening, hateful, fraudulent or
-copyright-infringing content. Users can report content for moderation.
-</p>
-
-<h3>Privacy</h3>
-<p class="small">
-WorldVibe stores account and content information needed to operate the service.
-Firebase services are used for authentication, database and media storage.
-</p>
-
-<h3>Terms</h3>
-<p class="small">
-You are responsible for content you upload and must have the rights required
-to publish it.
-</p>
-
-<button class="primary" onclick="closeModal('legalModal')">Done</button>
-</div>
-</div>
-
-<!-- WITHDRAW -->
-<div id="withdrawModal" class="modal">
-<div class="modalBox">
-<div class="modalTop">
-<h2>Withdraw</h2>
-<button class="close" onclick="closeModal('withdrawModal')">×</button>
-</div>
-<p class="small">
-Real-money withdrawal is not activated in this client-only build.
-A secure payment/creator backend is required before accepting withdrawal
-requests.
-</p>
-<button class="primary" onclick="closeModal('withdrawModal')">Done</button>
-</div>
-</div>
-
-
+<nav class="bottom"><div class="bottomnav"><button onclick="openPage('home')"><b>⌂</b>Home</button><button onclick="openPage('discover')"><b>⌕</b>Discover</button><button onclick="openPage('create')"><b>＋</b>Create</button><button onclick="openPage('notifications')"><b>♡</b>Alerts</button><button onclick="openPage('profile')"><b>●</b>Profile</button><button onclick="openPage('future')"><b>🚀</b>More</button></div></nav>
+<div id="authModal" class="modal"><div class="sheet"><button class="close" onclick="closeModal('authModal')">✕</button><h2 id="authTitle">Login</h2><input id="authEmail" type="email" placeholder="Email"><input id="authPassword" type="password" placeholder="Password"><input id="authName" placeholder="Your name" style="display:none"><button class="btn" style="width:100%" onclick="authSubmit()">Continue</button><button class="ghost" style="width:100%;margin-top:8px" onclick="toggleAuth()">Create account</button><button class="ghost" style="width:100%;margin-top:8px" onclick="resetPassword()">Forgot password?</button></div></div>
+<div id="editModal" class="modal"><div class="sheet"><button class="close" onclick="closeModal('editModal')">✕</button><h2>Edit Profile</h2><input id="pname" placeholder="Name"><input id="pusername" placeholder="Username"><textarea id="pbio" placeholder="Bio"></textarea><input id="pavatar" type="file" accept="image/*"><button class="btn" style="width:100%" onclick="saveProfile()">Save Profile</button></div></div>
+<div id="commentModal" class="modal"><div class="sheet"><button class="close" onclick="closeModal('commentModal')">✕</button><h2>Comments</h2><div id="comments"></div><textarea id="commentText" placeholder="Write a comment..."></textarea><button class="btn" onclick="addComment()">Comment</button></div></div>
+<div id="legalModal" class="modal"><div class="sheet"><button class="close" onclick="closeModal('legalModal')">✕</button><div id="legalText"></div></div></div><div id="toast" class="toast"></div>
 <script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import{getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,sendPasswordResetEmail,deleteUser}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import{getFirestore,doc,setDoc,getDoc,addDoc,collection,query,where,orderBy,limit,getDocs,deleteDoc,updateDoc,increment,serverTimestamp}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import{getStorage,ref,uploadBytesResumable,getDownloadURL,deleteObject}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
-import {initializeApp}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+const cfg={apiKey:"AIzaSyArCb63lgx3tGMm1QPYQzeLNN7awL8Gx3A",authDomain:"worldvibe-9f531.firebaseapp.com",projectId:"worldvibe-9f531",storageBucket:"worldvibe-9f531.firebasestorage.app",messagingSenderId:"148680723994",appId:"1:148680723994:web:c9cf32cd47d7a3ec190ba3",measurementId:"G-WZ9G2B2EDP"};
+const app=initializeApp(cfg),auth=getAuth(app),db=getFirestore(app),storage=getStorage(app);
+let user=null,profile=null,mode='login',postForComment=null;
+const MAX=200*1024*1024;
+const $=x=>document.getElementById(x);
+const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+function toast(x){$('toast').textContent=x;$('toast').style.display='block';clearTimeout(window.tt);window.tt=setTimeout(()=>$('toast').style.display='none',2800)}
+function openModal(x){$(x).classList.add('show')}
+function closeModal(x){$(x).classList.remove('show')}
+function openPage(x){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(x).classList.add('active');if(x==='home')loadFeed('latest');if(x==='profile')renderProfile();if(x==='creator')creator();if(x==='notifications')notifications()}
+window.openPage=openPage;window.closeModal=closeModal;
 
-import {
-getAuth,
-onAuthStateChanged,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword,
-sendPasswordResetEmail,
-signOut,
-deleteUser
+function toggleAuth(){mode=mode==='login'?'signup':'login';$('authTitle').textContent=mode==='login'?'Login':'Create account';$('authName').style.display=mode==='login'?'none':'block'}
+window.toggleAuth=toggleAuth;
+
+async function authSubmit(){
+ let e=$('authEmail').value.trim(),p=$('authPassword').value;
+ if(!e||!p)return toast('Email and password required.');
+ try{
+  if(mode==='signup'){
+   if(p.length<6)return toast('Password must be at least 6 characters.');
+   let c=await createUserWithEmailAndPassword(auth,e,p);
+   await setDoc(doc(db,'users',c.user.uid),{uid:c.user.uid,name:$('authName').value.trim()||e.split('@')[0],username:e.split('@')[0].toLowerCase(),bio:'',avatar:'',createdAt:serverTimestamp()},{merge:true});
+   toast('Account created ✅')
+  }else{
+   await signInWithEmailAndPassword(auth,e,p);
+   toast('Login successful ✅')
+  }
+  closeModal('authModal')
+ }catch(x){toast(x.message)}
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+window.authSubmit=authSubmit;
 
-import {
-getFirestore,
-doc,
-getDoc,
-setDoc,
-updateDoc,
-deleteDoc,
-collection,
-addDoc,
-getDocs,
-query,
-orderBy,
-limit,
-where,
-serverTimestamp,
-increment
+async function logout(){try{await signOut(auth);toast('Logged out successfully ✅');openPage('home')}catch(x){toast(x.message)}}window.logout=logout;
+
+async function resetPassword(){
+ let e=$('authEmail').value.trim();
+ if(!e)return toast('Enter your email first.');
+ try{await sendPasswordResetEmail(auth,e);toast('Password reset email sent ✅')}catch(x){toast(x.message)}
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-import {
-getStorage,
-ref,
-uploadBytesResumable,
-getDownloadURL
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
-
-
-const firebaseConfig={
-apiKey:"AIzaSyArCb63lgx3tGMm1QPYQzeLNN7awL8Gx3A",
-authDomain:"worldvibe-9f531.firebaseapp.com",
-projectId:"worldvibe-9f531",
-storageBucket:"worldvibe-9f531.firebasestorage.app",
-messagingSenderId:"148680723994",
-appId:"1:148680723994:web:c9cf32cd47d7a3ec190ba3",
-measurementId:"G-WZ9G2B2EDP"
-};
-
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
-const storage=getStorage(app);
-
-window.firebaseApp=app;
-window.firebaseAuth=auth;
-window.firebaseDB=db;
-
-let currentUser=null;
-let currentProfile=null;
-let currentPost=null;
-let authSignupMode=false;
-let currentFeed="foryou";
-let posts=[];
-let followingCache=new Set();
-let localDrafts=[];
-let coins=1000;
-
-const demoCreators=[
-{
-id:"demo1",
-name:"Alex",
-username:"alex",
-avatar:"https://i.pravatar.cc/150?img=12"
-},
-{
-id:"demo2",
-name:"Sara",
-username:"sara",
-avatar:"https://i.pravatar.cc/150?img=32"
-},
-{
-id:"demo3",
-name:"Omar",
-username:"omar",
-avatar:"https://i.pravatar.cc/150?img=15"
-},
-{
-id:"demo4",
-name:"Maya",
-username:"maya",
-avatar:"https://i.pravatar.cc/150?img=47"
-}
-];
-
-const demoPosts=[
-{
-id:"demo-world",
-uid:"demo1",
-name:"Alex",
-username:"alex",
-avatar:"https://i.pravatar.cc/150?img=12",
-caption:"Beautiful world 🌍✨ #world #travel",
-video:"",
-likesCount:124,
-commentsCount:18,
-viewsCount:2400,
-createdAt:Date.now()-300000
-},
-{
-id:"demo-vibes",
-uid:"demo2",
-name:"Sara",
-username:"sara",
-avatar:"https://i.pravatar.cc/150?img=32",
-caption:"Good vibes only ✨ #vibes #worldvibe",
-video:"",
-likesCount:89,
-commentsCount:12,
-viewsCount:1800,
-createdAt:Date.now()-800000
-},
-{
-id:"demo-weekend",
-uid:"demo3",
-name:"Omar",
-username:"omar",
-avatar:"https://i.pravatar.cc/150?img=15",
-caption:"Weekend energy 🔥 #weekend",
-video:"",
-likesCount:67,
-commentsCount:8,
-viewsCount:1100,
-createdAt:Date.now()-1500000
-}
-];
-
-
-function toast(message){
-const t=document.getElementById("toast");
-t.textContent=message;
-t.classList.add("show");
-clearTimeout(window.toastTimer);
-window.toastTimer=setTimeout(()=>t.classList.remove("show"),2500);
-}
-
-
-function showPage(id,button){
-document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
-const p=document.getElementById(id);
-if(p)p.classList.add("active");
-
-document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
-if(button)button.classList.add("active");
-
-if(id==="home")renderFeed();
-if(id==="profile")renderProfile();
-if(id==="notifications")loadNotifications();
-if(id==="creatorCenter")renderCreator();
-if(id==="wallet")renderWallet();
-if(id==="discover")renderDiscover();
-}
-
-
-window.showPage=showPage;
-
-
-function openModal(id){
-document.getElementById(id).classList.add("show");
-}
-
-function closeModal(id){
-document.getElementById(id).classList.remove("show");
-}
-
-window.closeModal=closeModal;
-
-
-function openAuth(){
-if(currentUser){
-showPage("profile");
-return;
-}
-openModal("authModal");
-}
-
-window.openAuth=openAuth;
-
-
-function openSearch(){
-openModal("searchModal");
-}
-
-window.openSearch=openSearch;
-
-
-function openNotifications(){
-showPage("notifications");
-document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
-}
-
-window.openNotifications=openNotifications;
-
-
-function toggleAuthMode(){
-authSignupMode=!authSignupMode;
-
-document.getElementById("authTitle").textContent=
-authSignupMode?"Create account":"Login";
-
-document.getElementById("authButton").textContent=
-authSignupMode?"Create account":"Login";
-
-document.getElementById("authStatus").textContent="";
-}
-
-window.toggleAuthMode=toggleAuthMode;
-
-
-window.firebaseLogin=async function(){
-
-const email=document.getElementById("authEmail").value.trim();
-const password=document.getElementById("authPassword").value;
-
-if(!email||!password){
-toast("Enter email and password");
-return;
-}
-
-try{
-
-if(authSignupMode){
-
-const result=await createUserWithEmailAndPassword(
-auth,email,password
-);
-
-await createUserProfile(result.user);
-
-toast("Account created ✅");
-
-}else{
-
-await signInWithEmailAndPassword(auth,email,password);
-
-toast("Login successful ✅");
-}
-
-closeModal("authModal");
-
-}catch(error){
-
-console.error(error);
-
-document.getElementById("authStatus").textContent=
-friendlyError(error);
-
-}
-
-};
-
-
-window.forgotPassword=async function(){
-
-const email=document.getElementById("authEmail").value.trim();
-
-if(!email){
-toast("Enter your email first");
-return;
-}
-
-try{
-
-await sendPasswordResetEmail(auth,email);
-toast("Password reset email sent");
-
-}catch(error){
-toast(friendlyError(error));
-}
-
-};
-
-
-window.firebaseLogout=async function(){
-
-try{
-await signOut(auth);
-toast("Logged out");
-closeModal("securityModal");
-}catch(e){
-toast("Logout failed");
-}
-
-};
-
-
-function friendlyError(error){
-
-const code=error?.code||"";
-
-if(code.includes("email-already-in-use"))
-return "This email is already registered.";
-
-if(code.includes("invalid-credential"))
-return "Email or password is incorrect.";
-
-if(code.includes("weak-password"))
-return "Password must be at least 6 characters.";
-
-if(code.includes("invalid-email"))
-return "Invalid email address.";
-
-if(code.includes("network"))
-return "Network problem. Check internet.";
-
-return error?.message||"Something went wrong.";
-
-}
-
-
-async function createUserProfile(user){
-
-const userRef=doc(db,"users",user.uid);
-const snap=await getDoc(userRef);
-
-if(!snap.exists()){
-
-await setDoc(userRef,{
-uid:user.uid,
-name:user.email.split("@")[0],
-username:user.email.split("@")[0].toLowerCase(),
-email:user.email,
-bio:"Welcome to WorldVibe 🌍🎬",
-avatar:"",
-followersCount:0,
-followingCount:0,
-likesCount:0,
-viewsCount:0,
-createdAt:serverTimestamp()
+window.resetPassword=resetPassword;
+
+function future(name){toast(name+' is included in the WorldVibe roadmap. Real operation needs its backend/provider.')}
+window.future=future;
+
+onAuthStateChanged(auth,async u=>{
+ user=u;profile=null;
+ if(u){
+  let s=await getDoc(doc(db,'users',u.uid));
+  profile=s.exists()?s.data():{uid:u.uid,name:u.email.split('@')[0],username:u.email.split('@')[0]};
+  await setDoc(doc(db,'users',u.uid),profile,{merge:true});
+  $('headerAccount').textContent='Profile';
+  $('loginUpload').style.display='none';
+  $('uploadArea').style.display='block'
+ }else{
+  $('headerAccount').textContent='Login';
+  $('loginUpload').style.display='block';
+  $('uploadArea').style.display='none'
+ }
+ renderProfile();
+ loadFeed('latest')
 });
 
-}
-
-}
-
-
-onAuthStateChanged(auth,async user=>{
-
-currentUser=user;
-
-if(user){
-
-await createUserProfile(user);
-
-await loadProfile();
-
-await loadFollowing();
-
-}else{
-
-currentProfile=null;
-followingCache=new Set();
-}
-
-renderProfile();
-renderFeed();
-renderCreator();
-renderWallet();
-
+$('mediaFile').addEventListener('change',e=>{
+ let f=e.target.files[0];
+ $('vprev').style.display='none';
+ $('iprev').style.display='none';
+ if(!f)return;
+ if(f.size>MAX){toast('File is larger than 200 MB.');e.target.value='';return}
+ let u=URL.createObjectURL(f);
+ if(f.type.startsWith('video/')){
+  $('vprev').src=u;$('vprev').style.display='block'
+ }else if(f.type.startsWith('image/')){
+  $('iprev').src=u;$('iprev').style.display='block'
+ }else{
+  toast('Only video or image files are allowed.');e.target.value=''
+ }
 });
 
-
-async function loadProfile(){
-
-if(!currentUser)return;
-
-try{
-
-const snap=await getDoc(doc(db,"users",currentUser.uid));
-
-if(snap.exists()){
-currentProfile={id:snap.id,...snap.data()};
+async function publishPost(){
+ if(!user)return openModal('authModal');
+ let f=$('mediaFile').files[0];
+ if(!f)return toast('Select a video or image.');
+ if(f.size>MAX)return toast('Maximum size is 200 MB.');
+ if(!f.type.startsWith('video/')&&!f.type.startsWith('image/'))return toast('Invalid media type.');
+ let b=$('publishBtn');
+ b.disabled=true;
+ try{
+  let ext=(f.name.split('.').pop()||'bin').toLowerCase();
+  let path=`posts/${user.uid}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+  let task=uploadBytesResumable(ref(storage,path),f,{contentType:f.type});
+  let url=await new Promise((res,rej)=>task.on('state_changed',
+   s=>b.textContent=`Uploading ${Math.round(s.bytesTransferred/s.totalBytes*100)}%`,
+   rej,
+   async()=>res(await getDownloadURL(task.snapshot.ref))
+  ));
+  let tags=$('hashtags').value.split(/[\s,]+/).map(x=>x.replace(/^#/,'').toLowerCase()).filter(Boolean).slice(0,30);
+  await addDoc(collection(db,'posts'),{
+   uid:user.uid,
+   userName:profile?.name||'WorldVibe User',
+   username:profile?.username||'',
+   avatar:profile?.avatar||'',
+   caption:$('caption').value.trim(),
+   hashtags:tags,
+   privacy:$('privacy').value,
+   mediaUrl:url,
+   mediaType:f.type.startsWith('video/')?'video':'image',
+   storagePath:path,
+   createdAt:serverTimestamp(),
+   likesCount:0,
+   commentsCount:0,
+   viewsCount:0
+  });
+  $('mediaFile').value='';
+  $('caption').value='';
+  $('hashtags').value='';
+  $('vprev').style.display='none';
+  $('iprev').style.display='none';
+  toast('Published successfully ✅');
+  openPage('home')
+ }catch(x){toast('Upload failed: '+x.message)}
+ finally{b.disabled=false;b.textContent='Publish'}
 }
+window.publishPost=publishPost;
 
-}catch(error){
-console.error(error);
+async function loadFeed(type='latest'){
+ let box=$('feed');
+ box.innerHTML='<div class="notice">Loading...</div>';
+ try{
+  let q=query(collection(db,'posts'),where('privacy','==','public'),limit(50));
+  let s=await getDocs(q);
+  let a=s.docs.map(d=>({id:d.id,...d.data()}));
+  a.sort((x,y)=>(y.createdAt?.seconds||0)-(x.createdAt?.seconds||0));
+  if(type==='trending')a.sort((x,y)=>(y.likesCount||0)+(y.viewsCount||0)-(x.likesCount||0)-(x.viewsCount||0));
+  box.innerHTML=a.length?a.map(postCard).join(''):'<div class="notice">No public videos yet. Be the first to publish! 🎬</div>'
+ }catch(x){box.innerHTML='<div class="notice">Feed could not load. Check Firebase Firestore rules/indexes.</div>'}
 }
-
-}
-
-
-async function loadFollowing(){
-
-followingCache=new Set();
-
-if(!currentUser)return;
-
-try{
-
-const snap=await getDocs(
-collection(db,"users",currentUser.uid,"following")
-);
-
-snap.forEach(x=>followingCache.add(x.id));
-
-}catch(e){
-console.log("Following unavailable",e);
-}
-
-}
-
-
-async function loadPosts(){
-
-let result=[];
-
-try{
-
-const q=query(
-collection(db,"posts"),
-orderBy("createdAt","desc"),
-limit(50)
-);
-
-const snap=await getDocs(q);
-
-snap.forEach(d=>{
-result.push({id:d.id,...d.data()});
-});
-
-}catch(error){
-
-console.error("Posts:",error);
-
-}
-
-posts=result;
-return result;
-
-}
-
-
-function allVisiblePosts(){
-
-return [...posts,...demoPosts];
-
-}
-
-
-async function renderFeed(){
-
-const container=document.getElementById("feed");
-
-container.innerHTML='<div class="loading">Loading WorldVibe...</div>';
-
-await loadPosts();
-
-let list=allVisiblePosts();
-
-if(currentFeed==="latest"){
-list.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
-}
-
-if(currentFeed==="trending"){
-list.sort((a,b)=>(b.viewsCount||0)-(a.viewsCount||0));
-}
-
-if(currentFeed==="following"){
-
-if(!currentUser){
-
-container.innerHTML=
-'<div class="section"><div class="notice">Login to see videos from creators you follow.</div></div>';
-
-return;
-}
-
-list=list.filter(p=>
-p.uid===currentUser.uid||
-followingCache.has(p.uid)
-);
-
-}
-
-if(!list.length){
-
-container.innerHTML=
-'<div class="empty">No videos yet. Be the first creator 🌍🎬</div>';
-
-return;
-
-}
-
-container.innerHTML=list.map(postCard).join("");
-
-}
-
-
-function setFeed(mode,button){
-
-currentFeed=mode;
-
-document.querySelectorAll("#home .tabs button")
-.forEach(x=>x.classList.remove("active"));
-
-button.classList.add("active");
-
-renderFeed();
-
-}
-
-window.setFeed=setFeed;
-
-
-function safe(value){
-
-return String(value??"")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
-
-}
-
+window.loadFeed=loadFeed;
 
 function postCard(p){
-
-const liked=localStorage.getItem("wv_like_"+p.id)==="1";
-
-const following=followingCache.has(p.uid);
-
-const caption=safe(p.caption||"");
-
-let media="";
-
-if(p.video){
-
-media=`
-<div class="videoWrap">
-<video
-src="${safe(p.video)}"
-controls
-playsinline
-preload="metadata"
-onclick="registerView('${safe(p.id)}')"></video>
-</div>`;
-}else{
-
-media=`
-<div class="videoWrap">
-<div class="videoPlaceholder">🌍🎬</div>
-</div>`;
-
+ let m=p.mediaType==='video'
+ ?`<video class="postmedia" src="${esc(p.mediaUrl)}" controls playsinline onplay="viewPost('${p.id}')"></video>`
+ :`<img class="postmedia" src="${esc(p.mediaUrl)}">`;
+ return `<article class="card">
+ <div class="posthead">
+ <img class="avatar" src="${esc(p.avatar||'')}">
+ <div style="flex:1"><b>${esc(p.userName||'WorldVibe User')}</b><div class="muted">@${esc(p.username||'user')}</div></div>
+ ${user&&user.uid===p.uid?`<button class="danger" onclick="deletePost('${p.id}','${esc(p.storagePath||'')}')">Delete</button>`:''}
+ </div>${m}
+ <div class="postbody">${esc(p.caption||'')}
+ <div class="actions">
+ <button onclick="likePost('${p.id}')">♡ ${p.likesCount||0}</button>
+ <button onclick="openComments('${p.id}')">💬 ${p.commentsCount||0}</button>
+ <button onclick="savePost('${p.id}')">🔖 Save</button>
+ <button onclick="sharePost('${p.id}')">↗ Share</button>
+ ${user&&user.uid!==p.uid?`<button onclick="reportPost('${p.id}')">Report</button>`:''}
+ </div></div></article>`
 }
 
-return `
-<article class="post">
+async function viewPost(id){try{await updateDoc(doc(db,'posts',id),{viewsCount:increment(1)})}catch{}}
+window.viewPost=viewPost;
 
-<div class="postHead">
-
-<img class="avatar"
-src="${safe(p.avatar||'https://i.pravatar.cc/150?img=68')}"
-onerror="this.src='https://i.pravatar.cc/150?img=68'">
-
-<div>
-<div class="userName">${safe(p.name||"WorldVibe Creator")}</div>
-<div class="handle">@${safe(p.username||"creator")}</div>
-</div>
-
-${
-p.uid&&p.uid!=="demo1"&&p.uid!=="demo2"&&p.uid!=="demo3"&&p.uid!=="demo4"
-?
-`<button class="followBtn ${following?'following':''}"
-onclick="toggleFollow('${safe(p.uid)}')">
-${following?"Following":"Follow"}
-</button>`
-:""
+async function likePost(id){
+ if(!user)return openModal('authModal');
+ try{
+  let l=doc(db,'posts',id,'likes',user.uid),s=await getDoc(l);
+  if(s.exists()){
+   await deleteDoc(l);
+   await updateDoc(doc(db,'posts',id),{likesCount:increment(-1)})
+  }else{
+   await setDoc(l,{uid:user.uid,createdAt:serverTimestamp()});
+   await updateDoc(doc(db,'posts',id),{likesCount:increment(1)})
+  }
+  loadFeed('latest')
+ }catch(x){toast(x.message)}
 }
+window.likePost=likePost;
 
-</div>
-
-${media}
-
-<div class="postText">${formatCaption(caption)}</div>
-
-<div class="postActions">
-
-<button class="action ${liked?'liked':''}"
-onclick="toggleLike('${safe(p.id)}')">
-<b>${liked?"♥":"♡"}</b>
-${Number(p.likesCount||0)}
-</button>
-
-<button class="action"
-onclick="openComments('${safe(p.id)}')">
-<b>💬</b>
-${Number(p.commentsCount||0)}
-</button>
-
-<button class="action"
-onclick="savePost('${safe(p.id)}')">
-<b>🔖</b>
-Save
-</button>
-
-<button class="action"
-onclick="sharePost('${safe(p.id)}')">
-<b>↗</b>
-Share
-</button>
-
-<button class="action"
-onclick="openReport('${safe(p.id)}')">
-<b>⋯</b>
-</button>
-
-</div>
-
-<div class="small" style="padding:0 12px 10px">
-${formatViews(p.viewsCount||0)} views
-</div>
-
-</article>
-`;
-
+async function savePost(id){
+ if(!user)return openModal('authModal');
+ try{
+  let d=doc(db,'users',user.uid,'saved',id),s=await getDoc(d);
+  if(s.exists()){await deleteDoc(d);toast('Removed from saved')}
+  else{await setDoc(d,{postId:id,createdAt:serverTimestamp()});toast('Saved ✅')}
+ }catch(x){toast(x.message)}
 }
+window.savePost=savePost;
 
-
-function formatCaption(text){
-
-return text.replace(
-/(#[a-zA-Z0-9_]+)/g,
-'<span class="hashtag">$1</span>'
-);
-
+async function sharePost(id){
+ try{
+  await navigator.clipboard.writeText(location.href.split('#')[0]+'#post-'+id);
+  toast('Link copied ✅')
+ }catch{toast('Share link: '+location.href.split('#')[0]+'#post-'+id)}
 }
+window.sharePost=sharePost;
 
-
-function formatViews(n){
-
-n=Number(n)||0;
-
-if(n>=1000000)return (n/1000000).toFixed(1)+"M";
-if(n>=1000)return (n/1000).toFixed(1)+"K";
-
-return String(n);
-
+async function deletePost(id,path){
+ if(!user||!confirm('Delete this video permanently?'))return;
+ try{
+  await deleteDoc(doc(db,'posts',id));
+  if(path)try{await deleteObject(ref(storage,path))}catch{}
+  toast('Deleted ✅');
+  loadFeed('latest')
+ }catch(x){toast(x.message)}
 }
+window.deletePost=deletePost;
 
-
-window.registerView=async function(postId){
-
-if(!postId||postId.startsWith("demo-"))return;
-
-try{
-
-await updateDoc(
-doc(db,"posts",postId),
-{viewsCount:increment(1)}
-);
-
-}catch(e){}
-
-};
-
-
-window.toggleLike=async function(postId){
-
-if(!currentUser){
-
-toast("Login first");
-openAuth();
-return;
-
+async function openComments(id){
+ if(!user)return openModal('authModal');
+ postForComment=id;
+ openModal('commentModal');
+ $('comments').innerHTML='<div class="notice">Loading...</div>';
+ try{
+  let s=await getDocs(query(collection(db,'posts',id,'comments'),orderBy('createdAt','desc'),limit(100)));
+  $('comments').innerHTML=s.docs.length
+  ?s.docs.map(d=>`<div class="notice"><b>${esc(d.data().name||'User')}</b><br>${esc(d.data().text||'')}</div>`).join('')
+  :'<div class="notice">No comments yet.</div>'
+ }catch{$('comments').innerHTML='<div class="notice">Comments unavailable.</div>'}
 }
+window.openComments=openComments;
 
-const key="wv_like_"+postId;
-const already=localStorage.getItem(key)==="1";
-
-if(postId.startsWith("demo-")){
-
-localStorage.setItem(key,already?"0":"1");
-
-const p=demoPosts.find(x=>x.id===postId);
-
-if(p)p.likesCount+=already?-1:1;
-
-renderFeed();
-return;
-
+async function addComment(){
+ if(!user)return openModal('authModal');
+ let t=$('commentText').value.trim();
+ if(!t)return;
+ try{
+  await addDoc(collection(db,'posts',postForComment,'comments'),{
+   uid:user.uid,
+   name:profile?.name||'User',
+   text:t,
+   createdAt:serverTimestamp()
+  });
+  await updateDoc(doc(db,'posts',postForComment),{commentsCount:increment(1)});
+  $('commentText').value='';
+  openComments(postForComment)
+ }catch(x){toast(x.message)}
 }
-
-try{
-
-const likeRef=doc(
-db,
-"posts",
-postId,
-"likes",
-currentUser.uid
-);
-
-if(already){
-
-await deleteDoc(likeRef);
-
-await updateDoc(
-doc(db,"posts",postId),
-{likesCount:increment(-1)}
-);
-
-localStorage.setItem(key,"0");
-
-}else{
-
-await setDoc(likeRef,{
-uid:currentUser.uid,
-createdAt:serverTimestamp()
-});
-
-await updateDoc(
-doc(db,"posts",postId),
-{likesCount:increment(1)}
-);
-
-localStorage.setItem(key,"1");
-
-}
-
-renderFeed();
-
-}catch(error){
-
-console.error(error);
-toast("Like could not be saved");
-
-}
-
-};
-
-
-window.toggleFollow=async function(uid){
-
-if(!currentUser){
-toast("Login first");
-openAuth();
-return;
-}
-
-if(uid===currentUser.uid)return;
-
-const followRef=doc(
-db,
-"users",
-currentUser.uid,
-"following",
-uid
-);
-
-const followerRef=doc(
-db,
-"users",
-uid,
-"followers",
-currentUser.uid
-);
-
-const already=followingCache.has(uid);
-
-try{
-
-if(already){
-
-await deleteDoc(followRef);
-await deleteDoc(followerRef);
-
-followingCache.delete(uid);
-
-}else{
-
-await setDoc(followRef,{
-uid,
-createdAt:serverTimestamp()
-});
-
-await setDoc(followerRef,{
-uid:currentUser.uid,
-createdAt:serverTimestamp()
-});
-
-followingCache.add(uid);
-
-}
-
-await renderFeed();
-
-}catch(error){
-
-console.error(error);
-toast("Follow system needs matching Firestore rules");
-
-}
-
-};
-
-
-window.savePost=async function(postId){
-
-if(!currentUser){
-
-toast("Login first");
-return;
-
-}
-
-try{
-
-await setDoc(
-doc(db,"users",currentUser.uid,"saved",postId),
-{
-postId,
-savedAt:serverTimestamp()
-}
-);
-
-toast("Saved ✅");
-
-}catch(error){
-
-console.error(error);
-toast("Could not save");
-
-}
-
-};
-
-
-window.sharePost=async function(postId){
-
-const url=
-location.origin+
-location.pathname+
-"?post="+encodeURIComponent(postId);
-
-try{
-
-if(navigator.share){
-
-await navigator.share({
-title:"WorldVibe 🌍🎬",
-text:"Watch this on WorldVibe",
-url
-});
-
-}else{
-
-await navigator.clipboard.writeText(url);
-toast("Link copied");
-
-}
-
-}catch(e){}
-
-};
-
-
-window.openComments=async function(postId){
-
-currentPost=postId;
-
-openModal("commentsModal");
-
-const box=document.getElementById("commentsList");
-
-box.innerHTML='<div class="loading">Loading comments...</div>';
-
-if(postId.startsWith("demo-")){
-
-box.innerHTML=
-'<div class="empty">No comments loaded for demo video.</div>';
-
-return;
-
-}
-
-try{
-
-const q=query(
-collection(db,"posts",postId,"comments"),
-orderBy("createdAt","desc"),
-limit(50)
-);
-
-const snap=await getDocs(q);
-
-if(snap.empty){
-
-box.innerHTML='<div class="empty">No comments yet.</div>';
-return;
-
-}
-
-box.innerHTML=snap.docs.map(d=>{
-
-const c=d.data();
-
-return `
-<div class="comment">
-<img src="${safe(c.avatar||'https://i.pravatar.cc/100?img=68')}">
-<div class="commentBody">
-<strong>${safe(c.name||"User")}</strong>
-<div>${safe(c.text||"")}</div>
-</div>
-</div>`;
-
-}).join("");
-
-}catch(error){
-
-box.innerHTML=
-'<div class="empty">Comments could not be loaded.</div>';
-
-}
-
-};
-
-
-window.addComment=async function(){
-
-if(!currentUser){
-toast("Login first");
-return;
-}
-
-const input=document.getElementById("commentInput");
-const text=input.value.trim();
-
-if(!text||!currentPost)return;
-
-if(currentPost.startsWith("demo-")){
-toast("Demo comments are not stored");
-return;
-}
-
-try{
-
-await addDoc(
-collection(db,"posts",currentPost,"comments"),
-{
-uid:currentUser.uid,
-name:currentProfile?.name||currentUser.email.split("@")[0],
-avatar:currentProfile?.avatar||"",
-text,
-createdAt:serverTimestamp()
-}
-);
-
-await updateDoc(
-doc(db,"posts",currentPost),
-{commentsCount:increment(1)}
-);
-
-input.value="";
-
-openComments(currentPost);
-
-}catch(error){
-
-console.error(error);
-toast("Comment could not be posted");
-
-}
-
-};
-
-
-function previewVideo(event){
-
-const file=event.target.files[0];
-
-if(!file)return;
-
-const url=URL.createObjectURL(file);
-
-const video=document.getElementById("videoPreview");
-
-video.src=url;
-video.style.display="block";
-
-document.getElementById("videoPreviewText").textContent=
-file.name;
-
-}
-
-window.previewVideo=previewVideo;
-
-
-window.publishVideo=async function(){
-
-if(!currentUser){
-
-toast("Login first");
-openAuth();
-return;
-
-}
-
-const file=document.getElementById("videoFile").files[0];
-
-if(!file){
-
-toast("Choose a video first");
-return;
-
-}
-
-const caption=document.getElementById("caption").value.trim();
-const hashtags=document.getElementById("hashtagsInput").value.trim();
-const privacy=document.getElementById("privacy").value;
-
-const progress=document.getElementById("uploadProgress");
-
-if(!file.type.startsWith("video/")){
-
-toast("Please select a video file");
-return;
-
-}
-
-try{
-
-progress.style.display="block";
-progress.value=0;
-
-const fileName=
-Date.now()+"_"+Math.random().toString(36).slice(2)+
-"_"+file.name.replace(/[^\w.\-]/g,"_");
-
-const storageRef=ref(
-storage,
-"videos/"+currentUser.uid+"/"+fileName
-);
-
-const task=uploadBytesResumable(storageRef,file);
-
-const videoUrl=await new Promise((resolve,reject)=>{
-
-task.on(
-"state_changed",
-
-snapshot=>{
-
-progress.value=
-(snapshot.bytesTransferred/snapshot.totalBytes)*100;
-
-},
-
-reject,
-
-async()=>{
-
-try{
-
-const url=await getDownloadURL(task.snapshot.ref);
-resolve(url);
-
-}catch(e){
-reject(e);
-}
-
-}
-
-);
-
-});
-
-const profile=currentProfile||{};
-
-await addDoc(
-collection(db,"posts"),
-{
-uid:currentUser.uid,
-name:profile.name||currentUser.email.split("@")[0],
-username:profile.username||"",
-avatar:profile.avatar||"",
-caption:caption+(hashtags?"\n"+hashtags:""),
-video:videoUrl,
-privacy,
-likesCount:0,
-commentsCount:0,
-viewsCount:0,
-createdAt:serverTimestamp()
-}
-);
-
-document.getElementById("videoFile").value="";
-document.getElementById("caption").value="";
-document.getElementById("hashtagsInput").value="";
-document.getElementById("videoPreview").style.display="none";
-progress.style.display="none";
-
-toast("Video published successfully 🎬");
-
-showPage("home");
-
-renderFeed();
-
-}catch(error){
-
-console.error(error);
-
-progress.style.display="none";
-
-toast(
-"Upload failed. Check Firebase Storage rules."
-);
-
-}
-
-};
-
-
-window.saveDraft=function(){
-
-const caption=document.getElementById("caption").value.trim();
-
-if(!caption){
-toast("Add something to draft");
-return;
-}
-
-const drafts=
-JSON.parse(localStorage.getItem("worldvibe_drafts")||"[]");
-
-drafts.push({
-caption,
-hashtags:document.getElementById("hashtagsInput").value,
-privacy:document.getElementById("privacy").value,
-createdAt:Date.now()
-});
-
-localStorage.setItem(
-"worldvibe_drafts",
-JSON.stringify(drafts)
-);
-
-toast("Draft saved");
-
-};
-
+window.addComment=addComment;
 
 async function renderProfile(){
-
-const box=document.getElementById("profileContent");
-
-if(!currentUser){
-
-box.innerHTML=`
-<div class="section">
-<div class="card profileHead">
-<img class="profileAvatar"
-src="https://i.pravatar.cc/150?img=68">
-<div class="profileName">WorldVibe</div>
-<div class="profileHandle">@worldvibe</div>
-<p class="bio">Login to create your WorldVibe profile.</p>
-<button class="primary" onclick="openAuth()">Login / Sign up</button>
-</div>
-</div>`;
-return;
-
+ let b=$('profileContent');
+ if(!user){
+  b.innerHTML='<h2>Your Profile</h2><div class="notice">Login or create an account to continue.</div><button class="btn" onclick="openModal(\'authModal\')">Login / Sign Up</button>';
+  return
+ }
+ if(!profile){b.innerHTML='<div class="notice">Loading profile...</div>';return}
+ let s=await getDocs(query(collection(db,'posts'),where('uid','==',user.uid),limit(100)));
+ b.innerHTML=`<div class="hero">
+ <div style="display:flex;gap:14px;align-items:center">
+ <img class="avatar" style="width:78px;height:78px" src="${esc(profile.avatar||'')}">
+ <div><h2 style="margin:0">${esc(profile.name||'User')}</h2><div class="muted">@${esc(profile.username||'user')}</div></div>
+ </div>
+ <p>${esc(profile.bio||'')}</p>
+ <button class="btn secondary" onclick="editProfile()">Edit</button>
+ <button class="btn secondary" onclick="openPage('creator')">Creator Center</button>
+ <button class="btn secondary" onclick="openPage('settings')">Settings</button>
+ </div>
+ <div class="grid">
+ <div class="stat"><b>${s.size}</b>Videos</div>
+ <div class="stat"><b>${profile.followersCount||0}</b>Followers</div>
+ <div class="stat"><b>${profile.followingCount||0}</b>Following</div>
+ </div>
+ <h3>Your Videos</h3>
+ ${s.docs.map(d=>postCard({id:d.id,...d.data()})).join('')||'<div class="notice">Your videos will appear here.</div>'}`
 }
 
-if(!currentProfile)await loadProfile();
+function editProfile(){
+ if(!user)return openModal('authModal');
+ $('pname').value=profile?.name||'';
+ $('pusername').value=profile?.username||'';
+ $('pbio').value=profile?.bio||'';
+ openModal('editModal')
+}
+window.editProfile=editProfile;
 
-const p=currentProfile||{};
+async function saveProfile(){
+ if(!user)return;
+ try{
+  let avatar=profile?.avatar||'',f=$('pavatar').files[0];
+  if(f){
+   if(!f.type.startsWith('image/')||f.size>10*1024*1024)return toast('Photo must be an image under 10 MB.');
+   let r=ref(storage,`profiles/${user.uid}/avatar`);
+   let t=uploadBytesResumable(r,f,{contentType:f.type});
+   await new Promise((res,rej)=>t.on('state_changed',()=>{},rej,res));
+   avatar=await getDownloadURL(r)
+  }
+  let d={
+   uid:user.uid,
+   name:$('pname').value.trim()||'WorldVibe User',
+   username:$('pusername').value.trim().replace(/^@/,'').toLowerCase(),
+   bio:$('pbio').value.trim(),
+   avatar,
+   updatedAt:serverTimestamp()
+  };
+  await setDoc(doc(db,'users',user.uid),d,{merge:true});
+  profile={...profile,...d};
+  closeModal('editModal');
+  toast('Profile saved ✅');
+  renderProfile()
+ }catch(x){toast(x.message)}
+}
+window.saveProfile=saveProfile;
 
-let my=[];
+async function searchUsers(){
+ let t=$('searchInput').value.trim().toLowerCase();
+ if(!t)return;
+ try{
+  let s=await getDocs(query(collection(db,'users'),limit(100)));
+  let a=s.docs.map(d=>d.data()).filter(x=>
+   (x.name||'').toLowerCase().includes(t)||
+   (x.username||'').toLowerCase().includes(t)
+  );
+  $('searchResults').innerHTML=a.length
+  ?a.map(x=>`<div class="notice"><b>${esc(x.name||'User')}</b><div class="muted">@${esc(x.username||'')}</div><p>${esc(x.bio||'')}</p></div>`).join('')
+  :'<div class="notice">No users found.</div>'
+ }catch(x){toast(x.message)}
+}
+window.searchUsers=searchUsers;
 
-try{
+async function reportPost(id){
+ if(!user)return openModal('authModal');
+ let reason=prompt('Report reason?','Spam');
+ if(!reason)return;
+ try{
+  await addDoc(collection(db,'reports'),{
+   reporterUid:user.uid,
+   targetType:'video',
+   targetId:id,
+   reason,
+   createdAt:serverTimestamp(),
+   status:'open'
+  });
+  toast('Report submitted ✅')
+ }catch(x){toast(x.message)}
+}
+window.reportPost=reportPost;
 
-const q=query(
-collection(db,"posts"),
-where("uid","==",currentUser.uid),
-limit(50)
-);
-
-const snap=await getDocs(q);
-
-snap.forEach(d=>my.push({id:d.id,...d.data()}));
-
-}catch(e){}
-
-const followers=p.followersCount||0;
-const following=p.followingCount||followingCache.size;
-const likes=p.likesCount||0;
-const views=p.viewsCount||0;
-
-box.innerHTML=`
-
-<div class="profileHead">
-
-<img class="profileAvatar"
-src="${safe(p.avatar||'https://i.pravatar.cc/150?img=68')}"
-onerror="this.src='https://i.pravatar.cc/150?img=68'">
-
-<div class="profileName">${safe(p.name||"WorldVibe User")}</div>
-<div class="profileHandle">@${safe(p.username||"user")}</div>
-
-<p class="bio">${safe(p.bio||"Welcome to WorldVibe 🌍🎬")}</p>
-
-<div class="grid3">
-<div class="stat"><strong>${formatViews(followers)}</strong><span>Followers</span></div>
-<div class="stat"><strong>${formatViews(following)}</strong><span>Following</span></div>
-<div class="stat"><strong>${formatViews(likes)}</strong><span>Likes</span></div>
-</div>
-
-<div style="margin-top:12px" class="grid2">
-<button class="primary" onclick="openEditProfile()">Edit profile</button>
-<button class="secondary" onclick="firebaseLogout()">Log out</button>
-</div>
-
-</div>
-
-<div class="section">
-<div class="sectionTitle">My videos</div>
-
-${
-my.length
-?
-my.map(postCard).join("")
-:
-'<div class="empty">Your videos will appear here.</div>'
+async function notifications(){
+ if(!user)return $('notificationsList').textContent='Login to see notifications.';
+ try{
+  let s=await getDocs(query(
+   collection(db,'users',user.uid,'notifications'),
+   orderBy('createdAt','desc'),
+   limit(50)
+  ));
+  $('notificationsList').innerHTML=s.docs.length
+  ?s.docs.map(d=>`<div class="notice">${esc(d.data().message||'New notification')}</div>`).join('')
+  :'No notifications yet.'
+ }catch{$('notificationsList').textContent='No notifications yet.'}
 }
 
-</div>`;
-
+async function creator(){
+ if(!user)return $('creatorStats').innerHTML='<div class="notice">Login required.</div>';
+ try{
+  let s=await getDocs(query(collection(db,'posts'),where('uid','==',user.uid),limit(100)));
+  let a=s.docs.map(d=>d.data());
+  $('creatorStats').innerHTML=`<div class="grid">
+  <div class="stat"><b>${a.length}</b>Videos</div>
+  <div class="stat"><b>${a.reduce((n,p)=>n+(p.viewsCount||0),0)}</b>Views</div>
+  <div class="stat"><b>${a.reduce((n,p)=>n+(p.likesCount||0),0)}</b>Likes</div>
+  </div>`
+ }catch{$('creatorStats').innerHTML='<div class="notice">Stats unavailable.</div>'}
 }
 
+async function deleteAccount(){
+ if(!user||!confirm('Delete your WorldVibe account? This cannot be undone.'))return;
+ try{
+  await deleteDoc(doc(db,'users',user.uid));
+  await deleteUser(user);
+  toast('Account deleted.')
+ }catch(x){toast('For security, please login again and retry account deletion.')}
+}
+window.deleteAccount=deleteAccount;
 
-window.openEditProfile=async function(){
+function legal(t){
+ let x={
+  privacy:'<h2>Privacy Policy</h2><p>WorldVibe uses Firebase to store account, profile and uploaded content data required to provide the service. Do not upload private or sensitive information. You may request account deletion from Settings.</p>',
+  terms:'<h2>Terms of Service</h2><p>You are responsible for content you upload. Do not upload unlawful, abusive, deceptive, harmful or infringing content. Content may be removed for violations.</p>',
+  guidelines:'<h2>Community Guidelines</h2><p>No harassment, threats, hate, sexual exploitation, scams, spam, dangerous illegal content or copyright infringement. Report violations.</p>'
+ };
+ $('legalText').innerHTML=x[t];
+ openModal('legalModal')
+}
+window.legal=legal;
 
-if(!currentUser){
-openAuth();
-return;
+function applyTheme(){
+ const t=localStorage.getItem('worldvibe_theme')||'dark';
+ document.body.classList.toggle('light',t==='light');
+ const b=document.getElementById('themeBtn');
+ if(b)b.textContent=t==='light'?'☀️ Light':'🌙 Dark'
+}
+function toggleTheme(){
+ const n=document.body.classList.contains('light')?'dark':'light';
+ localStorage.setItem('worldvibe_theme',n);
+ applyTheme();
+ toast(n==='light'?'Light mode enabled':'Dark mode enabled')
+}
+window.toggleTheme=toggleTheme;
+applyTheme();
+
+async function followUser(uid){
+ if(!user)return openModal('authModal');
+ if(uid===user.uid)return toast('You cannot follow yourself.');
+ try{
+  const r=doc(db,'users',user.uid,'following',uid);
+  const s=await getDoc(r);
+  if(s.exists()){
+   await deleteDoc(r);
+   await updateDoc(doc(db,'users',uid),{followersCount:increment(-1)}).catch(()=>{});
+   toast('Unfollowed')
+  }else{
+   await setDoc(r,{uid,createdAt:serverTimestamp()});
+   await updateDoc(doc(db,'users',uid),{followersCount:increment(1)}).catch(()=>{});
+   toast('Following ✅')
+  }
+ }catch(e){toast(e.message)}
+ renderProfile()
+}
+window.followUser=followUser;
+
+async function isFollowing(uid){
+ if(!user||uid===user.uid)return false;
+ try{return(await getDoc(doc(db,'users',user.uid,'following',uid))).exists()}catch{return false}
 }
 
-await loadProfile();
-
-document.getElementById("editName").value=
-currentProfile?.name||"";
-
-document.getElementById("editUsername").value=
-currentProfile?.username||"";
-
-document.getElementById("editBio").value=
-currentProfile?.bio||"";
-
-openModal("editProfileModal");
-
-};
-
-
-window.saveProfile=async function(){
-
-if(!currentUser)return;
-
-const name=document.getElementById("editName").value.trim();
-const username=document.getElementById("editUsername").value.trim().replace("@","");
-const bio=document.getElementById("editBio").value.trim();
-const file=document.getElementById("avatarFile").files[0];
-
-try{
-
-let avatar=currentProfile?.avatar||"";
-
-if(file){
-
-const avatarRef=ref(
-storage,
-"avatars/"+currentUser.uid+"/profile_"+Date.now()
-);
-
-const task=uploadBytesResumable(avatarRef,file);
-
-avatar=await new Promise((resolve,reject)=>{
-
-task.on(
-"state_changed",
-()=>{},
-reject,
-async()=>{
-try{
-resolve(await getDownloadURL(task.snapshot.ref));
-}catch(e){reject(e)}
-}
-);
-
-});
-
+async function followCounts(uid){
+ try{
+  const u=await getDoc(doc(db,'users',uid));
+  return{
+   followers:u.data()?.followersCount||0,
+   following:u.data()?.followingCount||0
+  }
+ }catch{return{followers:0,following:0}}
 }
 
-await updateDoc(
-doc(db,"users",currentUser.uid),
-{
-name:name||"WorldVibe User",
-username:username||"user",
-bio,
-avatar
-}
-);
-
-await loadProfile();
-
-closeModal("editProfileModal");
-
-renderProfile();
-
-toast("Profile updated ✅");
-
-}catch(error){
-
-console.error(error);
-toast("Profile update failed");
-
+async function loadFollowingIds(){
+ if(!user)return[];
+ try{
+  const s=await getDocs(collection(db,'users',user.uid,'following'));
+  return s.docs.map(d=>d.id)
+ }catch{return[]}
 }
 
-};
-
-
-function renderDiscover(){
-
-document.getElementById("creators").innerHTML=
-demoCreators.map(c=>`
-<div class="creator">
-<img src="${c.avatar}">
-<h3>${safe(c.name)}</h3>
-<div class="small">@${safe(c.username)}</div>
-<button class="secondary" style="margin-top:8px"
-onclick="searchCreator('${safe(c.username)}')">
-View
-</button>
-</div>
-`).join("");
-
-const tags=[
-"#world","#travel","#music","#food",
-"#nature","#fun","#vibes","#viral"
-];
-
-document.getElementById("hashtags").innerHTML=
-tags.map(x=>
-`<button onclick="searchHashtag('${x}')">${x}</button>`
-).join("");
-
+const originalLoadFeed=loadFeed;
+async function loadFeedEnhanced(type='latest'){
+ if(type!=='following')return originalLoadFeed(type);
+ if(!user)return openModal('authModal');
+ const box=$('feed');
+ box.innerHTML='<div class="notice">Loading Following...</div>';
+ try{
+  const ids=await loadFollowingIds();
+  if(!ids.length){
+   box.innerHTML='<div class="empty">Follow creators to see their videos here. 👥</div>';
+   return
+  }
+  const s=await getDocs(query(collection(db,'posts'),where('privacy','==','public'),limit(100)));
+  let a=s.docs.map(d=>({id:d.id,...d.data()})).filter(p=>ids.includes(p.uid));
+  a.sort((x,y)=>(y.createdAt?.seconds||0)-(x.createdAt?.seconds||0));
+  box.innerHTML=a.length?a.map(postCard).join(''):'<div class="empty">Creators you follow have not posted publicly yet.</div>'
+ }catch(e){box.innerHTML='<div class="notice">Following feed could not load: '+esc(e.message)+'</div>'}
 }
+window.loadFeed=loadFeedEnhanced;
 
-window.discoverSearch=function(){
-
-const q=document.getElementById("discoverSearch").value.trim().toLowerCase();
-
-if(!q){
-toast("Enter a search");
-return;
+const originalRenderProfile=renderProfile;
+async function renderProfileEnhanced(){
+ if(!user)return originalRenderProfile();
+ let b=$('profileContent');
+ if(!profile)return originalRenderProfile();
+ try{
+  const s=await getDocs(query(collection(db,'posts'),where('uid','==',user.uid),limit(100)));
+  const counts=await followCounts(user.uid);
+  b.innerHTML=`<div class="hero">
+  <div style="display:flex;gap:14px;align-items:center">
+  <img class="avatar" style="width:78px;height:78px" src="${esc(profile.avatar||'')}">
+  <div><h2 style="margin:0">${esc(profile.name||'User')}</h2><div class="muted">@${esc(profile.username||'user')}</div></div>
+  </div>
+  <p>${esc(profile.bio||'')}</p>
+  <button class="btn secondary" onclick="editProfile()">Edit</button>
+  <button class="btn secondary" onclick="openPage('creator')">Creator Center</button>
+  <button class="btn secondary" onclick="openPage('settings')">Settings</button>
+  </div>
+  <div class="grid">
+  <div class="stat"><b>${s.size}</b>Videos</div>
+  <div class="stat"><b>${counts.followers}</b>Followers</div>
+  <div class="stat"><b>${counts.following}</b>Following</div>
+  </div>
+  <h3>Your Videos</h3>
+  ${s.docs.map(d=>postCard({id:d.id,...d.data()})).join('')||'<div class="notice">Your videos will appear here.</div>'}`
+ }catch{return originalRenderProfile()}
 }
+window.renderProfile=renderProfileEnhanced;
 
-const list=allVisiblePosts().filter(p=>
-String(p.caption||"").toLowerCase().includes(q)||
-String(p.name||"").toLowerCase().includes(q)||
-String(p.username||"").toLowerCase().includes(q)
-);
-
-document.getElementById("discover").innerHTML=`
-<div class="section">
-<div class="sectionTitle">Search: ${safe(q)}</div>
-<div>
-${list.length?list.map(postCard).join(""):'<div class="empty">No results.</div>'}
-</div>
-</div>`;
-
-};
-
-window.searchHashtag=function(tag){
-
-document.getElementById("discoverSearch").value=tag;
-discoverSearch();
-
-};
-
-window.searchCreator=function(username){
-
-document.getElementById("discoverSearch").value=username;
-discoverSearch();
-
-};
-
-
-window.runSearch=function(){
-
-const q=document.getElementById("searchInput").value.trim().toLowerCase();
-
-if(!q)return;
-
-const list=allVisiblePosts().filter(p=>
-String(p.caption||"").toLowerCase().includes(q)||
-String(p.name||"").toLowerCase().includes(q)||
-String(p.username||"").toLowerCase().includes(q)
-);
-
-document.getElementById("searchResults").innerHTML=
-list.length
-?
-list.map(p=>`
-<div class="card" onclick="closeModal('searchModal');openComments('${safe(p.id)}')">
-<strong>${safe(p.name)}</strong>
-<div class="small">@${safe(p.username)}</div>
-<p>${safe(p.caption||"")}</p>
-</div>`).join("")
-:
-'<div class="empty">No results.</div>';
-
-};
-
-
-async function loadNotifications(){
-
-const box=document.getElementById("notificationList");
-
-if(!currentUser){
-
-box.innerHTML=
-'<div class="notice">Login to see notifications.</div>';
-
-return;
-
+const originalPublishPost=publishPost;
+async function publishPostEnhanced(){
+ const bar=$('uploadProgress'),status=$('uploadStatus');
+ if(!user)return openModal('authModal');
+ const f=$('mediaFile').files[0];
+ if(!f)return toast('Select a video or image.');
+ if(f.size>MAX)return toast('Maximum size is 200 MB.');
+ let b=$('publishBtn');
+ b.disabled=true;
+ try{
+  let ext=(f.name.split('.').pop()||'bin').toLowerCase();
+  let path=`posts/${user.uid}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+  let task=uploadBytesResumable(ref(storage,path),f,{contentType:f.type});
+  let url=await new Promise((res,rej)=>task.on('state_changed',
+   s=>{
+    let pct=Math.round(s.bytesTransferred/s.totalBytes*100);
+    b.textContent=`Uploading ${pct}%`;
+    if(bar)bar.style.width=pct+'%';
+    if(status)status.textContent=`Uploading ${pct}% — keep this page open`
+   },
+   rej,
+   async()=>res(await getDownloadURL(task.snapshot.ref))
+  ));
+  let tags=$('hashtags').value.split(/[\s,]+/).map(x=>x.replace(/^#/,'').toLowerCase()).filter(Boolean).slice(0,30);
+  await addDoc(collection(db,'posts'),{
+   uid:user.uid,userName:profile?.name||'WorldVibe User',
+   username:profile?.username||'',avatar:profile?.avatar||'',
+   caption:$('caption').value.trim(),hashtags:tags,privacy:$('privacy').value,
+   mediaUrl:url,mediaType:f.type.startsWith('video/')?'video':'image',
+   storagePath:path,createdAt:serverTimestamp(),likesCount:0,commentsCount:0,viewsCount:0
+  });
+  $('mediaFile').value='';$('caption').value='';$('hashtags').value='';
+  $('vprev').style.display='none';$('iprev').style.display='none';
+  if(bar)bar.style.width='100%';
+  if(status)status.textContent='Published successfully ✅';
+  toast('Published successfully ✅');
+  openPage('home')
+ }catch(e){
+  toast('Upload failed: '+e.message);
+  if(status)status.textContent='Upload failed.'
+ }finally{
+  b.disabled=false;b.textContent='Publish';
+  setTimeout(()=>{if(bar)bar.style.width='0%'},1200)
+ }
 }
+window.publishPost=publishPostEnhanced;
 
-try{
-
-const q=query(
-collection(db,"users",currentUser.uid,"notifications"),
-orderBy("createdAt","desc"),
-limit(50)
-);
-
-const snap=await getDocs(q);
-
-if(snap.empty){
-
-box.innerHTML=
-'<div class="empty">No notifications yet.</div>';
-
-return;
-
-}
-
-box.innerHTML=snap.docs.map(d=>{
-
-const n=d.data();
-
-return `
-<div class="card">
-<strong>${safe(n.title||"WorldVibe")}</strong>
-<p class="small">${safe(n.body||"You have a new notification.")}</p>
-</div>`;
-
-}).join("");
-
-}catch(e){
-
-box.innerHTML=
-'<div class="notice">Notifications are not available yet.</div>';
-
-}
-
-}
-
-
-function renderCreator(){
-
-let views=0;
-let likes=0;
-
-if(currentProfile){
-
-views=currentProfile.viewsCount||0;
-likes=currentProfile.likesCount||0;
-
-}
-
-document.getElementById("creatorViews").textContent=
-formatViews(views);
-
-document.getElementById("creatorLikes").textContent=
-formatViews(likes);
-
-document.getElementById("creatorFollowers").textContent=
-formatViews(currentProfile?.followersCount||0);
-
-}
-
-
-function renderWallet(){
-
-const saved=
-Number(localStorage.getItem("worldvibe_coins")||1000);
-
-coins=saved;
-
-document.getElementById("coinBalance").textContent=
-coins.toLocaleString();
-
-}
-
-
-window.buyCoins=function(){
-
-toast("Real coin purchases require payment integration.");
-
-};
-
-
-window.openWithdraw=function(){
-
-openModal("withdrawModal");
-
-};
-
-
-window.futureTool=function(name){
-
-toast(name+" requires its backend/media service.");
-
-};
-
-
-window.openReport=function(postId){
-
-currentPost=postId;
-openModal("reportModal");
-
-};
-
-
-window.submitReport=async function(){
-
-if(!currentUser){
-
-toast("Login first");
-return;
-
-}
-
-if(!currentPost)return;
-
-try{
-
-await addDoc(
-collection(db,"reports"),
-{
-postId:currentPost,
-reporterUid:currentUser.uid,
-reason:document.getElementById("reportReason").value,
-details:document.getElementById("reportDetails").value.trim(),
-createdAt:serverTimestamp()
-}
-);
-
-closeModal("reportModal");
-
-toast("Report submitted");
-
-}catch(error){
-
-console.error(error);
-toast("Report could not be submitted");
-
-}
-
-};
-
-
-window.openPrivacy=function(){
-openModal("privacyModal");
-};
-
-window.openSecurity=function(){
-openModal("securityModal");
-};
-
-window.showLegal=function(){
-openModal("legalModal");
-};
-
-
-window.toggleTheme=function(){
-
-document.body.classList.toggle("light");
-
-const light=document.body.classList.contains("light");
-
-localStorage.setItem("worldvibe_theme",light?"light":"dark");
-
-const sw=document.getElementById("themeSwitch");
-
-sw.classList.toggle("on",!light);
-
-};
-
-
-window.toggleSwitch=function(button){
-
-button.classList.toggle("on");
-
-};
-
-
-window.exportData=async function(){
-
-if(!currentUser){
-
-toast("Login first");
-return;
-
-}
-
-const data={
-user:currentProfile,
-exportedAt:new Date().toISOString()
-};
-
-const blob=new Blob(
-[JSON.stringify(data,null,2)],
-{type:"application/json"}
-);
-
-const url=URL.createObjectURL(blob);
-
-const a=document.createElement("a");
-a.href=url;
-a.download="worldvibe-data.json";
-a.click();
-
-URL.revokeObjectURL(url);
-
-};
-
-
-window.deleteAccount=async function(){
-
-if(!currentUser){
-
-toast("Login first");
-return;
-
-}
-
-const ok=confirm(
-"Delete your WorldVibe account? This cannot be undone."
-);
-
-if(!ok)return;
-
-try{
-
-await deleteDoc(
-doc(db,"users",currentUser.uid)
-);
-
-await deleteUser(currentUser);
-
-toast("Account deleted");
-
-}catch(error){
-
-console.error(error);
-
-toast(
-"Please login again before deleting your account."
-);
-
-}
-
-};
-
-
-function loadTheme(){
-
-if(localStorage.getItem("worldvibe_theme")==="light"){
-
-document.body.classList.add("light");
-
-document.getElementById("themeSwitch")
-.classList.remove("on");
-
-}
-
-}
-
-
-function loadLocal(){
-
-if(!localStorage.getItem("worldvibe_coins")){
-localStorage.setItem("worldvibe_coins","1000");
-}
-
-}
-
-
-function deepLink(){
-
-const params=new URLSearchParams(location.search);
-const post=params.get("post");
-
-if(post){
-
-setTimeout(()=>{
-
-openComments(post);
-
-},1000);
-
-}
-
-}
-
-
-loadTheme();
-loadLocal();
-renderDiscover();
-renderWallet();
-renderFeed();
-deepLink();
-
-</script>
-
-</body>
-</html>
+$('headerAccount').onclick=()=>user?openPage('profile'):openModal('authModal');
+</script></body></html>
