@@ -1568,7 +1568,7 @@ async function firebaseLogin(){
 
     status.style.display="block";
     status.textContent="Login successful ✅";
-
+closeModal("authModal");
     setTimeout(()=>{
       closeModal("authModal");
     },1200);
