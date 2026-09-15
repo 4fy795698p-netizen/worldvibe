@@ -503,7 +503,9 @@ body.light .comment{border-color:#eee}
 <div id="toast" class="toast"></div>
 
 <script type="module">
-
+window.addEventListener("error",e=>{
+ alert("WORLDVIBE ERROR: "+e.message);
+});
 import{initializeApp}
 from"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
