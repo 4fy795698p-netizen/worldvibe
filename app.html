@@ -718,7 +718,14 @@ window.showAuthPanel=function(panel){
   $(x+"Tab")?.classList.toggle("active",x===panel);
  });
 };
+window.showAuthPanel=function(panel){
+ ["login","signup","reset"].forEach(x=>{
+  $(x+"Panel")?.classList.toggle("active",x===panel);
+  $(x+"Tab")?.classList.toggle("active",x===panel);
+ });
+};
 
+window.showAuthPanel("login");
 function friendlyAuthError(error){
  const code=error?.code||"";
 
