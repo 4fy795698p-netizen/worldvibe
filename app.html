@@ -1529,116 +1529,246 @@ window.fileSelected=function(){
 
 };
 
-
 window.publishPost=async function(){
 
  if(!currentUser){
-
-  showToast("Please login.");
+  showToast("Please login first.");
   return;
-
  }
 
  if(!selectedFile){
-
-  showToast("Select a video or photo first.");
+  showToast("Please select a video or photo first.");
   return;
-
  }
 
- const caption=document.getElementById("caption").value.trim();
- const location=document.getElementById("location").value.trim();
- const allowComments=document.getElementById("allowComments").checked;
+ const captionEl=document.getElementById("caption");
+ const locationEl=document.getElementById("location");
+ const commentsEl=document.getElementById("allowComments");
+ const progressEl=document.getElementById("progressBar");
+
+ const caption=captionEl ? captionEl.value.trim() : "";
+ const location=locationEl ? locationEl.value.trim() : "";
+ const allowComments=commentsEl ? commentsEl.checked : true;
 
  if(selectedFile.size>300*1024*1024){
-
   showToast("Maximum file size is 300MB.");
   return;
-
  }
 
  try{
 
-  const safeName=
-   Date.now()+"_"+selectedFile.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+  showToast("Starting upload... ⏳");
 
-  const storageRef=ref(
-   storage,
-   "posts/"+currentUser.uid+"/"+safeName
-  );
+  if(progressEl){
+   progressEl.style.width="1%";
+  }
+
+  const safeName=
+   Date.now()+"_"+selectedFile.name.replace(
+    /[^a-zA-Z0-9._-]/g,
+    "_"
+   );
+
+  const storagePath=
+   "posts/"+currentUser.uid+"/"+safeName;
+
+  console.log("WorldVibe upload:",storagePath);
+  console.log("File:",selectedFile.name);
+  console.log("Size:",selectedFile.size);
+  console.log("Type:",selectedFile.type);
+
+  const storageRef=
+   ref(storage,storagePath);
 
   const uploadTask=
-   uploadBytesResumable(storageRef,selectedFile);
+   uploadBytesResumable(
+    storageRef,
+    selectedFile,
+    {
+     contentType:selectedFile.type ||
+      "video/quicktime"
+    }
+   );
 
   uploadTask.on(
+
    "state_changed",
 
    snapshot=>{
 
     const percent=
-     snapshot.bytesTransferred /
-     snapshot.totalBytes * 100;
+     snapshot.totalBytes
+     ? (
+       snapshot.bytesTransferred /
+       snapshot.totalBytes
+      )*100
+     : 0;
 
-    document.getElementById("progressBar").style.width=
-     percent+"%";
+    console.log(
+     "Upload:",
+     percent.toFixed(1)+"%"
+    );
+
+    if(progressEl){
+     progressEl.style.width=
+      percent+"%";
+    }
 
    },
 
    error=>{
 
-    console.error(error);
-    showToast(error.message);
+    console.error(
+     "WORLDVIBE STORAGE ERROR:",
+     error
+    );
+
+    let message=
+     "Upload failed.";
+
+    if(error.code==="storage/unauthorized"){
+     message=
+      "Firebase Storage permission denied.";
+    }
+    else if(error.code==="storage/unauthenticated"){
+     message=
+      "Please login again.";
+    }
+    else if(error.code==="storage/canceled"){
+     message=
+      "Upload cancelled.";
+    }
+    else if(error.code==="storage/quota-exceeded"){
+     message=
+      "Firebase Storage quota exceeded.";
+    }
+    else if(error.code==="storage/retry-limit-exceeded"){
+     message=
+      "Upload timed out. Please try again.";
+    }
+    else if(error.message){
+     message=error.message;
+    }
+
+    showToast(message);
+
+    if(progressEl){
+     progressEl.style.width="0%";
+    }
 
    },
 
    async()=>{
 
-    const mediaURL=
-     await getDownloadURL(uploadTask.snapshot.ref);
+    try{
 
-    const mediaType=
-     selectedFile.type.startsWith("image/")
-     ? "image"
-     : "video";
+     showToast(
+      "Video uploaded. Saving post... ⏳"
+     );
 
-    await addDoc(
-     collection(db,"posts"),
-     {
-      uid:currentUser.uid,
-      userName:currentProfile?.name ||
-       currentUser.displayName ||
-       "WorldVibe User",
-      username:currentProfile?.username || "user",
-      userPhoto:currentProfile?.photoURL || "",
-      mediaURL,
-      mediaType,
-      caption,
-      location,
-      allowComments,
-      likes:0,
-      shares:0,
-      views:0,
-      likedBy:[],
-      savedBy:[],
-      comments:[],
-      hashtags:extractHashtags(caption),
-      createdAt:serverTimestamp()
+     const mediaURL=
+      await getDownloadURL(
+       uploadTask.snapshot.ref
+      );
+
+     const mediaType=
+      selectedFile.type &&
+      selectedFile.type.startsWith("image/")
+      ? "image"
+      : "video";
+
+     await addDoc(
+      collection(db,"posts"),
+      {
+       uid:currentUser.uid,
+
+       userName:
+        currentProfile?.name ||
+        currentUser.displayName ||
+        "WorldVibe User",
+
+       username:
+        currentProfile?.username ||
+        "user",
+
+       userPhoto:
+        currentProfile?.photoURL ||
+        "",
+
+       mediaURL,
+       mediaType,
+       caption,
+       location,
+       allowComments,
+
+       likes:0,
+       shares:0,
+       views:0,
+
+       likedBy:[],
+       savedBy:[],
+       comments:[],
+
+       hashtags:
+        extractHashtags(caption),
+
+       createdAt:
+        serverTimestamp()
+      }
+     );
+
+     selectedFile=null;
+
+     const fileInput=
+      document.getElementById("mediaFile");
+
+     if(fileInput){
+      fileInput.value="";
      }
-    );
 
-    selectedFile=null;
+     const fileName=
+      document.getElementById("fileName");
 
-    document.getElementById("mediaFile").value="";
-    document.getElementById("fileName").textContent="";
-    document.getElementById("caption").value="";
-    document.getElementById("location").value="";
-    document.getElementById("progressBar").style.width="0%";
+     if(fileName){
+      fileName.textContent="";
+     }
 
-    showToast("Published successfully 🚀");
+     if(captionEl){
+      captionEl.value="";
+     }
 
-    await loadPosts();
+     if(locationEl){
+      locationEl.value="";
+     }
 
-    showPage("home",document.getElementById("navHome"));
+     if(progressEl){
+      progressEl.style.width="0%";
+     }
+
+     showToast(
+      "Published successfully 🚀"
+     );
+
+     await loadPosts();
+
+     showPage(
+      "home",
+      document.getElementById("navHome")
+     );
+
+    }catch(error){
+
+     console.error(
+      "WORLDVIBE FIRESTORE ERROR:",
+      error
+     );
+
+     showToast(
+      "Post save failed: "+
+      (error.message || "Unknown error")
+     );
+
+    }
 
    }
 
@@ -1646,14 +1776,19 @@ window.publishPost=async function(){
 
  }catch(error){
 
-  console.error(error);
-  showToast(error.message);
+  console.error(
+   "WORLDVIBE PUBLISH ERROR:",
+   error
+  );
+
+  showToast(
+   error.message ||
+   "Unable to start upload."
+  );
 
  }
 
 };
-
-
 /* =========================================================
    LIKE
 ========================================================= */
