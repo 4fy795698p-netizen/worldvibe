@@ -639,6 +639,7 @@ if(post.type==="video"){
     muted
     loop
     preload="auto"
+    onclick="this.muted=false; this.play().catch(()=>{})"
    ></video>`;
 
   }else{
