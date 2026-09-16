@@ -626,7 +626,7 @@ function postCard(post){
 
  if(post.src){
 
-  if(post.type==="video"){
+if(post.type==="video"){
 
    media=
    `<video
@@ -634,7 +634,11 @@ function postCard(post){
     src="${post.src}"
     controls
     playsinline
+    webkit-playsinline
+    autoplay
+    muted
     loop
+    preload="auto"
    ></video>`;
 
   }else{
