@@ -2,4016 +2,1847 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta name="theme-color" content="#050505">
 <title>WorldVibe 🌍🎬</title>
 
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#050505;color:#fff;font-family:Arial,Helvetica,sans-serif}
-body{min-height:100vh}
+html,body{
+ margin:0;
+ width:100%;
+ height:100%;
+ background:#050505;
+ color:#fff;
+ font-family:Arial,Helvetica,sans-serif
+}
 button,input,textarea{font:inherit}
-button{cursor:pointer}
-button:disabled{cursor:not-allowed}
-.hidden{display:none!important}
-
-:root{
---bg:#050505;
---card:#111;
---card2:#181818;
---text:#fff;
---muted:#aaa;
---line:#292929;
---accent:#ff315c;
---accent2:#7c5cff
+button{border:0;cursor:pointer}
+#app{
+ width:100%;
+ max-width:720px;
+ height:100vh;
+ margin:auto;
+ background:#080808;
+ position:relative;
+ overflow:hidden
 }
-
-body{background:var(--bg);color:var(--text)}
-body.light{
---bg:#f5f5f5;
---card:#fff;
---card2:#eee;
---text:#111;
---muted:#666;
---line:#ddd
+header{
+ height:58px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 14px;
+ border-bottom:1px solid #222;
+ background:#080808;
+ position:relative;
+ z-index:20
 }
-
-.app{
-max-width:700px;
-margin:auto;
-min-height:100vh;
-padding-bottom:80px
+.logo{
+ font-size:21px;
+ font-weight:800
 }
-
-.top{
-position:sticky;
-top:0;
-z-index:50;
-background:rgba(5,5,5,.94);
-backdrop-filter:blur(12px);
-border-bottom:1px solid var(--line);
-padding:12px 14px
+.header-btn{
+ width:38px;
+ height:38px;
+ border-radius:50%;
+ background:#191919;
+ color:#fff
 }
-
-body.light .top{background:rgba(245,245,245,.94)}
-
-.toprow{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px
+main{
+ height:calc(100vh - 116px);
+ overflow:auto;
+ scrollbar-width:none
 }
+main::-webkit-scrollbar{display:none}
 
-.logo{font-size:21px;font-weight:900}
-.logo span{color:var(--accent)}
-
-.topbuttons{
-display:flex;
-gap:7px
+/* FEED */
+.feed{
+ height:100%;
+ overflow-y:auto;
+ scroll-snap-type:y mandatory
 }
-
-.iconbtn{
-width:38px;
-height:38px;
-border:1px solid var(--line);
-background:var(--card);
-color:var(--text);
-border-radius:50%
-}
-
-.search{
-margin-top:10px;
-width:100%;
-padding:11px 14px;
-border:1px solid var(--line);
-border-radius:25px;
-background:var(--card);
-color:var(--text);
-outline:none
-}
-
-.page{padding:14px}
-
-.hero{
-background:linear-gradient(135deg,#151515,#24101a);
-border:1px solid var(--line);
-border-radius:22px;
-padding:22px;
-margin-bottom:16px
-}
-
-.hero h1{margin:0 0 8px;font-size:28px}
-.hero p{margin:0;color:#bbb;line-height:1.5}
-
-.section{margin-bottom:16px}
-
-.notice{
-background:var(--card);
-border:1px solid var(--line);
-border-radius:18px;
-padding:22px;
-text-align:center;
-color:var(--muted)
-}
-
-.field{
-width:100%;
-padding:13px;
-margin:7px 0;
-border:1px solid var(--line);
-border-radius:12px;
-background:var(--bg);
-color:var(--text);
-outline:none
-}
-
-.primary{
-width:100%;
-padding:13px;
-border:0;
-border-radius:14px;
-color:#fff;
-font-weight:800;
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-margin-top:8px
-}
-
-.secondary{
-padding:11px 14px;
-border:1px solid var(--line);
-border-radius:12px;
-background:var(--card2);
-color:var(--text);
-font-weight:700
-}
-
-.textbtn{
-background:none;
-border:0;
-color:var(--accent);
-padding:8px 0;
-font-weight:700
-}
-
-.authbox{
-max-width:460px;
-margin:50px auto;
-padding:22px;
-background:var(--card);
-border:1px solid var(--line);
-border-radius:22px
-}
-
-.authbox h2{margin-top:0}
-
-.profileHead{
-display:flex;
-align-items:center;
-gap:15px;
-background:var(--card);
-border:1px solid var(--line);
-border-radius:20px;
-padding:18px
-}
-
-.avatar{
-width:70px;
-height:70px;
-border-radius:50%;
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-font-weight:900;
-overflow:hidden;
-flex-shrink:0
-}
-
-.avatar img,
-.postavatar img{
-width:100%;
-height:100%;
-object-fit:cover
-}
-
-.profileName{
-font-size:20px;
-font-weight:900
-}
-
-.username{
-color:var(--muted);
-margin-top:3px
-}
-
-.stats{
-display:flex;
-gap:18px;
-margin-top:10px
-}
-
-.stat b{
-display:block;
-font-size:17px
-}
-
-.stat small{color:var(--muted)}
-
-.tabs{
-display:flex;
-gap:5px;
-background:var(--card);
-border-radius:14px;
-padding:5px;
-margin:14px 0
-}
-
-.tabs button{
-flex:1;
-border:0;
-background:none;
-color:var(--muted);
-padding:10px;
-border-radius:10px
-}
-
-.tabs button.active{
-background:var(--card2);
-color:var(--text);
-font-weight:800
-}
-
-.createBox{
-background:var(--card);
-border:1px solid var(--line);
-border-radius:20px;
-padding:18px
-}
-
-.filelabel{
-display:flex;
-align-items:center;
-justify-content:center;
-min-height:120px;
-border:2px dashed #555;
-border-radius:18px;
-color:var(--muted);
-text-align:center;
-padding:15px
-}
-
-.filelabel input{display:none}
-
-.filename{
-margin-top:10px;
-padding:10px;
-border-radius:10px;
-background:var(--card2);
-font-size:13px;
-word-break:break-all
-}
-
-.progress{
-height:8px;
-background:#292929;
-border-radius:20px;
-overflow:hidden;
-margin:12px 0
-}
-
-.progress div{
-width:0%;
-height:100%;
-background:linear-gradient(90deg,var(--accent),var(--accent2));
-transition:.2s
-}
-
-.statusbox{
-margin-top:12px;
-padding:13px;
-border-radius:12px;
-background:var(--card2);
-border:1px solid var(--line);
-font-size:13px;
-line-height:1.5;
-word-break:break-word
-}
-
 .post{
-background:var(--card);
-border:1px solid var(--line);
-border-radius:20px;
-overflow:hidden;
-margin-bottom:18px
+ height:100%;
+ min-height:520px;
+ position:relative;
+ scroll-snap-align:start;
+ background:#111;
+ overflow:hidden
 }
-
-.posthead{
-display:flex;
-align-items:center;
-gap:10px;
-padding:13px
+.post-media{
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ position:absolute;
+ inset:0;
+ background:#161616
 }
-
-.postavatar{
-width:42px;
-height:42px;
-border-radius:50%;
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:900;
-overflow:hidden;
-flex-shrink:0
+.post-gradient{
+ position:absolute;
+ inset:0;
+ background:linear-gradient(
+  transparent 40%,
+  rgba(0,0,0,.12) 55%,
+  rgba(0,0,0,.9) 100%
+ )
 }
-
-.postuser{font-weight:800}
-
-.postuser small{
-display:block;
-color:var(--muted);
-font-weight:400;
-margin-top:2px
+.post-info{
+ position:absolute;
+ left:15px;
+ right:78px;
+ bottom:22px;
+ z-index:3
 }
-
-.postmedia{
-width:100%;
-max-height:75vh;
-object-fit:contain;
-display:block;
-background:#000
+.post-user{
+ font-weight:800;
+ font-size:16px
 }
-
-.postbody{padding:13px}
-
-.caption{
-line-height:1.45;
-white-space:pre-wrap
+.post-handle{
+ color:#bbb;
+ font-size:13px
 }
-
-.location{
-color:var(--muted);
-font-size:13px;
-margin-top:6px
+.post-caption{
+ margin-top:8px;
+ line-height:1.4
 }
-
-.actions{
-display:flex;
-gap:7px;
-margin-top:12px
+.post-tags{
+ color:#ddd;
+ margin-top:5px
 }
-
+.post-actions{
+ position:absolute;
+ right:10px;
+ bottom:22px;
+ z-index:4;
+ display:flex;
+ flex-direction:column;
+ gap:10px
+}
 .action{
-flex:1;
-padding:10px 5px;
-border:1px solid var(--line);
-border-radius:12px;
-background:var(--card2);
-color:var(--text);
-font-size:13px
+ width:50px;
+ min-height:48px;
+ border-radius:25px;
+ background:rgba(0,0,0,.5);
+ color:#fff;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center
+}
+.action-icon{font-size:21px}
+.action-count{font-size:10px;margin-top:2px}
+
+/* NAV */
+.bottom-nav{
+ height:58px;
+ position:absolute;
+ left:0;
+ right:0;
+ bottom:0;
+ z-index:30;
+ display:flex;
+ justify-content:space-around;
+ align-items:center;
+ background:#080808;
+ border-top:1px solid #222
+}
+.nav{
+ background:none;
+ color:#888;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ gap:2px;
+ font-size:10px
+}
+.nav-icon{font-size:21px}
+.nav.active{color:#fff}
+
+/* GENERAL */
+.section{
+ padding:18px 15px
+}
+.section h2{
+ margin:3px 0 16px
+}
+.muted{
+ color:#999;
+ font-size:13px
+}
+.empty{
+ padding:55px 20px;
+ text-align:center;
+ color:#888
+}
+.btn{
+ background:#fff;
+ color:#000;
+ padding:11px 17px;
+ border-radius:10px;
+ font-weight:700
+}
+.btn.dark{
+ background:#202020;
+ color:#fff
+}
+.btn.red{
+ background:#ff3150;
+ color:#fff
+}
+.field{
+ width:100%;
+ background:#171717;
+ color:#fff;
+ border:1px solid #292929;
+ border-radius:10px;
+ padding:12px;
+ outline:none
+}
+.row{
+ display:flex;
+ gap:9px;
+ align-items:center
 }
 
-.action.liked{
-color:var(--accent);
-border-color:var(--accent)
+/* SEARCH */
+.search-box{
+ display:flex;
+ gap:8px;
+ padding:13px
 }
 
-.comments{
-margin-top:12px;
-border-top:1px solid var(--line);
-padding-top:12px
+/* EXPLORE */
+.tag-list{
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px
 }
-
-.commentrow{
-display:flex;
-gap:8px;
-margin-top:7px
+.tag{
+ padding:9px 12px;
+ border-radius:20px;
+ background:#181818;
+ color:#fff
 }
-
-.comment{
-background:var(--card2);
-border-radius:12px;
-padding:8px 10px;
-flex:1;
-font-size:13px
-}
-
-.commentInput{
-display:flex;
-gap:7px;
-margin-top:10px
-}
-
-.commentInput input{
-flex:1;
-padding:10px;
-border:1px solid var(--line);
-border-radius:12px;
-background:var(--bg);
-color:var(--text)
-}
-
 .grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:2px
+}
+.grid-item{
+ aspect-ratio:1;
+ background:#171717;
+ overflow:hidden
+}
+.grid-item img,
+.grid-item video{
+ width:100%;
+ height:100%;
+ object-fit:cover
 }
 
-.card{
-background:var(--card);
-border:1px solid var(--line);
-border-radius:16px;
-padding:15px
+/* PROFILE */
+.profile{
+ text-align:center;
+ padding:25px 15px 15px
+}
+.avatar{
+ width:88px;
+ height:88px;
+ border-radius:50%;
+ object-fit:cover;
+ background:#222;
+ display:block;
+ margin:auto
+}
+.profile h2{
+ margin:12px 0 3px
+}
+.stats{
+ display:flex;
+ justify-content:center;
+ gap:32px;
+ margin:18px 0
+}
+.stat b{
+ display:block;
+ font-size:18px
+}
+.stat span{
+ color:#888;
+ font-size:12px
 }
 
-.card h3{margin:0 0 7px}
-.card p{
-margin:0;
-color:var(--muted);
-line-height:1.4
+/* LIST */
+.list{
+ display:flex;
+ flex-direction:column;
+ gap:8px
+}
+.list-item{
+ padding:14px;
+ border-radius:12px;
+ background:#151515;
+ display:flex;
+ align-items:center;
+ justify-content:space-between
 }
 
-.menu{
-background:var(--card);
-border:1px solid var(--line);
-border-radius:20px;
-overflow:hidden
-}
-
-.menu button{
-width:100%;
-padding:16px;
-border:0;
-border-bottom:1px solid var(--line);
-background:none;
-color:var(--text);
-text-align:left
-}
-
-.menu button:last-child{border-bottom:0}
-
-.danger{color:#ff4d67!important}
-
-.bottom{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-height:68px;
-background:rgba(5,5,5,.96);
-backdrop-filter:blur(15px);
-border-top:1px solid var(--line);
-display:flex;
-justify-content:center;
-z-index:100
-}
-
-body.light .bottom{
-background:rgba(245,245,245,.96)
-}
-
-.bottominner{
-width:700px;
-display:flex
-}
-
-.navbtn{
-flex:1;
-border:0;
-background:none;
-color:var(--muted);
-font-size:11px
-}
-
-.navbtn b{
-display:block;
-font-size:21px;
-margin-bottom:2px
-}
-
-.navbtn.active{color:var(--text)}
-.navbtn.create b{color:var(--accent)}
-
-.toast{
-position:fixed;
-left:50%;
-bottom:85px;
-transform:translateX(-50%);
-background:#fff;
-color:#111;
-padding:12px 16px;
-border-radius:14px;
-font-weight:700;
-max-width:90%;
-z-index:500;
-box-shadow:0 8px 30px rgba(0,0,0,.4)
-}
-
+/* MODAL */
 .modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.7);
-display:flex;
-align-items:center;
-justify-content:center;
-padding:18px;
-z-index:400
+ position:absolute;
+ inset:0;
+ z-index:100;
+ display:none;
+ align-items:flex-end;
+ background:rgba(0,0,0,.75)
+}
+.modal.show{display:flex}
+.sheet{
+ width:100%;
+ max-height:90%;
+ overflow:auto;
+ background:#111;
+ border-radius:20px 20px 0 0;
+ padding:18px
+}
+.close{
+ float:right;
+ width:34px;
+ height:34px;
+ border-radius:50%;
+ background:#242424;
+ color:#fff;
+ font-size:20px
+}
+.preview{
+ width:100%;
+ max-height:320px;
+ object-fit:contain;
+ background:#050505;
+ border-radius:12px;
+ margin:12px 0
 }
 
-.modalbox{
-width:min(500px,100%);
-background:var(--card);
-border:1px solid var(--line);
-border-radius:22px;
-padding:20px;
-max-height:85vh;
-overflow:auto
+/* TOAST */
+.toast{
+ position:absolute;
+ left:50%;
+ bottom:72px;
+ transform:translateX(-50%);
+ background:#fff;
+ color:#000;
+ padding:11px 16px;
+ border-radius:10px;
+ z-index:200;
+ display:none;
+ white-space:nowrap
 }
+.toast.show{display:block}
 
-.loading{
-text-align:center;
-padding:40px 20px;
-color:var(--muted)
+/* LIGHT */
+.light{
+ background:#f5f5f5;
+ color:#111
 }
-
-.error{
-color:#ff4d67!important
+.light #app,
+.light header,
+.light .bottom-nav{
+ background:#fff;
+ color:#111
 }
+.light header,
+.light .bottom-nav{
+ border-color:#ddd
+}
+.light .nav{color:#777}
+.light .nav.active{color:#111}
+.light .field,
+.light .list-item,
+.light .tag{
+ background:#f0f0f0;
+ color:#111;
+ border-color:#ddd
+}
+.light .sheet{background:#fff;color:#111}
+.light .header-btn{background:#eee;color:#111}
 
-@media(max-width:480px){
-.page{padding:10px}
-.grid{grid-template-columns:1fr}
-.hero h1{font-size:24px}
-.stats{gap:12px}
-.actions{gap:4px}
-.action{font-size:12px}
+/* CREATE */
+.file-button{
+ display:block;
+ text-align:center;
+ width:100%;
+ margin-bottom:12px
+}
+.file-button input{display:none}
+
+/* COMMENTS */
+.comment-row{
+ display:flex;
+ gap:8px;
+ margin-top:12px
+}
+.comment-row input{flex:1}
+
+/* RESPONSIVE */
+@media(max-width:430px){
+ .logo{font-size:19px}
+ .post-info{right:70px}
+ .action{width:46px}
 }
 </style>
 </head>
 
 <body>
 
-<div id="toastArea"></div>
+<div id="app">
 
-<div id="app" class="app">
-
-<header class="top">
-
-<div class="toprow">
-
-<div class="logo">
-🌍 <span>WorldVibe</span> 🎬
-</div>
-
-<div class="topbuttons">
-
-<button class="iconbtn" onclick="toggleTheme()">☀️</button>
-
-<button class="iconbtn" onclick="openSearch()">🔍</button>
-
-</div>
-
-</div>
-
-<input
-id="searchBox"
-class="search hidden"
-placeholder="Search creators, captions, hashtags..."
-oninput="searchPosts(this.value)"
->
-
+<header>
+ <div class="logo">WorldVibe 🌍🎬</div>
+ <button class="header-btn" onclick="openSearch()">🔎</button>
 </header>
 
+<main id="main"></main>
 
-<main id="pageHome" class="page">
+<nav class="bottom-nav">
 
-<div class="hero">
-
-<h1>Share your world. 🌍</h1>
-
-<p>
-Discover everyone's vibe, create videos and connect with people around the world.
-</p>
-
-</div>
-
-<div class="section">
-
-<h2>For You 🔥</h2>
-
-<div id="feed" class="loading">
-Loading WorldVibe... ⏳
-</div>
-
-</div>
-
-</main>
-
-
-<main id="pageDiscover" class="page hidden">
-
-<div class="hero">
-<h1>Discover 🔎</h1>
-<p>Find creators and discover WorldVibe posts.</p>
-</div>
-
-<div id="discoverContent"></div>
-
-</main>
-
-
-<main id="pageCreate" class="page hidden">
-
-<div class="section">
-
-<h2>Create 🎬</h2>
-
-<div class="createBox">
-
-<label class="filelabel">
-
-<input
-id="mediaFile"
-type="file"
-accept="video/*,image/*"
-onchange="selectMedia(this)"
->
-
-<span>
-🎥
-<br><br>
-Select Video or Photo
-</span>
-
-</label>
-
-<div id="fileName" class="filename hidden"></div>
-
-<textarea
-id="caption"
-class="field"
-rows="4"
-placeholder="Write a caption... #WorldVibe"
-></textarea>
-
-<input
-id="location"
-class="field"
-placeholder="Location (optional)"
->
-
-<label style="display:block;margin:12px 0">
-
-<input id="allowComments" type="checkbox" checked>
-
-Allow comments
-
-</label>
-
-<div class="progress">
-<div id="progressBar"></div>
-</div>
-
-<div id="uploadStatus" class="statusbox hidden"></div>
-
-<button
-id="publishButton"
-class="primary"
-onclick="publishPost()"
->
-Publish to WorldVibe 🚀
+<button class="nav active" data-tab="home" onclick="go('home')">
+ <span class="nav-icon">⌂</span>
+ Home
 </button>
 
-<button
-class="secondary"
-style="width:100%;margin-top:8px"
-onclick="saveDraft()"
->
-Save Draft
+<button class="nav" data-tab="explore" onclick="go('explore')">
+ <span class="nav-icon">◉</span>
+ Explore
 </button>
 
-<div style="margin-top:18px">
-
-<b>Drafts</b>
-
-<div
-id="drafts"
-class="notice"
-style="margin-top:8px"
->
-No drafts
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</main>
-
-
-<main id="pageAlerts" class="page hidden">
-
-<div class="hero">
-
-<h1>Alerts 🔔</h1>
-
-<p>
-Your WorldVibe activity will appear here.
-</p>
-
-</div>
-
-<div class="notice">
-No new alerts.
-</div>
-
-</main>
-
-
-<main id="pageProfile" class="page hidden">
-
-<div id="profileArea"></div>
-
-</main>
-
-</div>
-
-
-<nav class="bottom">
-
-<div class="bottominner">
-
-<button
-id="navHome"
-class="navbtn active"
-onclick="showPage('home',this)"
->
-<b>🏠</b>
-Home
+<button class="nav" data-tab="create" onclick="openCreate()">
+ <span class="nav-icon">＋</span>
+ Create
 </button>
 
-<button
-id="navDiscover"
-class="navbtn"
-onclick="showPage('discover',this)"
->
-<b>🔎</b>
-Discover
+<button class="nav" data-tab="activity" onclick="go('activity')">
+ <span class="nav-icon">♡</span>
+ Activity
 </button>
 
-<button
-id="navCreate"
-class="navbtn create"
-onclick="showPage('create',this)"
->
-<b>➕</b>
-Create
+<button class="nav" data-tab="profile" onclick="go('profile')">
+ <span class="nav-icon">♙</span>
+ Profile
 </button>
-
-<button
-id="navAlerts"
-class="navbtn"
-onclick="showPage('alerts',this)"
->
-<b>🔔</b>
-Alerts
-</button>
-
-<button
-id="navProfile"
-class="navbtn"
-onclick="showPage('profile',this)"
->
-<b>👤</b>
-Profile
-</button>
-
-</div>
 
 </nav>
 
+<div id="toast" class="toast"></div>
 
-<div id="authModal" class="modal">
-
-<div class="authbox modalbox">
-
-<h2>🌍 WorldVibe 🎬</h2>
-
-<p style="color:var(--muted)">
-Create your account or login.
-</p>
-
-<input
-id="authEmail"
-class="field"
-type="email"
-placeholder="Email"
->
-
-<input
-id="authPassword"
-class="field"
-type="password"
-placeholder="Password"
->
-
-<button
-class="primary"
-onclick="firebaseLogin()"
->
-Login
-</button>
-
-<button
-class="secondary"
-style="width:100%;margin-top:8px"
-onclick="firebaseSignup()"
->
-Create Account
-</button>
-
-<button
-class="textbtn"
-onclick="forgotPassword()"
->
-Forgot password?
-</button>
-
-<div
-id="authStatus"
-style="margin-top:10px;color:var(--muted);font-size:13px"
-></div>
-
+<div id="modal" class="modal">
+ <div class="sheet">
+  <button class="close" onclick="closeModal()">×</button>
+  <div id="sheet"></div>
+ </div>
 </div>
 
 </div>
 
+<script>
 
-<div id="editModal" class="modal hidden">
+const STORAGE_KEY="WORLDVIBE_FRONTEND_V2";
 
-<div class="modalbox">
+let state;
 
-<h2>Edit Profile</h2>
+try{
+ state=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");
+}catch(e){
+ state=null;
+}
 
-<input
-id="editName"
-class="field"
-placeholder="Your name"
->
+if(!state){
 
-<input
-id="editUsername"
-class="field"
-placeholder="Username"
->
+ state={
+  user:{
+   name:"WorldVibe User",
+   handle:"@worldvibe_user",
+   bio:"Welcome to WorldVibe 🌍🎬",
+   avatar:""
+  },
 
-<input
-id="editPhoto"
-class="field"
-placeholder="Profile photo URL (optional)"
->
+  posts:[
+   {
+    id:"welcome",
+    user:"WorldVibe",
+    handle:"@worldvibe",
+    caption:"Welcome to WorldVibe 🌍🎬",
+    tags:"#WorldVibe #Welcome",
+    likes:12,
+    comments:2,
+    views:120,
+    liked:false,
+    saved:false,
+    type:"demo",
+    src:"",
+    created:Date.now()
+   }
+  ],
 
-<textarea
-id="editBio"
-class="field"
-rows="3"
-placeholder="Bio"
-></textarea>
+  following:[],
+  activity:[],
+  drafts:[],
 
-<button
-class="primary"
-onclick="saveProfile()"
->
-Save Profile
-</button>
+  settings:{
+   theme:"dark"
+  }
+ };
 
-<button
-class="secondary"
-style="width:100%;margin-top:8px"
-onclick="closeEdit()"
->
-Cancel
-</button>
+ save();
+}
 
-</div>
+let currentTab="home";
+let searchQuery="";
+let selectedFile=null;
 
-</div>
+/* STORAGE */
 
+function save(){
 
-<script type="module">
+ try{
+  localStorage.setItem(
+   STORAGE_KEY,
+   JSON.stringify(state)
+  );
+ }catch(error){
 
-/* =========================================================
-   FIREBASE IMPORTS
-========================================================= */
+  console.log(error);
 
-import {
-initializeApp
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
-
-import {
-getAuth,
-onAuthStateChanged,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword,
-sendPasswordResetEmail,
-signOut,
-deleteUser,
-updateProfile
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-
-import {
-getFirestore,
-collection,
-addDoc,
-getDocs,
-getDoc,
-doc,
-setDoc,
-updateDoc,
-deleteDoc,
-query,
-orderBy,
-limit,
-serverTimestamp,
-arrayUnion,
-arrayRemove
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
-import {
-getStorage,
-ref,
-uploadBytes,
-getDownloadURL
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
-
-
-/* =========================================================
-   FIREBASE CONFIG
-========================================================= */
-
-const firebaseConfig = {
-
-apiKey:"AIzaSyArCb63lgx3tGMm1QPYQzeLNN7awL8Gx3A",
-
-authDomain:"worldvibe-9f531.firebaseapp.com",
-
-projectId:"worldvibe-9f531",
-
-storageBucket:"worldvibe-9f531.firebasestorage.app",
-
-messagingSenderId:"148680723994",
-
-appId:"1:148680723994:web:c9cf32cd47d7a3ec190ba3",
-
-measurementId:"G-WZ9G2B2EDP"
-
-};
-
-
-/* =========================================================
-   FIREBASE START
-========================================================= */
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-/* IMPORTANT: normal Firestore initialization */
-const db = getFirestore(app);
-
-const storage = getStorage(app);
-
-
-/* =========================================================
-   APP STATE
-========================================================= */
-
-let currentUser = null;
-
-let currentProfile = null;
-
-let posts = [];
-
-let filteredPosts = [];
-
-let selectedFile = null;
-
-let drafts = [];
-
-let publishing = false;
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-window.showToast = function(message){
-
-const area = document.getElementById("toastArea");
-
-const item = document.createElement("div");
-
-item.className = "toast";
-
-item.textContent = message;
-
-area.appendChild(item);
-
-setTimeout(()=>{
-item.remove();
-},4500);
-
-};
-
-
-function initials(name){
-
-return String(name || "W")
-.split(" ")
-.filter(Boolean)
-.slice(0,2)
-.map(x=>x[0])
-.join("")
-.toUpperCase();
+ }
 
 }
 
+function toast(message){
+
+ const el=document.getElementById("toast");
+
+ el.textContent=message;
+ el.classList.add("show");
+
+ setTimeout(()=>{
+  el.classList.remove("show");
+ },2200);
+
+}
 
 function escapeHTML(value){
 
-return String(value ?? "")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+ return String(value||"")
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;")
+ .replace(/'/g,"&#039;");
 
 }
 
+/* NAVIGATION */
 
-function hashtags(text){
+function updateNav(){
 
-return String(text || "")
-.match(/#[a-zA-Z0-9_]+/g) || [];
+ document.querySelectorAll(".nav").forEach(button=>{
 
-}
+  button.classList.toggle(
+   "active",
+   button.dataset.tab===currentTab
+  );
 
-
-function status(text){
-
-const box = document.getElementById("uploadStatus");
-
-box.textContent = text;
-
-box.classList.remove("hidden");
+ });
 
 }
 
+function go(tab){
 
-function setProgress(value){
+ currentTab=tab;
 
-document.getElementById("progressBar").style.width =
-Math.max(0,Math.min(100,value))+"%";
+ updateNav();
 
-}
-
-
-/*
- Safe timeout.
- This prevents the screen from waiting forever.
-*/
-
-function withTimeout(promise,ms){
-
-return Promise.race([
-
-promise,
-
-new Promise((_,reject)=>{
-
-setTimeout(()=>{
-
-reject(
-new Error(
-"Request timed out. Please check Firebase Rules, internet connection and Firebase project."
-)
-);
-
-},ms);
-
-})
-
-]);
+ render();
 
 }
 
+function render(){
 
-/* =========================================================
-   THEME
-========================================================= */
+ document.body.classList.toggle(
+  "light",
+  state.settings.theme==="light"
+ );
 
-window.toggleTheme = function(){
+ updateNav();
 
-document.body.classList.toggle("light");
+ if(currentTab==="home"){
+  renderHome();
+ }
 
-localStorage.setItem(
-"worldvibe_theme",
-document.body.classList.contains("light")
-?"light"
-:"dark"
-);
+ else if(currentTab==="explore"){
+  renderExplore();
+ }
 
-};
+ else if(currentTab==="activity"){
+  renderActivity();
+ }
 
-
-if(
-localStorage.getItem("worldvibe_theme")==="light"
-){
-
-document.body.classList.add("light");
-
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-window.openSearch = function(){
-
-const box = document.getElementById("searchBox");
-
-box.classList.toggle("hidden");
-
-if(!box.classList.contains("hidden")){
-
-box.focus();
+ else if(currentTab==="profile"){
+  renderProfile();
+ }
 
 }
 
-};
+/* HOME */
 
+function renderHome(){
 
-window.searchPosts = function(value){
+ const posts=state.posts.filter(
+  post=>post.type!=="draft"
+ );
 
-const term =
-String(value || "")
-.toLowerCase()
-.trim();
+ if(!posts.length){
 
-if(!term){
+  document.getElementById("main").innerHTML=
+  `<div class="empty">
+   No posts yet.<br><br>
+   Tap ＋ to create your first WorldVibe post.
+  </div>`;
 
-filteredPosts = posts;
+  return;
 
-renderFeed(posts);
+ }
 
-return;
-
-}
-
-filteredPosts = posts.filter(post=>{
-
-return (
-
-String(post.caption || "")
-.toLowerCase()
-.includes(term)
-
-||
-
-String(post.username || "")
-.toLowerCase()
-.includes(term)
-
-||
-
-String(post.userName || "")
-.toLowerCase()
-.includes(term)
-
-||
-
-Array.isArray(post.hashtags)
-&&
-post.hashtags.some(
-h=>String(h).toLowerCase().includes(term)
-)
-
-);
-
-});
-
-renderFeed(filteredPosts);
-
-};
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-window.showPage = function(page,button){
-
-document
-.querySelectorAll("main")
-.forEach(main=>{
-main.classList.add("hidden");
-});
-
-
-const target =
-document.getElementById(
-"page"+
-page.charAt(0).toUpperCase()+
-page.slice(1)
-);
-
-
-if(target){
-
-target.classList.remove("hidden");
+ document.getElementById("main").innerHTML=
+ `<div class="feed">
+  ${posts.map(postCard).join("")}
+ </div>`;
 
 }
-
-
-document
-.querySelectorAll(".navbtn")
-.forEach(btn=>{
-btn.classList.remove("active");
-});
-
-
-if(button){
-
-button.classList.add("active");
-
-}
-
-
-if(page==="profile"){
-
-renderProfile();
-
-}
-
-
-if(page==="discover"){
-
-renderDiscover();
-
-}
-
-
-if(page==="create"){
-
-renderDrafts();
-
-}
-
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-};
-
-
-/* =========================================================
-   AUTH MODAL
-========================================================= */
-
-function authModal(show){
-
-document
-.getElementById("authModal")
-.classList.toggle("hidden",!show);
-
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-window.firebaseLogin = async function(){
-
-const email =
-document.getElementById("authEmail")
-.value
-.trim();
-
-const password =
-document.getElementById("authPassword")
-.value;
-
-const statusBox =
-document.getElementById("authStatus");
-
-
-if(!email || !password){
-
-statusBox.textContent =
-"Enter email and password.";
-
-return;
-
-}
-
-
-try{
-
-statusBox.textContent =
-"Logging in...";
-
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-statusBox.textContent =
-"Login successful ✅";
-
-}catch(error){
-
-console.error(error);
-
-statusBox.textContent =
-"Login error: "+
-(error.message || "Unknown Firebase error");
-
-}
-
-};
-
-
-/* =========================================================
-   SIGNUP
-========================================================= */
-
-window.firebaseSignup = async function(){
-
-const email =
-document.getElementById("authEmail")
-.value
-.trim();
-
-const password =
-document.getElementById("authPassword")
-.value;
-
-const statusBox =
-document.getElementById("authStatus");
-
-
-if(!email || !password){
-
-statusBox.textContent =
-"Enter email and password.";
-
-return;
-
-}
-
-
-if(password.length < 6){
-
-statusBox.textContent =
-"Password must be at least 6 characters.";
-
-return;
-
-}
-
-
-try{
-
-statusBox.textContent =
-"Creating account...";
-
-const result =
-await createUserWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-
-await createUserProfile(result.user);
-
-statusBox.textContent =
-"Account created successfully ✅";
-
-}catch(error){
-
-console.error(error);
-
-if(
-error.code==="auth/email-already-in-use"
-){
-
-statusBox.textContent =
-"This email already has an account. Please Login.";
-
-}else{
-
-statusBox.textContent =
-"Signup error: "+
-(error.message || "Unknown Firebase error");
-
-}
-
-}
-
-};
-
-
-/* =========================================================
-   PASSWORD RESET
-========================================================= */
-
-window.forgotPassword = async function(){
-
-const email =
-document.getElementById("authEmail")
-.value
-.trim();
-
-const statusBox =
-document.getElementById("authStatus");
-
-
-if(!email){
-
-statusBox.textContent =
-"Enter your email first.";
-
-return;
-
-}
-
-
-try{
-
-await sendPasswordResetEmail(
-auth,
-email
-);
-
-statusBox.textContent =
-"Password reset email sent ✅";
-
-}catch(error){
-
-statusBox.textContent =
-"Reset error: "+
-error.message;
-
-}
-
-};
-
-
-/* =========================================================
-   USER PROFILE
-========================================================= */
-
-async function createUserProfile(user){
-
-const profile = {
-
-uid:user.uid,
-
-email:user.email || "",
-
-name:user.displayName ||
-"WorldVibe User",
-
-username:
-"user_"+user.uid.slice(0,6),
-
-photoURL:user.photoURL || "",
-
-bio:"",
-
-followers:0,
-
-following:0,
-
-likes:0,
-
-views:0,
-
-createdAt:serverTimestamp()
-
-};
-
-
-try{
-
-await withTimeout(
-
-setDoc(
-doc(db,"users",user.uid),
-profile,
-{merge:true}
-),
-
-15000
-
-);
-
-currentProfile = profile;
-
-}catch(error){
-
-console.error(
-"PROFILE CREATE ERROR",
-error
-);
-
-/*
- Do not block login if profile write
- temporarily fails.
-*/
-
-currentProfile = profile;
-
-}
-
-}
-
-
-/* =========================================================
-   LOAD PROFILE
-========================================================= */
-
-async function loadProfile(){
-
-if(!currentUser){
-
-return;
-
-}
-
-
-try{
-
-const snapshot =
-await withTimeout(
-
-getDoc(
-doc(
-db,
-"users",
-currentUser.uid
-)
-),
-
-15000
-
-);
-
-
-if(snapshot.exists()){
-
-currentProfile = {
-
-uid:currentUser.uid,
-
-...snapshot.data()
-
-};
-
-}else{
-
-await createUserProfile(
-currentUser
-);
-
-}
-
-}catch(error){
-
-console.error(
-"PROFILE LOAD ERROR",
-error
-);
-
-
-currentProfile = {
-
-uid:currentUser.uid,
-
-email:currentUser.email || "",
-
-name:
-currentUser.displayName ||
-"WorldVibe User",
-
-username:
-"user_"+currentUser.uid.slice(0,6),
-
-photoURL:
-currentUser.photoURL || "",
-
-bio:"",
-
-followers:0,
-
-following:0
-
-};
-
-}
-
-}
-
-
-/* =========================================================
-   AUTH STATE
-========================================================= */
-
-onAuthStateChanged(
-auth,
-async user=>{
-
-currentUser = user;
-
-
-if(!user){
-
-authModal(true);
-
-document.getElementById("feed").innerHTML =
-
-`
-<div class="notice">
-Please login to use WorldVibe.
-</div>
-`;
-
-return;
-
-}
-
-
-authModal(false);
-
-await loadProfile();
-
-await loadPosts();
-
-renderProfile();
-
-}
-);
-
-
-/* =========================================================
-   LOAD POSTS
-========================================================= */
-
-async function loadPosts(){
-
-const feed =
-document.getElementById("feed");
-
-feed.innerHTML =
-`
-<div class="loading">
-Loading WorldVibe... ⏳
-</div>
-`;
-
-
-try{
-
-let result = [];
-
-
-/*
- First try ordered posts.
- If the index/query fails, use a simple query.
-*/
-
-try{
-
-const snapshot =
-await withTimeout(
-
-getDocs(
-
-query(
-
-collection(db,"posts"),
-
-orderBy(
-"createdAt",
-"desc"
-),
-
-limit(50)
-
-)
-
-),
-
-20000
-
-);
-
-
-result =
-snapshot.docs.map(
-item=>({
-id:item.id,
-...item.data()
-})
-);
-
-
-}catch(firstError){
-
-console.warn(
-"Ordered post query failed:",
-firstError
-);
-
-
-const snapshot =
-await withTimeout(
-
-getDocs(
-
-query(
-
-collection(db,"posts"),
-
-limit(50)
-
-)
-
-),
-
-20000
-
-);
-
-
-result =
-snapshot.docs.map(
-item=>({
-id:item.id,
-...item.data()
-})
-);
-
-
-result.sort((a,b)=>{
-
-const ta =
-a.createdAt?.seconds ||
-0;
-
-const tb =
-b.createdAt?.seconds ||
-0;
-
-return tb-ta;
-
-});
-
-}
-
-
-posts = result;
-
-filteredPosts = result;
-
-renderFeed(result);
-
-renderDiscover();
-
-
-}catch(error){
-
-console.error(
-"LOAD POSTS ERROR",
-error
-);
-
-
-feed.innerHTML =
-
-`
-<div class="notice">
-<b>Feed could not load.</b>
-<br><br>
-${escapeHTML(
-error.message ||
-"Firebase connection error."
-)}
-<br><br>
-Please check Firestore Rules.
-</div>
-`;
-
-}
-
-}
-
-
-/* =========================================================
-   POST DATE
-========================================================= */
-
-function dateOf(post){
-
-try{
-
-if(
-post.createdAt &&
-post.createdAt.toDate
-){
-
-return post.createdAt
-.toDate()
-.toLocaleString();
-
-}
-
-}catch(error){}
-
-return "";
-
-}
-
-
-/* =========================================================
-   POST CARD
-========================================================= */
 
 function postCard(post){
 
-const liked =
-currentUser &&
-Array.isArray(post.likedBy) &&
-post.likedBy.includes(
-currentUser.uid
-);
+ let media;
 
+ if(post.src){
 
-const saved =
-currentUser &&
-Array.isArray(post.savedBy) &&
-post.savedBy.includes(
-currentUser.uid
-);
+  if(post.type==="video"){
 
+   media=
+   `<video
+    class="post-media"
+    src="${post.src}"
+    controls
+    playsinline
+    loop
+   ></video>`;
 
-const comments =
-Array.isArray(post.comments)
-?post.comments
-:[];
+  }else{
 
+   media=
+   `<img
+    class="post-media"
+    src="${post.src}"
+   >`;
 
-const photo =
-post.userPhoto || "";
+  }
 
+ }else{
 
-const avatar =
-photo
+  media=
+  `<div
+   class="post-media"
+   style="
+    display:grid;
+    place-items:center;
+    font-size:70px;
+   "
+  >🌍🎬</div>`;
 
-?
+ }
 
-`
-<img
-src="${escapeHTML(photo)}"
-alt=""
->
-`
+ return `
 
-:
+ <article class="post">
 
-initials(
-post.userName ||
-post.username ||
-"W"
-);
+  ${media}
 
+  <div class="post-gradient"></div>
 
-let media = "";
+  <div class="post-info">
 
+   <div class="post-user">
+    ${escapeHTML(post.user)}
+    <span class="post-handle">
+     ${escapeHTML(post.handle)}
+    </span>
+   </div>
 
-if(post.mediaType==="image"){
+   <div class="post-caption">
+    ${escapeHTML(post.caption)}
+   </div>
 
-media =
+   <div class="post-tags">
+    ${escapeHTML(post.tags)}
+   </div>
 
-`
-<img
-class="postmedia"
-src="${escapeHTML(
-post.mediaURL || ""
-)}"
-alt="WorldVibe post"
-loading="lazy"
->
-`;
+  </div>
 
-}else{
+  <div class="post-actions">
 
-media =
+   <button
+    class="action"
+    onclick="likePost('${post.id}')"
+   >
+    <span class="action-icon">
+     ${post.liked?"❤️":"♡"}
+    </span>
+    <span class="action-count">
+     ${post.likes||0}
+    </span>
+   </button>
 
-`
-<video
-class="postmedia"
-src="${escapeHTML(
-post.mediaURL || ""
-)}"
-controls
-playsinline
-preload="metadata"
-></video>
-`;
+   <button
+    class="action"
+    onclick="comments('${post.id}')"
+   >
+    <span class="action-icon">💬</span>
+    <span class="action-count">
+     ${post.comments||0}
+    </span>
+   </button>
+
+   <button
+    class="action"
+    onclick="sharePost('${post.id}')"
+   >
+    <span class="action-icon">↗️</span>
+    <span class="action-count">Share</span>
+   </button>
+
+   <button
+    class="action"
+    onclick="savePost('${post.id}')"
+   >
+    <span class="action-icon">
+     ${post.saved?"🔖":"📑"}
+    </span>
+    <span class="action-count">Save</span>
+   </button>
+
+   <button
+    class="action"
+    onclick="postMenu('${post.id}')"
+   >
+    <span class="action-icon">•••</span>
+   </button>
+
+  </div>
+
+ </article>
+
+ `;
 
 }
 
+/* LIKE */
 
-return `
+function getPost(id){
 
-<article
-class="post"
-id="post-${escapeHTML(post.id)}"
->
-
-<div class="posthead">
-
-<div class="postavatar">
-
-${avatar}
-
-</div>
-
-<div>
-
-<div class="postuser">
-
-${escapeHTML(
-post.userName ||
-"WorldVibe User"
-)}
-
-</div>
-
-<small>
-
-@${escapeHTML(
-post.username ||
-"user"
-)}
-
-${
-dateOf(post)
-?
-" • "+
-escapeHTML(dateOf(post))
-:""
-}
-
-</small>
-
-</div>
-
-</div>
-
-
-${media}
-
-
-<div class="postbody">
-
-
-${
-post.caption
-?
-`
-<div class="caption">
-${escapeHTML(post.caption)}
-</div>
-`
-:""
-}
-
-
-${
-post.location
-?
-`
-<div class="location">
-📍 ${escapeHTML(post.location)}
-</div>
-`
-:""
-}
-
-
-<div class="actions">
-
-
-<button
-class="action ${liked?"liked":""}"
-onclick="toggleLike('${escapeHTML(post.id)}')"
->
-${liked?"❤️":"🤍"}
-${post.likes || 0}
-</button>
-
-
-<button
-class="action"
-onclick="focusComment('${escapeHTML(post.id)}')"
->
-💬 ${comments.length}
-</button>
-
-
-<button
-class="action ${saved?"liked":""}"
-onclick="toggleSave('${escapeHTML(post.id)}')"
->
-${saved?"🔖":"📑"}
-</button>
-
-
-<button
-class="action"
-onclick="sharePost('${escapeHTML(post.id)}')"
->
-↗️
-</button>
-
-
-</div>
-
-
-<div class="comments">
-
-
-${comments.slice(-5).map(comment=>`
-
-<div class="commentrow">
-
-<div class="comment">
-
-<b>
-${escapeHTML(
-comment.username ||
-"user"
-)}
-</b>
-
-&nbsp;
-
-${escapeHTML(
-comment.text ||
-""
-)}
-
-</div>
-
-</div>
-
-`).join("")}
-
-
-${
-post.allowComments===false
-
-?
-
-`
-<div
-style="color:var(--muted);font-size:12px;margin-top:8px"
->
-Comments disabled
-</div>
-`
-
-:
-
-`
-<div class="commentInput">
-
-<input
-id="comment-${escapeHTML(post.id)}"
-placeholder="Write a comment..."
->
-
-<button
-class="secondary"
-onclick="addComment('${escapeHTML(post.id)}')"
->
-Send
-</button>
-
-</div>
-`
+ return state.posts.find(
+  post=>post.id===id
+ );
 
 }
 
+function likePost(id){
 
-</div>
+ const post=getPost(id);
 
-</div>
+ if(!post)return;
 
-</article>
+ post.liked=!post.liked;
 
-`;
+ post.likes=Math.max(
+  0,
+  (post.likes||0)+(post.liked?1:-1)
+ );
 
-}
+ if(post.liked){
 
+  state.activity.unshift(
+   "You liked a WorldVibe post ❤️"
+  );
 
-/* =========================================================
-   RENDER FEED
-========================================================= */
+ }
 
-function renderFeed(list=posts){
-
-const feed =
-document.getElementById("feed");
-
-
-if(!list.length){
-
-feed.innerHTML =
-
-`
-<div class="notice">
-No videos yet.
-<br>
-Be the first creator on WorldVibe 🚀
-</div>
-`;
-
-return;
+ save();
+ render();
 
 }
 
+/* SAVE */
 
-feed.innerHTML =
-list.map(postCard).join("");
+function savePost(id){
 
-}
+ const post=getPost(id);
 
+ if(!post)return;
 
-/* =========================================================
-   LIKE
-========================================================= */
+ post.saved=!post.saved;
 
-window.toggleLike = async function(id){
+ save();
 
-if(!currentUser){
+ toast(
+  post.saved
+  ?"Post saved 🔖"
+  :"Post removed from saved"
+ );
 
-showToast(
-"Please login first."
-);
-
-return;
-
-}
-
-
-const post =
-posts.find(item=>item.id===id);
-
-
-if(!post){
-
-return;
+ render();
 
 }
 
+/* SHARE */
 
-const liked =
-Array.isArray(post.likedBy) &&
-post.likedBy.includes(
-currentUser.uid
-);
+async function sharePost(id){
 
+ const post=getPost(id);
 
-try{
+ if(!post)return;
 
-await withTimeout(
+ const text=
+ `${post.caption||"WorldVibe post"} ${post.tags||""}`;
 
-updateDoc(
+ try{
 
-doc(
-db,
-"posts",
-id
-),
+  if(navigator.share){
 
-liked
+   await navigator.share({
+    title:"WorldVibe",
+    text:text
+   });
 
-?
+  }else if(navigator.clipboard){
 
-{
-likedBy:
-arrayRemove(
-currentUser.uid
-),
+   await navigator.clipboard.writeText(text);
 
-likes:
-Math.max(
-0,
-(post.likes || 0)-1
-)
-}
+   toast("Post text copied");
 
-:
+  }else{
 
-{
-likedBy:
-arrayUnion(
-currentUser.uid
-),
+   toast("Share is not supported here");
 
-likes:
-(post.likes || 0)+1
-}
+  }
 
-),
-
-15000
-
-);
-
-
-post.likes =
-liked
-
-?
-Math.max(
-0,
-(post.likes || 0)-1
-)
-
-:
-
-(post.likes || 0)+1;
-
-
-post.likedBy =
-Array.isArray(post.likedBy)
-?
-post.likedBy
-:[];
-
-
-if(liked){
-
-post.likedBy =
-post.likedBy.filter(
-uid=>uid!==currentUser.uid
-);
-
-}else{
-
-post.likedBy.push(
-currentUser.uid
-);
+ }catch(error){}
 
 }
 
+/* COMMENTS */
 
-renderFeed(filteredPosts);
+function comments(id){
 
+ const post=getPost(id);
 
-}catch(error){
+ if(!post)return;
 
-console.error(error);
+ document.getElementById("sheet").innerHTML=
 
-showToast(
-"Like failed: "+
-error.message
-);
+ `<h2>Comments 💬</h2>
 
-}
+  <div class="muted">
+   Comments are stored locally in this frontend version.
+  </div>
 
-};
+  <div
+   id="commentList"
+   style="margin-top:15px"
+  >
+   ${post.commentList?
+    post.commentList.map(c=>
+     `<div class="list-item">
+       <span>👤 ${escapeHTML(c)}</span>
+      </div>`
+    ).join("")
+    :
+    `<div class="empty">
+      No comments yet.
+     </div>`
+   }
+  </div>
 
+  <div class="comment-row">
 
-/* =========================================================
-   SAVE
-========================================================= */
+   <input
+    class="field"
+    id="commentInput"
+    placeholder="Write a comment..."
+   >
 
-window.toggleSave = async function(id){
+   <button
+    class="btn"
+    onclick="addComment('${id}')"
+   >
+    Post
+   </button>
 
-if(!currentUser){
+  </div>`;
 
-showToast(
-"Please login first."
-);
-
-return;
-
-}
-
-
-const post =
-posts.find(item=>item.id===id);
-
-
-if(!post){
-
-return;
-
-}
-
-
-const saved =
-Array.isArray(post.savedBy) &&
-post.savedBy.includes(
-currentUser.uid
-);
-
-
-try{
-
-await withTimeout(
-
-updateDoc(
-
-doc(
-db,
-"posts",
-id
-),
-
-saved
-
-?
-
-{
-savedBy:
-arrayRemove(
-currentUser.uid
-)
-}
-
-:
-
-{
-savedBy:
-arrayUnion(
-currentUser.uid
-)
-}
-
-),
-
-15000
-
-);
-
-
-post.savedBy =
-Array.isArray(post.savedBy)
-?
-post.savedBy
-:[];
-
-
-if(saved){
-
-post.savedBy =
-post.savedBy.filter(
-uid=>uid!==currentUser.uid
-);
-
-}else{
-
-post.savedBy.push(
-currentUser.uid
-);
+ openModal();
 
 }
 
+function addComment(id){
 
-renderFeed(filteredPosts);
+ const input=document.getElementById(
+  "commentInput"
+ );
 
+ const text=input.value.trim();
 
-}catch(error){
+ if(!text)return;
 
-console.error(error);
+ const post=getPost(id);
 
-showToast(
-"Save failed: "+
-error.message
-);
+ if(!post)return;
 
-}
+ if(!post.commentList){
+  post.commentList=[];
+ }
 
-};
+ post.commentList.push(text);
 
+ post.comments=(post.comments||0)+1;
 
-/* =========================================================
-   COMMENTS
-========================================================= */
+ state.activity.unshift(
+  "You added a comment 💬"
+ );
 
-window.addComment = async function(id){
+ save();
 
-if(!currentUser){
-
-return;
-
-}
-
-
-const input =
-document.getElementById(
-"comment-"+id
-);
-
-
-if(!input){
-
-return;
+ comments(id);
 
 }
 
+/* POST MENU */
 
-const text =
-input.value.trim();
+function postMenu(id){
 
+ const post=getPost(id);
 
-if(!text){
+ if(!post)return;
 
-return;
+ const mine=
+ post.handle===state.user.handle;
 
-}
+ document.getElementById("sheet").innerHTML=
 
+ `<h2>Post options</h2>
 
-const post =
-posts.find(item=>item.id===id);
+ <div class="list">
 
+  <button
+   class="list-item"
+   onclick="
+    savePost('${id}');
+    closeModal();
+   "
+  >
+   🔖 Save / Unsave
+  </button>
 
-if(!post){
+  <button
+   class="list-item"
+   onclick="
+    toast('Report saved locally');
+    closeModal();
+   "
+  >
+   🚩 Report
+  </button>
 
-return;
+  <button
+   class="list-item"
+   onclick="
+    toast('Post muted locally');
+    closeModal();
+   "
+  >
+   🔇 Mute
+  </button>
 
-}
+  ${mine?
 
+  `<button
+    class="list-item"
+    style="color:#ff4d68"
+    onclick="deletePost('${id}')"
+   >
+    🗑 Delete post
+   </button>`
 
-const comment = {
+  :""
 
-uid:currentUser.uid,
+  }
 
-username:
-currentProfile?.username ||
-"user",
+ </div>`;
 
-text:text,
-
-createdAt:
-new Date().toISOString()
-
-};
-
-
-try{
-
-await withTimeout(
-
-updateDoc(
-
-doc(
-db,
-"posts",
-id
-),
-
-{
-comments:
-arrayUnion(comment)
-}
-
-),
-
-15000
-
-);
-
-
-post.comments =
-Array.isArray(post.comments)
-?
-post.comments
-:[];
-
-
-post.comments.push(
-comment
-);
-
-
-input.value = "";
-
-renderFeed(filteredPosts);
-
-
-}catch(error){
-
-console.error(error);
-
-showToast(
-"Comment failed: "+
-error.message
-);
+ openModal();
 
 }
 
-};
+function deletePost(id){
 
+ if(!confirm("Delete this post?"))return;
 
-/* =========================================================
-   FOCUS COMMENT
-========================================================= */
+ state.posts=
+ state.posts.filter(
+  post=>post.id!==id
+ );
 
-window.focusComment = function(id){
+ save();
 
-const input =
-document.getElementById(
-"comment-"+id
-);
+ closeModal();
 
+ render();
 
-if(input){
-
-input.focus();
-
-input.scrollIntoView({
-behavior:"smooth",
-block:"center"
-});
+ toast("Post deleted");
 
 }
 
-};
+/* EXPLORE */
 
+function renderExplore(){
 
-/* =========================================================
-   SHARE
-========================================================= */
+ const posts=filteredPosts();
 
-window.sharePost = async function(id){
+ const tags=[
+  ...new Set(
+   state.posts.flatMap(
+    post=>
+     (post.tags||"")
+     .split(/\s+/)
+     .filter(tag=>tag.startsWith("#"))
+   )
+  )
+ ].slice(0,30);
 
-const url =
-location.href.split("#")[0]+
-"#post-"+id;
+ document.getElementById("main").innerHTML=
 
+ `<div class="search-box">
 
-try{
+  <input
+   class="field"
+   id="searchInput"
+   value="${escapeHTML(searchQuery)}"
+   placeholder="Search users, posts, hashtags..."
+   oninput="searchPosts(this.value)"
+  >
 
-if(navigator.share){
+  <button
+   class="btn"
+   onclick="searchPosts(document.getElementById('searchInput').value)"
+  >
+   🔎
+  </button>
 
-await navigator.share({
+ </div>
 
-title:"WorldVibe",
+ <div class="section">
 
-text:
-"Check this WorldVibe post 🌍🎬",
+  <h2>Trending 🔥</h2>
 
-url:url
+  <div class="tag-list">
 
-});
+   ${
+    tags.length
+    ?
+    tags.map(tag=>
+     `<button
+       class="tag"
+       onclick="searchPosts('${escapeHTML(tag)}')"
+      >
+      ${escapeHTML(tag)}
+     </button>`
+    ).join("")
+    :
+    `<span class="muted">
+      Add hashtags to your posts.
+     </span>`
+   }
 
-}else{
+  </div>
 
-await navigator.clipboard.writeText(
-url
-);
+  <h2 style="margin-top:25px">
+   Discover
+  </h2>
 
-showToast(
-"Post link copied ✅"
-);
+  <div class="grid">
 
-}
+   ${
+    posts.length
+    ?
+    posts.map(post=>{
 
-}catch(error){}
+     if(post.src){
 
-};
+      return `
+       <div
+        class="grid-item"
+        onclick="go('home')"
+       >
+        ${
+         post.type==="video"
+         ?
+         `<video src="${post.src}"></video>`
+         :
+         `<img src="${post.src}">`
+        }
+       </div>
+      `;
 
+     }
 
-/* =========================================================
-   MEDIA SELECT
-========================================================= */
+     return `
+      <div
+       class="grid-item"
+       onclick="go('home')"
+       style="
+        display:grid;
+        place-items:center;
+        font-size:35px
+       "
+      >
+       🌍
+      </div>
+     `;
 
-window.selectMedia = function(input){
+    }).join("")
+    :
+    `<div class="empty">
+      Nothing found.
+     </div>`
+   }
 
-selectedFile =
-input.files &&
-input.files[0]
-?
-input.files[0]
-:null;
+  </div>
 
-
-const box =
-document.getElementById(
-"fileName"
-);
-
-
-if(!selectedFile){
-
-box.classList.add("hidden");
-
-box.textContent="";
-
-return;
-
-}
-
-
-box.textContent =
-selectedFile.name+
-" • "+
-Math.round(
-selectedFile.size/
-1024/
-1024*
-10
-)/10+
-" MB";
-
-
-box.classList.remove("hidden");
-
-
-status(
-"Ready to upload: "+
-selectedFile.name
-);
-
-};
-
-
-/* =========================================================
-   PUBLISH POST
-========================================================= */
-
-window.publishPost = async function(){
-
-if(publishing){
-
-showToast(
-"Upload already running... ⏳"
-);
-
-return;
-
-}
-
-
-if(!currentUser){
-
-showToast(
-"Please login first."
-);
-
-return;
+ </div>`;
 
 }
 
+function filteredPosts(){
 
-if(!selectedFile){
+ const q=searchQuery
+  .trim()
+  .toLowerCase();
 
-showToast(
-"Please select a video or photo first."
-);
+ if(!q){
+  return state.posts;
+ }
 
-return;
-
-}
-
-
-/*
- 300 MB maximum.
-*/
-
-if(
-selectedFile.size >
-300*1024*1024
-){
-
-showToast(
-"Maximum file size is 300MB."
-);
-
-return;
+ return state.posts.filter(post=>
+  (
+   (post.caption||"")+" "+
+   (post.tags||"")+" "+
+   (post.user||"")+" "+
+   (post.handle||"")
+  )
+  .toLowerCase()
+  .includes(q)
+ );
 
 }
 
+function searchPosts(value){
 
-const caption =
-document.getElementById(
-"caption"
-)
-.value
-.trim();
+ searchQuery=value;
 
-
-const location =
-document.getElementById(
-"location"
-)
-.value
-.trim();
-
-
-const allowComments =
-document.getElementById(
-"allowComments"
-)
-.checked;
-
-
-const button =
-document.getElementById(
-"publishButton"
-);
-
-
-publishing = true;
-
-button.disabled = true;
-
-button.style.opacity = ".6";
-
-setProgress(0);
-
-
-try{
-
-/* =====================================================
-   STEP 1 - STORAGE PREPARE
-===================================================== */
-
-status(
-"1/4 Preparing Firebase Storage upload... ⏳"
-);
-
-showToast(
-"Starting upload... ⏳"
-);
-
-setProgress(5);
-
-
-const safeName =
-
-Date.now()+
-"_"+
-
-selectedFile.name.replace(
-/[^a-zA-Z0-9._-]/g,
-"_"
-);
-
-
-const storageRef =
-ref(
-
-storage,
-
-"posts/"+
-currentUser.uid+
-"/"+
-safeName
-
-);
-
-
-/* =====================================================
-   STEP 2 - STORAGE UPLOAD
-===================================================== */
-
-status(
-"2/4 Uploading: "+
-selectedFile.name+
-" ..."
-);
-
-
-const uploadResult =
-await withTimeout(
-
-uploadBytes(
-
-storageRef,
-
-selectedFile,
-
-{
-contentType:
-selectedFile.type ||
-"application/octet-stream"
-}
-
-),
-
-120000
-
-);
-
-
-setProgress(70);
-
-
-/* =====================================================
-   STEP 3 - DOWNLOAD URL
-===================================================== */
-
-status(
-"3/4 Getting media URL... ⏳"
-);
-
-
-const mediaURL =
-await withTimeout(
-
-getDownloadURL(
-uploadResult.ref
-),
-
-30000
-
-);
-
-
-setProgress(80);
-
-
-/* =====================================================
-   STEP 4 - FIRESTORE
-===================================================== */
-
-status(
-"4/4 Saving post to Firestore... ⏳"
-);
-
-
-const postData = {
-
-uid:
-currentUser.uid,
-
-userName:
-currentProfile?.name ||
-currentUser.displayName ||
-"WorldVibe User",
-
-username:
-currentProfile?.username ||
-"user_"+currentUser.uid.slice(0,6),
-
-userPhoto:
-currentProfile?.photoURL ||
-currentUser.photoURL ||
-"",
-
-mediaURL:
-mediaURL,
-
-mediaType:
-selectedFile.type.startsWith("image/")
-?
-"image"
-:
-"video",
-
-caption:
-caption,
-
-location:
-location,
-
-allowComments:
-allowComments,
-
-likes:0,
-
-shares:0,
-
-views:0,
-
-likedBy:[],
-
-savedBy:[],
-
-comments:[],
-
-hashtags:
-hashtags(caption),
-
-createdAt:
-serverTimestamp()
-
-};
-
-
-console.log(
-"WORLDVIBE POST DATA",
-postData
-);
-
-
-const postRef =
-await withTimeout(
-
-addDoc(
-
-collection(
-db,
-"posts"
-),
-
-postData
-
-),
-
-30000
-
-);
-
-
-console.log(
-"WORLDVIBE POST CREATED:",
-postRef.id
-);
-
-
-setProgress(100);
-
-
-status(
-"Published successfully 🚀 Post ID: "+
-postRef.id
-);
-
-
-showToast(
-"Published successfully 🚀"
-);
-
-
-/* Reset create form */
-
-selectedFile = null;
-
-document.getElementById(
-"mediaFile"
-).value = "";
-
-document.getElementById(
-"fileName"
-).classList.add("hidden");
-
-document.getElementById(
-"caption"
-).value = "";
-
-document.getElementById(
-"location"
-).value = "";
-
-
-/* Reload feed */
-
-await loadPosts();
-
-
-/* Go home */
-
-showPage(
-"home",
-document.getElementById(
-"navHome"
-)
-);
-
-
-}catch(error){
-
-console.error(
-"WORLDVIBE PUBLISH ERROR",
-error
-);
-
-console.error(
-"ERROR CODE:",
-error.code
-);
-
-console.error(
-"ERROR MESSAGE:",
-error.message
-);
-
-
-let message =
-error.message ||
-"Unknown Firebase error";
-
-
-if(
-error.code==="permission-denied"
-){
-
-message =
-"Firestore permission denied. Check Firestore Rules.";
+ renderExplore();
 
 }
 
+/* ACTIVITY */
 
-if(
-error.code==="unavailable"
-){
+function renderActivity(){
 
-message =
-"Firebase is temporarily unavailable. Check internet connection.";
+ document.getElementById("main").innerHTML=
 
-}
+ `<div class="section">
 
+  <h2>Activity 🔔</h2>
 
-if(
-error.code==="failed-precondition"
-){
+  ${
+   state.activity.length
+   ?
+   `<div class="list">
+    ${
+     state.activity.map(item=>
+      `<div class="list-item">
+       🔔 ${escapeHTML(item)}
+      </div>`
+     ).join("")
+    }
+   </div>`
+   :
+   `<div class="empty">
+    No activity yet.
+   </div>`
+  }
 
-message =
-"Firestore configuration/index problem.";
-
-}
-
-
-status(
-"❌ Publish failed: "+
-message
-);
-
-
-showToast(
-"Publish failed ❌"
-);
-
-
-setProgress(0);
-
-}finally{
-
-publishing = false;
-
-button.disabled = false;
-
-button.style.opacity = "1";
+ </div>`;
 
 }
 
-};
-
-
-/* =========================================================
-   DRAFTS
-========================================================= */
-
-window.saveDraft = function(){
-
-const caption =
-document.getElementById(
-"caption"
-)
-.value
-.trim();
-
-
-const location =
-document.getElementById(
-"location"
-)
-.value
-.trim();
-
-
-if(!caption && !selectedFile){
-
-showToast(
-"Nothing to save."
-);
-
-return;
-
-}
-
-
-drafts =
-JSON.parse(
-localStorage.getItem(
-"worldvibe_drafts"
-) ||
-"[]"
-);
-
-
-drafts.push({
-
-caption:caption,
-
-location:location,
-
-fileName:
-selectedFile?.name ||
-"",
-
-savedAt:
-new Date().toISOString()
-
-});
-
-
-localStorage.setItem(
-"worldvibe_drafts",
-JSON.stringify(drafts)
-);
-
-
-renderDrafts();
-
-
-showToast(
-"Draft saved ✅"
-);
-
-};
-
-
-function renderDrafts(){
-
-const box =
-document.getElementById(
-"drafts"
-);
-
-
-if(!box){
-
-return;
-
-}
-
-
-drafts =
-JSON.parse(
-localStorage.getItem(
-"worldvibe_drafts"
-) ||
-"[]"
-);
-
-
-if(!drafts.length){
-
-box.textContent =
-"No drafts";
-
-return;
-
-}
-
-
-box.innerHTML =
-
-drafts.map((draft,index)=>`
-
-<div
-class="card"
-style="margin-top:8px"
->
-
-<b>
-${escapeHTML(
-draft.fileName ||
-"Draft"
-)}
-</b>
-
-<p>
-${escapeHTML(
-draft.caption ||
-"No caption"
-)}
-</p>
-
-<button
-class="textbtn"
-onclick="deleteDraft(${index})"
->
-Delete
-</button>
-
-</div>
-
-`).join("");
-
-}
-
-
-window.deleteDraft = function(index){
-
-drafts.splice(
-index,
-1
-);
-
-
-localStorage.setItem(
-"worldvibe_drafts",
-JSON.stringify(drafts)
-);
-
-
-renderDrafts();
-
-};
-
-
-/* =========================================================
-   DISCOVER
-========================================================= */
-
-function renderDiscover(){
-
-const box =
-document.getElementById(
-"discoverContent"
-);
-
-
-if(!box){
-
-return;
-
-}
-
-
-if(!posts.length){
-
-box.innerHTML =
-
-`
-<div class="notice">
-No creators yet.
-</div>
-`;
-
-return;
-
-}
-
-
-const creators = {};
-
-
-posts.forEach(post=>{
-
-const key =
-post.uid ||
-post.username ||
-"unknown";
-
-
-if(!creators[key]){
-
-creators[key] = {
-
-name:
-post.userName ||
-"WorldVibe User",
-
-username:
-post.username ||
-"user",
-
-photo:
-post.userPhoto ||
-"",
-
-posts:0
-
-};
-
-}
-
-
-creators[key].posts++;
-
-});
-
-
-box.innerHTML =
-
-`
-<div class="grid">
-
-${
-Object.values(creators)
-.map(creator=>`
-
-<div class="card">
-
-<div
-class="avatar"
-style="width:55px;height:55px;font-size:22px"
->
-
-${
-creator.photo
-
-?
-
-`
-<img
-src="${escapeHTML(creator.photo)}"
-alt=""
->
-`
-
-:
-
-initials(
-creator.name
-)
-
-}
-
-</div>
-
-<h3 style="margin-top:10px">
-
-${escapeHTML(
-creator.name
-)}
-
-</h3>
-
-<p>
-@${escapeHTML(
-creator.username
-)}
-</p>
-
-<p>
-
-${creator.posts}
-post${creator.posts===1?"":"s"}
-
-</p>
-
-</div>
-
-`)
-.join("")
-}
-
-</div>
-`;
-
-}
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
+/* PROFILE */
 
 function renderProfile(){
 
-const area =
-document.getElementById(
-"profileArea"
-);
+ const mine=state.posts.filter(
+  post=>post.handle===state.user.handle
+ );
 
+ document.getElementById("main").innerHTML=
 
-if(!area || !currentUser){
+ `<div class="profile">
 
-return;
+  <img
+   class="avatar"
+   src="${
+    state.user.avatar ||
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%23222222'/%3E%3Ctext x='50' y='62' fill='white' text-anchor='middle' font-size='42'%3E🌍%3C/text%3E%3C/svg%3E"
+   }"
+  >
+
+  <h2>
+   ${escapeHTML(state.user.name)}
+  </h2>
+
+  <div class="muted">
+   ${escapeHTML(state.user.handle)}
+  </div>
+
+  <p>
+   ${escapeHTML(state.user.bio)}
+  </p>
+
+  <div class="stats">
+
+   <div class="stat">
+    <b>${mine.length}</b>
+    <span>Posts</span>
+   </div>
+
+   <div class="stat">
+    <b>${state.following.length}</b>
+    <span>Following</span>
+   </div>
+
+   <div class="stat">
+    <b>0</b>
+    <span>Followers</span>
+   </div>
+
+  </div>
+
+  <div
+   class="row"
+   style="justify-content:center"
+  >
+
+   <button
+    class="btn"
+    onclick="editProfile()"
+   >
+    Edit profile
+   </button>
+
+   <button
+    class="btn dark"
+    onclick="settings()"
+   >
+    ⚙ Settings
+   </button>
+
+  </div>
+
+ </div>
+
+ <div class="grid">
+
+ ${
+  mine.length
+  ?
+  mine.map(post=>{
+
+   if(post.src){
+
+    return `
+     <div class="grid-item">
+      ${
+       post.type==="video"
+       ?
+       `<video src="${post.src}"></video>`
+       :
+       `<img src="${post.src}">`
+      }
+     </div>
+    `;
+
+   }
+
+   return `
+    <div
+     class="grid-item"
+     style="
+      display:grid;
+      place-items:center
+     "
+    >
+     🌍🎬
+    </div>
+   `;
+
+  }).join("")
+  :
+  `<div class="empty">
+    Your posts will appear here.
+   </div>`
+ }
+
+ </div>`;
 
 }
 
+/* EDIT PROFILE */
 
-const name =
-currentProfile?.name ||
-currentUser.displayName ||
-"WorldVibe User";
+function editProfile(){
 
+ document.getElementById("sheet").innerHTML=
 
-const username =
-currentProfile?.username ||
-"user";
+ `<h2>Edit profile</h2>
 
+ <input
+  class="field"
+  id="profileName"
+  value="${escapeHTML(state.user.name)}"
+  placeholder="Name"
+ >
 
-const photo =
-currentProfile?.photoURL ||
-currentUser.photoURL ||
-"";
+ <br><br>
 
+ <input
+  class="field"
+  id="profileHandle"
+  value="${escapeHTML(state.user.handle)}"
+  placeholder="@username"
+ >
 
-const mine =
-posts.filter(
-post=>post.uid===currentUser.uid
-);
+ <br><br>
 
+ <textarea
+  class="field"
+  id="profileBio"
+  placeholder="Bio"
+  rows="4"
+ >${escapeHTML(state.user.bio)}</textarea>
 
-area.innerHTML =
+ <br><br>
 
-`
+ <button
+  class="btn"
+  onclick="saveProfile()"
+ >
+  Save profile
+ </button>`;
 
-<div class="profileHead">
-
-<div class="avatar">
-
-${
-photo
-
-?
-
-`
-<img
-src="${escapeHTML(photo)}"
-alt=""
->
-`
-
-:
-
-initials(name)
+ openModal();
 
 }
 
-</div>
+function saveProfile(){
 
+ const name=
+ document.getElementById("profileName")
+ .value.trim();
 
-<div style="flex:1">
+ const handle=
+ document.getElementById("profileHandle")
+ .value.trim();
 
-<div class="profileName">
+ const bio=
+ document.getElementById("profileBio")
+ .value.trim();
 
-${escapeHTML(name)}
+ if(name){
+  state.user.name=name;
+ }
 
-</div>
+ if(handle){
+  state.user.handle=
+   handle.startsWith("@")
+   ?handle
+   :"@"+handle;
+ }
 
-<div class="username">
+ state.user.bio=bio;
 
-@${escapeHTML(username)}
+ state.posts.forEach(post=>{
 
-</div>
+  if(post.handle===state.user.handle){
 
+   post.user=state.user.name;
 
-<div class="stats">
+  }
 
-<div class="stat">
+ });
 
-<b>
-${currentProfile?.followers || 0}
-</b>
+ save();
 
-<small>
-Followers
-</small>
+ closeModal();
 
-</div>
+ render();
 
-
-<div class="stat">
-
-<b>
-${currentProfile?.following || 0}
-</b>
-
-<small>
-Following
-</small>
-
-</div>
-
-
-<div class="stat">
-
-<b>
-${mine.length}
-</b>
-
-<small>
-Posts
-</small>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-${
-currentProfile?.bio
-
-?
-
-`
-<div
-class="card"
-style="margin-top:12px"
->
-
-${escapeHTML(
-currentProfile.bio
-)}
-
-</div>
-`
-
-:""
-}
-
-
-<button
-class="secondary"
-style="width:100%;margin-top:10px"
-onclick="openEdit()"
->
-Edit Profile
-</button>
-
-
-<div class="tabs">
-
-<button
-class="active"
-onclick="profileTab('posts',this)"
->
-Posts
-</button>
-
-<button
-onclick="profileTab('saved',this)"
->
-Saved
-</button>
-
-<button
-onclick="profileTab('liked',this)"
->
-Liked
-</button>
-
-</div>
-
-
-<div id="profileContent">
-
-${
-mine.length
-
-?
-
-mine.map(postCard).join("")
-
-:
-
-`
-<div class="notice">
-Your videos will appear here.
-</div>
-`
+ toast("Profile updated");
 
 }
 
-</div>
+/* SETTINGS */
 
+function settings(){
 
-<div
-class="menu"
-style="margin-top:18px"
->
+ document.getElementById("sheet").innerHTML=
 
-<button onclick="toggleTheme()">
-Theme
-</button>
+ `<h2>Settings ⚙️</h2>
 
-<button onclick="logout()">
-Logout
-</button>
+ <div class="list">
 
-<button
-class="danger"
-onclick="removeAccount()"
->
-Delete Account
-</button>
+  <button
+   class="list-item"
+   onclick="toggleTheme()"
+  >
+   🌙 Theme
+   <span>${state.settings.theme}</span>
+  </button>
 
-</div>
+  <button
+   class="list-item"
+   onclick="showSaved()"
+  >
+   🔖 Saved posts
+  </button>
 
-`;
+  <button
+   class="list-item"
+   onclick="showDrafts()"
+  >
+   📝 Drafts
+  </button>
 
-}
+  <button
+   class="list-item"
+   onclick="exportData()"
+  >
+   ⬇️ Export local data
+  </button>
 
+  <button
+   class="list-item"
+   onclick="clearLocalData()"
+   style="color:#ff4d68"
+  >
+   🗑 Clear local data
+  </button>
 
-/* =========================================================
-   PROFILE TABS
-========================================================= */
+ </div>
 
-window.profileTab = function(tab,button){
+ <p class="muted" style="margin-top:18px">
+ Frontend-only mode: posts and settings are saved
+ locally on this device. Firebase/backend is intentionally
+ not used in this version.
+ </p>`;
 
-document
-.querySelectorAll(
-"#pageProfile .tabs button"
-)
-.forEach(btn=>{
-btn.classList.remove("active");
-});
-
-
-button.classList.add("active");
-
-
-let list = [];
-
-
-if(tab==="posts"){
-
-list =
-posts.filter(
-post=>post.uid===currentUser.uid
-);
-
-}
-
-
-if(tab==="saved"){
-
-list =
-posts.filter(
-post=>
-Array.isArray(post.savedBy) &&
-post.savedBy.includes(
-currentUser.uid
-)
-);
+ openModal();
 
 }
 
+function toggleTheme(){
 
-if(tab==="liked"){
+ state.settings.theme=
+ state.settings.theme==="dark"
+ ?"light"
+ :"dark";
 
-list =
-posts.filter(
-post=>
-Array.isArray(post.likedBy) &&
-post.likedBy.includes(
-currentUser.uid
-)
-);
+ save();
 
-}
+ closeModal();
 
-
-document.getElementById(
-"profileContent"
-).innerHTML =
-
-list.length
-
-?
-
-list.map(postCard).join("")
-
-:
-
-`
-<div class="notice">
-Nothing here yet.
-</div>
-`;
-
-};
-
-
-/* =========================================================
-   EDIT PROFILE
-========================================================= */
-
-window.openEdit = function(){
-
-document
-.getElementById("editModal")
-.classList.remove("hidden");
-
-
-document.getElementById(
-"editName"
-).value =
-currentProfile?.name ||
-"";
-
-
-document.getElementById(
-"editUsername"
-).value =
-currentProfile?.username ||
-"";
-
-
-document.getElementById(
-"editPhoto"
-).value =
-currentProfile?.photoURL ||
-"";
-
-
-document.getElementById(
-"editBio"
-).value =
-currentProfile?.bio ||
-"";
-
-};
-
-
-window.closeEdit = function(){
-
-document
-.getElementById("editModal")
-.classList.add("hidden");
-
-};
-
-
-/* =========================================================
-   SAVE PROFILE
-========================================================= */
-
-window.saveProfile = async function(){
-
-if(!currentUser){
-
-return;
+ render();
 
 }
 
+function showSaved(){
 
-const name =
-document.getElementById(
-"editName"
-)
-.value
-.trim() ||
-"WorldVibe User";
+ const saved=
+ state.posts.filter(post=>post.saved);
 
+ document.getElementById("sheet").innerHTML=
 
-const username =
-document.getElementById(
-"editUsername"
-)
-.value
-.trim()
-.replace(/^@/,"") ||
-"user";
+ `<h2>Saved 🔖</h2>
 
+ ${
+  saved.length
+  ?
+  `<div class="list">
+   ${
+    saved.map(post=>
+     `<div class="list-item">
+      <span>
+       ${escapeHTML(post.caption)}
+      </span>
+      <button
+       class="btn dark"
+       onclick="go('home');closeModal()"
+      >
+       View
+      </button>
+     </div>`
+    ).join("")
+   }
+  </div>`
+  :
+  `<div class="empty">
+   No saved posts.
+  </div>`
+ }`;
 
-const photoURL =
-document.getElementById(
-"editPhoto"
-)
-.value
-.trim();
-
-
-const bio =
-document.getElementById(
-"editBio"
-)
-.value
-.trim();
-
-
-try{
-
-await withTimeout(
-
-setDoc(
-
-doc(
-db,
-"users",
-currentUser.uid
-),
-
-{
-
-uid:
-currentUser.uid,
-
-name:name,
-
-username:username,
-
-photoURL:photoURL,
-
-bio:bio,
-
-email:
-currentUser.email || ""
-
-},
-
-{
-merge:true
-}
-
-),
-
-15000
-
-);
-
-
-try{
-
-await updateProfile(
-
-currentUser,
-
-{
-displayName:name,
-
-photoURL:
-photoURL ||
-null
-}
-
-);
-
-}catch(error){
-
-console.warn(
-"Firebase Auth profile update failed:",
-error
-);
+ openModal();
 
 }
 
+function showDrafts(){
 
-currentProfile = {
+ document.getElementById("sheet").innerHTML=
 
-...currentProfile,
+ `<h2>Drafts 📝</h2>
 
-name:name,
+ <div class="empty">
+  ${
+   state.drafts.length
+   ?
+   state.drafts.length+" draft(s) saved locally."
+   :
+   "No drafts yet."
+  }
+ </div>`;
 
-username:username,
-
-photoURL:photoURL,
-
-bio:bio
-
-};
-
-
-closeEdit();
-
-renderProfile();
-
-
-showToast(
-"Profile updated ✅"
-);
-
-
-}catch(error){
-
-console.error(error);
-
-showToast(
-"Profile update failed: "+
-error.message
-);
+ openModal();
 
 }
 
-};
+function exportData(){
 
+ const data=
+ JSON.stringify(state,null,2);
 
-/* =========================================================
-   LOGOUT
-========================================================= */
+ const blob=
+ new Blob(
+  [data],
+  {type:"application/json"}
+ );
 
-window.logout = async function(){
+ const url=
+ URL.createObjectURL(blob);
 
-try{
+ const a=
+ document.createElement("a");
 
-await signOut(auth);
+ a.href=url;
+ a.download="worldvibe-data.json";
 
-}catch(error){
+ a.click();
 
-showToast(
-"Logout failed: "+
-error.message
-);
+ URL.revokeObjectURL(url);
 
-}
-
-};
-
-
-/* =========================================================
-   DELETE ACCOUNT
-========================================================= */
-
-window.removeAccount = async function(){
-
-if(!currentUser){
-
-return;
+ toast("Data exported");
 
 }
 
+function clearLocalData(){
 
-if(
-!confirm(
-"Delete your WorldVibe account?"
-)
-){
+ if(!confirm(
+  "Delete all local WorldVibe data?"
+  )){
+  return;
+ }
 
-return;
+ localStorage.removeItem(
+  STORAGE_KEY
+ );
 
-}
-
-
-try{
-
-await withTimeout(
-
-deleteDoc(
-
-doc(
-db,
-"users",
-currentUser.uid
-)
-
-),
-
-15000
-
-);
-
-
-await deleteUser(
-currentUser
-);
-
-
-}catch(error){
-
-console.error(error);
-
-showToast(
-
-"Account deletion failed: "+
-(
-error.message ||
-"Please login again."
-)
-
-);
+ location.reload();
 
 }
 
-};
+/* CREATE */
 
+function openCreate(){
 
-/* =========================================================
-   START
-========================================================= */
+ document.getElementById("sheet").innerHTML=
 
-renderDrafts();
+ `<h2>Create 🎬</h2>
+
+ <label class="btn file-button">
+
+  🎥 Select Video or Photo
+
+  <input
+   id="mediaInput"
+   type="file"
+   accept="video/*,image/*"
+   onchange="selectMedia(this)"
+  >
+
+ </label>
+
+ <div id="previewBox"></div>
+
+ <input
+  class="field"
+  id="createCaption"
+  placeholder="Write a caption..."
+ >
+
+ <br><br>
+
+ <input
+  class="field"
+  id="createTags"
+  placeholder="#hashtags"
+ >
+
+ <br><br>
+
+ <label>
+  <input
+   type="checkbox"
+   id="allowComments"
+   checked
+  >
+  Allow comments
+ </label>
+
+ <br><br>
+
+ <button
+  class="btn"
+  style="width:100%"
+  onclick="publishPost()"
+ >
+  🚀 Publish
+ </button>
+
+ <p class="muted" style="margin-top:15px">
+ Frontend-only version. No Firebase, Firestore or backend
+ is used. Media is saved locally in your browser.
+ </p>`;
+
+ openModal();
+
+}
+
+function selectMedia(input){
+
+ const file=
+ input.files&&input.files[0];
+
+ if(!file)return;
+
+ /*
+  LocalStorage has limited space.
+  Keep files reasonably small.
+ */
+
+ if(file.size>25*1024*1024){
+
+  toast(
+   "Please choose a video/photo under 25 MB"
+  );
+
+  input.value="";
+
+  selectedFile=null;
+
+  return;
+
+ }
+
+ selectedFile=file;
+
+ const url=
+ URL.createObjectURL(file);
+
+ const box=
+ document.getElementById("previewBox");
+
+ if(file.type.startsWith("video/")){
+
+  box.innerHTML=
+  `<video
+   class="preview"
+   src="${url}"
+   controls
+   playsinline
+  ></video>`;
+
+ }else{
+
+  box.innerHTML=
+  `<img
+   class="preview"
+   src="${url}"
+  >`;
+
+ }
+
+}
+
+function publishPost(){
+
+ if(!selectedFile){
+
+  toast(
+   "Please select a video or photo first"
+  );
+
+  return;
+
+ }
+
+ const caption=
+ document.getElementById(
+  "createCaption"
+ ).value.trim();
+
+ const tags=
+ document.getElementById(
+  "createTags"
+ ).value.trim();
+
+ const reader=
+ new FileReader();
+
+ reader.onload=function(){
+
+  const type=
+   selectedFile.type.startsWith("video/")
+   ?"video"
+   :"image";
+
+  const post={
+   id:"post_"+Date.now(),
+   user:state.user.name,
+   handle:state.user.handle,
+   caption:
+    caption||"New WorldVibe post 🎬",
+   tags:
+    tags||"#WorldVibe",
+   likes:0,
+   comments:0,
+   views:0,
+   liked:false,
+   saved:false,
+   type:type,
+   src:reader.result,
+   created:Date.now()
+  };
+
+  try{
+
+   state.posts.unshift(post);
+
+   state.activity.unshift(
+    "Your post was published 🎬"
+   );
+
+   save();
+
+   selectedFile=null;
+
+   closeModal();
+
+   currentTab="home";
+
+   render();
+
+   toast("Published successfully 🎬");
+
+  }catch(error){
+
+   console.error(error);
+
+   toast(
+    "Browser storage is full. Use a smaller video."
+   );
+
+  }
+
+ };
+
+ reader.onerror=function(){
+
+  toast("Could not read the selected file");
+
+ };
+
+ reader.readAsDataURL(selectedFile);
+
+}
+
+/* SEARCH */
+
+function openSearch(){
+
+ currentTab="explore";
+
+ updateNav();
+
+ renderExplore();
+
+ setTimeout(()=>{
+
+  const input=
+   document.getElementById("searchInput");
+
+  if(input)input.focus();
+
+ },100);
+
+}
+
+/* MODAL */
+
+function openModal(){
+
+ document
+ .getElementById("modal")
+ .classList.add("show");
+
+}
+
+function closeModal(){
+
+ document
+ .getElementById("modal")
+ .classList.remove("show");
+
+ selectedFile=null;
+
+}
+
+/* INITIAL */
+
+render();
 
 </script>
 
