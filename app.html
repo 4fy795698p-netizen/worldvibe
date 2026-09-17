@@ -2401,13 +2401,11 @@ from
 "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
- getFirestore,
+ initializeFirestore,
  doc,
  setDoc,
  getDoc
-}
-from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 import {
  getStorage,
@@ -2456,8 +2454,9 @@ const app =
 const auth =
  getAuth(app);
 
-const db =
- getFirestore(app);
+const db = initializeFirestore(app, {
+ experimentalForceLongPolling: true
+});
 
 const storage =
  getStorage(app);
