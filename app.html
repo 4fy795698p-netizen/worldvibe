@@ -1852,5 +1852,325 @@ render();
 
 </script>
 
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+ getAuth,
+ createUserWithEmailAndPassword,
+ signInWithEmailAndPassword,
+ signOut,
+ onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+ apiKey:"AIzaSyArCb63lgx3tGMm1QPYQzeLNN7awL8Gx3A",
+
+ authDomain:"worldvibe-9f531.firebaseapp.com",
+
+ projectId:"worldvibe-9f531",
+
+ storageBucket:"worldvibe-9f531.firebasestorage.app",
+
+ messagingSenderId:"148680723994",
+
+ appId:"1:148680723994:web:c9cf32cd47d7a3ec190ba3",
+
+ measurementId:"G-WZ9G2B2EDP"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+
+/* AUTH WINDOW */
+
+window.openAuth = function(){
+
+ document.getElementById("sheet").innerHTML = `
+
+ <h2>WorldVibe Login 🌍🎬</h2>
+
+ <p class="muted">
+ Login or create your real WorldVibe account.
+ </p>
+
+ <input
+  class="field"
+  id="authEmail"
+  type="email"
+  placeholder="Email"
+ >
+
+ <br><br>
+
+ <input
+  class="field"
+  id="authPassword"
+  type="password"
+  placeholder="Password"
+ >
+
+ <br><br>
+
+ <button
+  class="btn"
+  style="width:100%"
+  onclick="firebaseLogin()"
+ >
+ Login
+ </button>
+
+ <br><br>
+
+ <button
+  class="btn dark"
+  style="width:100%"
+  onclick="firebaseSignup()"
+ >
+ Create Account
+ </button>
+
+ <p
+  id="authMessage"
+  class="muted"
+  style="margin-top:15px"
+ ></p>
+
+ `;
+
+ openModal();
+
+};
+
+
+/* LOGIN */
+
+window.firebaseLogin = async function(){
+
+ const email =
+ document.getElementById("authEmail").value.trim();
+
+ const password =
+ document.getElementById("authPassword").value;
+
+ const message =
+ document.getElementById("authMessage");
+
+ if(!email || !password){
+
+  message.textContent =
+  "Please enter email and password.";
+
+  return;
+
+ }
+
+ message.textContent =
+ "Logging in...";
+
+ try{
+
+  await signInWithEmailAndPassword(
+   auth,
+   email,
+   password
+  );
+
+  message.textContent =
+  "Login successful ✅";
+
+  toast("Welcome to WorldVibe 🌍");
+
+  setTimeout(
+   ()=>closeModal(),
+   900
+  );
+
+ }catch(error){
+
+  console.error(error);
+
+  message.textContent =
+  error.message
+  .replace("Firebase: ","")
+  .replace(/\(auth\/.*?\)\.?/,"")
+  .trim();
+
+ }
+
+};
+
+
+/* SIGN UP */
+
+window.firebaseSignup = async function(){
+
+ const email =
+ document.getElementById("authEmail").value.trim();
+
+ const password =
+ document.getElementById("authPassword").value;
+
+ const message =
+ document.getElementById("authMessage");
+
+ if(!email || !password){
+
+  message.textContent =
+  "Please enter email and password.";
+
+  return;
+
+ }
+
+ if(password.length < 6){
+
+  message.textContent =
+  "Password must be at least 6 characters.";
+
+  return;
+
+ }
+
+ message.textContent =
+ "Creating account...";
+
+ try{
+
+  await createUserWithEmailAndPassword(
+   auth,
+   email,
+   password
+  );
+
+  message.textContent =
+  "Account created successfully ✅";
+
+  toast("Welcome to WorldVibe 🎉");
+
+  setTimeout(
+   ()=>closeModal(),
+   900
+  );
+
+ }catch(error){
+
+  console.error(error);
+
+  message.textContent =
+  error.message
+  .replace("Firebase: ","")
+  .replace(/\(auth\/.*?\)\.?/,"")
+  .trim();
+
+ }
+
+};
+
+
+/* LOGOUT */
+
+window.firebaseLogout = async function(){
+
+ try{
+
+  await signOut(auth);
+
+  toast("Logged out");
+
+ }catch(error){
+
+  console.error(error);
+
+ }
+
+};
+
+
+/* AUTH STATUS */
+
+onAuthStateChanged(auth,(user)=>{
+
+ const header =
+ document.querySelector("header");
+
+ if(!header)return;
+
+
+ let authButton =
+ document.getElementById("authButton");
+
+
+ if(!authButton){
+
+  authButton =
+  document.createElement("button");
+
+  authButton.id="authButton";
+
+  authButton.className="header-btn";
+
+  header.appendChild(authButton);
+
+ }
+
+
+ if(user){
+
+  authButton.textContent="👤";
+
+  authButton.title =
+  user.email || "Account";
+
+  authButton.onclick=()=>{
+
+   document.getElementById("sheet").innerHTML=`
+
+    <h2>Account 👤</h2>
+
+    <p class="muted">
+     ${user.email}
+    </p>
+
+    <br>
+
+    <button
+     class="btn red"
+     style="width:100%"
+     onclick="firebaseLogout();closeModal()"
+    >
+     Logout
+    </button>
+
+   `;
+
+   openModal();
+
+  };
+
+ }else{
+
+  authButton.textContent="🔐";
+
+  authButton.title="Login";
+
+  authButton.onclick=()=>openAuth();
+
+ }
+
+});
+
+
+</script>
+
 </body>
 </html>
