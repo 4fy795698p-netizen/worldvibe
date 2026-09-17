@@ -1372,7 +1372,7 @@ function saveProfile(){
  document.getElementById("profileName")
  .value.trim();
 
- const handle=
+ const handleInput=
  document.getElementById("profileHandle")
  .value.trim();
 
@@ -1380,39 +1380,79 @@ function saveProfile(){
  document.getElementById("profileBio")
  .value.trim();
 
- if(name){
-  state.user.name=name;
+
+ if(!name){
+
+  toast("Please enter your name");
+
+  return;
+
  }
 
- if(handle){
-  state.user.handle=
-   handle.startsWith("@")
-   ?handle
-   :"@"+handle;
+
+ if(!handleInput){
+
+  toast("Please enter a username");
+
+  return;
+
  }
 
- state.user.bio=bio;
 
- state.posts.forEach(post=>{
+ const handle=
+ handleInput.startsWith("@")
+ ?handleInput
+ :"@"+handleInput;
 
-  if(post.handle===state.user.handle){
 
-   post.user=state.user.name;
+ state.user.name=
+ name;
 
-  }
+ state.user.handle=
+ handle;
 
- });
+ state.user.bio=
+ bio;
+
 
  save();
 
- closeModal();
 
- render();
+ /* SAVE PROFILE TO FIREBASE */
 
- toast("Profile updated");
+ if(
+  typeof saveFirebaseProfile ===
+  "function"
+ ){
+
+  saveFirebaseProfile()
+  .then(success=>{
+
+   if(!success)return;
+
+   closeModal();
+
+   render();
+
+   toast(
+    "Profile saved to Firebase ✅"
+   );
+
+  });
+
+ }else{
+
+  closeModal();
+
+  render();
+
+  toast(
+   "Profile updated"
+  );
+
+ }
 
 }
-
 /* SETTINGS */
 
 function settings(){
@@ -1462,10 +1502,10 @@ function settings(){
 
  </div>
 
- <p class="muted" style="margin-top:18px">
- Frontend-only mode: posts and settings are saved
- locally on this device. Firebase/backend is intentionally
- not used in this version.
+<p class="muted" style="margin-top:18px">
+ Your WorldVibe account profile is connected to Firebase.
+ Your profile can sync across devices when you log in.
+ Posts and media will be moved to Firebase Storage in the next step.
  </p>`;
 
  openModal();
@@ -1869,14 +1909,729 @@ from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 import {
  getFirestore,
  doc,
- setDoc
+ setDoc,
+ getDoc
 }
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+/* FIREBASE CONFIG */
+
 const firebaseConfig = {
 
- apiKey:"AIzaSyArCb63lgx3tGMm1QPYQzeLNN7awL8Gx3A",
+ apiKey:"AIzaSyArCb63lgx3tGMm1QPYQzeLNN7awL8G3A",
 
  authDomain:"worldvibe-9f531.firebaseapp.com",
+
+ projectId:"worldvibe-9f531",
+
+ storageBucket:"worldvibe-9f531.firebasestorage.app",
+
+ messagingSenderId:"148680723994",
+
+ appId:"1:148680723994:web:c9cf32cd47d7a3ec190ba3",
+
+ measurementId:"G-WZ9G2B2EDP"
+
+};
+
+
+const app =
+ initializeApp(firebaseConfig);
+
+const auth =
+ getAuth(app);
+
+const db =
+ getFirestore(app);
+
+
+/* AUTH WINDOW */
+
+window.openAuth = function(){
+
+ document.getElementById("sheet").innerHTML = `
+
+ <h2>WorldVibe Login 🌍🎬</h2>
+
+ <p class="muted">
+ Login or create your real WorldVibe account.
+ </p>
+
+ <input
+  class="field"
+  id="authEmail"
+  type="email"
+  placeholder="Email"
+ >
+
+ <br><br>
+
+ <input
+  class="field"
+  id="authPassword"
+  type="password"
+  placeholder="Password"
+ >
+
+ <br><br>
+
+ <button
+  class="btn"
+  style="width:100%"
+  onclick="firebaseLogin()"
+ >
+  Login
+ </button>
+
+ <br><br>
+
+ <button
+  class="btn dark"
+  style="width:100%"
+  onclick="firebaseSignup()"
+ >
+  Create Account
+ </button>
+
+ <p
+  id="authMessage"
+  class="muted"
+  style="margin-top:15px"
+ ></p>
+
+ `;
+
+ openModal();
+
+};
+
+
+/* LOGIN */
+
+window.firebaseLogin = async function(){
+
+ const email =
+ document.getElementById("authEmail").value.trim();
+
+ const password =
+ document.getElementById("authPassword").value;
+
+ const message =
+ document.getElementById("authMessage");
+
+ if(!email || !password){
+
+  message.textContent =
+  "Please enter email and password.";
+
+  return;
+
+ }
+
+ message.textContent =
+ "Logging in...";
+
+ try{
+
+  await signInWithEmailAndPassword(
+   auth,
+   email,
+   password
+  );
+
+  message.textContent =
+  "Login successful ✅";
+
+  toast(
+   "Welcome to WorldVibe 🌍"
+  );
+
+  setTimeout(
+   ()=>closeModal(),
+   900
+  );
+
+ }catch(error){
+
+  console.error(
+   "LOGIN ERROR:",
+   error
+  );
+
+  message.textContent =
+   error.message
+   .replace("Firebase: ","")
+   .replace(/\(auth\/.*?\)\.?/,"")
+   .trim();
+
+ }
+
+};
+
+
+/* SIGNUP */
+
+window.firebaseSignup = async function(){
+
+ const emailInput =
+ document.getElementById("authEmail");
+
+ const passwordInput =
+ document.getElementById("authPassword");
+
+ const message =
+ document.getElementById("authMessage");
+
+ if(
+  !emailInput ||
+  !passwordInput ||
+  !message
+ ){
+
+  alert(
+   "Signup form error. Please refresh and try again."
+  );
+
+  return;
+
+ }
+
+ const email =
+ emailInput.value.trim();
+
+ const password =
+ passwordInput.value;
+
+
+ if(!email){
+
+  message.textContent =
+  "Please enter your email.";
+
+  return;
+
+ }
+
+ if(!password){
+
+  message.textContent =
+  "Please enter a password.";
+
+  return;
+
+ }
+
+ if(password.length < 6){
+
+  message.textContent =
+  "Password is too weak. Use at least 6 characters.";
+
+  return;
+
+ }
+
+ message.textContent =
+ "Creating account...";
+
+ try{
+
+  const result =
+  await createUserWithEmailAndPassword(
+   auth,
+   email,
+   password
+  );
+
+  const user =
+   result.user;
+
+
+  await setDoc(
+   doc(
+    db,
+    "users",
+    user.uid
+   ),
+   {
+
+    uid:user.uid,
+
+    email:user.email,
+
+    name:"WorldVibe User",
+
+    handle:
+     "user_" +
+     user.uid.slice(0,6),
+
+    bio:
+     "Welcome to WorldVibe 🌍🎬",
+
+    avatar:"",
+
+    createdAt:
+     new Date().toISOString()
+
+   }
+  );
+
+
+  state.user.name =
+   "WorldVibe User";
+
+  state.user.handle =
+   "@" +
+   "user_" +
+   user.uid.slice(0,6);
+
+  state.user.bio =
+   "Welcome to WorldVibe 🌍🎬";
+
+  state.user.avatar =
+   "";
+
+  save();
+
+
+  message.textContent =
+   "Account created successfully ✅";
+
+  toast(
+   "WorldVibe account created 🎉"
+  );
+
+
+  setTimeout(
+   ()=>{
+
+    closeModal();
+    render();
+
+   },
+   1000
+  );
+
+
+ }catch(error){
+
+  console.error(
+   "SIGNUP ERROR:",
+   error
+  );
+
+
+  let text =
+   error.code ||
+   error.message ||
+   "Signup failed.";
+
+
+  if(
+   error.code ===
+   "auth/email-already-in-use"
+  ){
+
+   text =
+   "This email already has an account. Please Login.";
+
+  }
+
+  else if(
+   error.code ===
+   "auth/invalid-email"
+  ){
+
+   text =
+   "Please enter a valid email address.";
+
+  }
+
+  else if(
+   error.code ===
+   "auth/weak-password"
+  ){
+
+   text =
+   "Password is too weak. Use at least 6 characters.";
+
+  }
+
+  else if(
+   error.code ===
+   "auth/network-request-failed"
+  ){
+
+   text =
+   "Network error. Check your internet and try again.";
+
+  }
+
+  else if(
+   error.code ===
+   "permission-denied"
+  ){
+
+   text =
+   "Firestore permission denied. Check Firebase Security Rules.";
+
+  }
+
+
+  message.textContent =
+   text;
+
+ }
+
+};
+
+
+/* LOAD FIREBASE PROFILE */
+
+async function loadFirebaseProfile(user){
+
+ if(!user)return;
+
+ try{
+
+  const profileRef =
+   doc(
+    db,
+    "users",
+    user.uid
+   );
+
+  const profileSnap =
+   await getDoc(profileRef);
+
+
+  if(profileSnap.exists()){
+
+   const data =
+    profileSnap.data();
+
+
+   state.user.name =
+    data.name ||
+    "WorldVibe User";
+
+
+   state.user.handle =
+    data.handle
+     ?(
+       data.handle.startsWith("@")
+       ? data.handle
+       : "@"+data.handle
+      )
+     :
+      "@user_"+user.uid.slice(0,6);
+
+
+   state.user.bio =
+    data.bio || "";
+
+
+   state.user.avatar =
+    data.avatar || "";
+
+
+   save();
+
+   render();
+
+
+  }else{
+
+   await setDoc(
+    profileRef,
+    {
+
+     uid:user.uid,
+
+     email:user.email,
+
+     name:"WorldVibe User",
+
+     handle:
+      "user_" +
+      user.uid.slice(0,6),
+
+     bio:
+      "Welcome to WorldVibe 🌍🎬",
+
+     avatar:"",
+
+     createdAt:
+      new Date().toISOString()
+
+    }
+   );
+
+  }
+
+
+ }catch(error){
+
+  console.error(
+   "PROFILE LOAD ERROR:",
+   error
+  );
+
+ }
+
+}
+
+
+/* SAVE FIREBASE PROFILE */
+
+window.saveFirebaseProfile =
+async function(){
+
+ const user =
+  auth.currentUser;
+
+
+ if(!user){
+
+  toast(
+   "Please login first 🔐"
+  );
+
+  return false;
+
+ }
+
+
+ const name =
+  document.getElementById(
+   "profileName"
+  ).value.trim();
+
+
+ const handleInput =
+  document.getElementById(
+   "profileHandle"
+  ).value.trim();
+
+
+ const bio =
+  document.getElementById(
+   "profileBio"
+  ).value.trim();
+
+
+ const handle =
+  handleInput.startsWith("@")
+   ? handleInput
+   : "@"+handleInput;
+
+
+ try{
+
+  await setDoc(
+   doc(
+    db,
+    "users",
+    user.uid
+   ),
+   {
+
+    uid:user.uid,
+
+    email:user.email,
+
+    name:
+     name ||
+     "WorldVibe User",
+
+    handle:
+     handle ||
+     "@user_"+user.uid.slice(0,6),
+
+    bio:bio,
+
+    avatar:
+     state.user.avatar || "",
+
+    updatedAt:
+     new Date().toISOString()
+
+   },
+   {
+    merge:true
+   }
+  );
+
+
+  state.user.name =
+   name ||
+   "WorldVibe User";
+
+  state.user.handle =
+   handle ||
+   "@user_"+user.uid.slice(0,6);
+
+  state.user.bio =
+   bio;
+
+
+  save();
+
+  return true;
+
+
+ }catch(error){
+
+  console.error(
+   "PROFILE SAVE ERROR:",
+   error
+  );
+
+  toast(
+   "Could not save profile to Firebase"
+  );
+
+  return false;
+
+ }
+
+};
+
+
+/* LOGOUT */
+
+window.firebaseLogout =
+async function(){
+
+ try{
+
+  await signOut(auth);
+
+  toast(
+   "Logged out"
+  );
+
+ }catch(error){
+
+  console.error(
+   "LOGOUT ERROR:",
+   error
+  );
+
+ }
+
+};
+
+
+/* AUTH STATUS */
+
+onAuthStateChanged(
+ auth,
+ async(user)=>{
+
+  const header =
+   document.querySelector("header");
+
+  if(!header)return;
+
+
+  let authButton =
+   document.getElementById(
+    "authButton"
+   );
+
+
+  if(!authButton){
+
+   authButton =
+    document.createElement(
+     "button"
+    );
+
+   authButton.id =
+    "authButton";
+
+   authButton.className =
+    "header-btn";
+
+   header.appendChild(
+    authButton
+   );
+
+  }
+
+
+  if(user){
+
+   await loadFirebaseProfile(
+    user
+   );
+
+
+   authButton.textContent =
+    "👤";
+
+   authButton.title =
+    user.email ||
+    "Account";
+
+
+   authButton.onclick =
+    ()=>{
+
+     document.getElementById(
+      "sheet"
+     ).innerHTML = `
+
+      <h2>Account 👤</h2>
+
+      <p class="muted">
+       ${user.email}
+      </p>
+
+      <br>
+
+      <button
+       class="btn"
+       style="width:100%"
+       onclick="go('profile');closeModal()"
+      >
+       👤 My Profile
+      </button>
+
+      <br><br>
+
+      <button
+       class="btn red"
+       style="width:100%"
+       onclick="firebaseLogout();closeModal()"
+      >
+       Logout
+      </button>
+
+     `;
+
+     openModal();
+
+    };
+
+
+  }else{
+
+   authButton.textContent =
+    "🔐";
+
+   authButton.title =
+    "Login";
+
+   authButton.onclick =
+    ()=>openAuth();
+
+  }
+
+ });
+
+</script>
 
  projectId:"worldvibe-9f531",
 
