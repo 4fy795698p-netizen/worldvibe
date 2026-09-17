@@ -2232,14 +2232,8 @@ async function publishPost(){
 
   }
 
-  await setDoc(
-
-   doc(
-    db,
-    "posts",
-    post.id
-   ),
-
+  await window.firebaseSetPost(
+   post.id,
    {
 
     id:
@@ -3168,7 +3162,20 @@ async function(){
 
 };
 
+/* FIRESTORE POST SAVE */
 
+window.firebaseSetPost = async function(postId, data){
+
+ await setDoc(
+  doc(
+   db,
+   "posts",
+   postId
+  ),
+  data
+ );
+
+};
 /* FIREBASE STORAGE UPLOAD */
 
 window.uploadToFirebaseStorage =
