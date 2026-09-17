@@ -2231,7 +2231,8 @@ async function publishPost(){
    );
 
   }
-
+toast("Saving post to Firestore...");
+console.log("FIRESTORE SAVE START");
   await window.firebaseSetPost(
    post.id,
    {
