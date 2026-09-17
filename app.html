@@ -3167,14 +3167,34 @@ async function(){
 
 window.firebaseSetPost = async function(postId, data){
 
- await setDoc(
-  doc(
-   db,
-   "posts",
-   postId
-  ),
-  data
- );
+ toast("Firestore request started...");
+
+ const savePromise =
+  setDoc(
+   doc(
+    db,
+    "posts",
+    postId
+   ),
+   data
+  );
+
+ const timeoutPromise =
+  new Promise((_, reject) =>
+   setTimeout(
+    () => reject(
+     new Error("Firestore request timed out after 10 seconds")
+    ),
+    10000
+   )
+  );
+
+ await Promise.race([
+  savePromise,
+  timeoutPromise
+ ]);
+
+ toast("Firestore save completed ✅");
 
 };
 /* FIREBASE STORAGE UPLOAD */
