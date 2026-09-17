@@ -2014,70 +2014,77 @@ window.firebaseLogin = async function(){
 
 window.firebaseSignup = async function(){
 
- const email =
- document.getElementById("authEmail").value.trim();
+ const emailInput = document.getElementById("authEmail");
+ const passwordInput = document.getElementById("authPassword");
+ const message = document.getElementById("authMessage");
 
- const password =
- document.getElementById("authPassword").value;
+ if(!emailInput || !passwordInput || !message){
+   alert("Signup form error. Please refresh and try again.");
+   return;
+ }
 
- const message =
- document.getElementById("authMessage");
+ const email = emailInput.value.trim();
+ const password = passwordInput.value;
 
- if(!email || !password){
+ if(!email){
+   message.textContent = "Please enter your email.";
+   return;
+ }
 
-  message.textContent =
-  "Please enter email and password.";
-
-  return;
-
+ if(!password){
+   message.textContent = "Please enter a password.";
+   return;
  }
 
  if(password.length < 6){
-
-  message.textContent =
-  "Password must be at least 6 characters.";
-
-  return;
-
+   message.textContent = "Password must be at least 6 characters.";
+   return;
  }
 
- message.textContent =
- "Creating account...";
+ message.textContent = "Creating account...";
 
  try{
 
-  await createUserWithEmailAndPassword(
-   auth,
-   email,
-   password
-  );
+   const result = await createUserWithEmailAndPassword(
+     auth,
+     email,
+     password
+   );
 
-  message.textContent =
-  "Account created successfully ✅";
+   console.log("ACCOUNT CREATED:", result.user);
 
-  toast("Welcome to WorldVibe 🎉");
+   message.textContent = "Account created successfully ✅";
 
-  setTimeout(
-   ()=>closeModal(),
-   900
-  );
+   toast("WorldVibe account created 🎉");
+
+   setTimeout(function(){
+     closeModal();
+   },1000);
 
  }catch(error){
 
-  console.error(error);
+   console.error("SIGNUP ERROR:",error);
 
-  message.textContent =
-  error.message
-  .replace("Firebase: ","")
-  .replace(/\(auth\/.*?\)\.?/,"")
-  .trim();
+   let text = error.code || error.message || "Signup failed.";
+
+   if(error.code === "auth/email-already-in-use"){
+     text = "This email already has an account. Please Login.";
+   }
+   else if(error.code === "auth/invalid-email"){
+     text = "Please enter a valid email address.";
+   }
+   else if(error.code === "auth/weak-password"){
+     text = "Password is too weak. Use at least 6 characters.";
+   }
+   else if(error.code === "auth/network-request-failed"){
+     text = "Network error. Check your internet and try again.";
+   }
+
+   message.textContent = text;
 
  }
 
 };
-
-
-/* LOGOUT */
 
 window.firebaseLogout = async function(){
 
