@@ -1753,7 +1753,7 @@ function selectMedia(input){
 
 }
 
-function publishPost(){
+async function publishPost(){
 
  if(!selectedFile){
 
@@ -1775,76 +1775,199 @@ function publishPost(){
   "createTags"
  ).value.trim();
 
- const reader=
- new FileReader();
 
- reader.onload=function(){
+ /* =========================
+    FIREBASE STORAGE UPLOAD
+ ========================= */
 
-  const type=
-   selectedFile.type.startsWith("video/")
-   ?"video"
-   :"image";
+ const cloudURL =
+  await uploadToFirebaseStorage(
+   selectedFile
+  );
 
-  const post={
-   id:"post_"+Date.now(),
-   user:state.user.name,
-   handle:state.user.handle,
-   caption:
-    caption||"New WorldVibe post 🎬",
-   tags:
-    tags||"#WorldVibe",
-   likes:0,
-   comments:0,
-   views:0,
-   liked:false,
-   saved:false,
-   type:type,
-   src:reader.result,
-   created:Date.now()
-  };
+ if(!cloudURL){
 
-  try{
+  return;
 
-   state.posts.unshift(post);
+ }
 
-   state.activity.unshift(
-    "Your post was published 🎬"
-   );
 
-   save();
+ /* =========================
+    POST TYPE
+ ========================= */
 
-   selectedFile=null;
+ const type=
+  selectedFile.type.startsWith("video/")
+  ?"video"
+  :"image";
 
-   closeModal();
 
-   currentTab="home";
+ /* =========================
+    CREATE POST
+ ========================= */
 
-   render();
+ const post={
 
-   toast("Published successfully 🎬");
+  id:
+   "post_"+Date.now(),
 
-  }catch(error){
+  user:
+   state.user.name,
 
-   console.error(error);
+  handle:
+   state.user.handle,
+
+  caption:
+   caption ||
+   "New WorldVibe post 🎬",
+
+  tags:
+   tags ||
+   "#WorldVibe",
+
+  likes:0,
+
+  comments:0,
+
+  views:0,
+
+  liked:false,
+
+  saved:false,
+
+  type:
+   type,
+
+  src:
+   cloudURL,
+
+  created:
+   Date.now()
+
+ };
+
+
+ /* =========================
+    SAVE POST TO FIRESTORE
+ ========================= */
+
+ try{
+
+  const user =
+   auth.currentUser;
+
+  if(!user){
 
    toast(
-    "Browser storage is full. Use a smaller video."
+    "Please login first 🔐"
    );
+
+   return;
 
   }
 
- };
 
- reader.onerror=function(){
+  await setDoc(
 
-  toast("Could not read the selected file");
+   doc(
+    db,
+    "posts",
+    post.id
+   ),
 
- };
+   {
 
- reader.readAsDataURL(selectedFile);
+    id:
+     post.id,
+
+    uid:
+     user.uid,
+
+    user:
+     post.user,
+
+    handle:
+     post.handle,
+
+    caption:
+     post.caption,
+
+    tags:
+     post.tags,
+
+    likes:
+     0,
+
+    comments:
+     0,
+
+    views:
+     0,
+
+    type:
+     post.type,
+
+    src:
+     post.src,
+
+    created:
+     post.created,
+
+    createdAt:
+     new Date().toISOString()
+
+   }
+
+  );
+
+
+  /* =========================
+     LOCAL CACHE
+  ========================= */
+
+  state.posts.unshift(
+   post
+  );
+
+  state.activity.unshift(
+   "Your post was published 🎬"
+  );
+
+  save();
+
+
+  /* =========================
+     CLOSE CREATE WINDOW
+  ========================= */
+
+  selectedFile=null;
+
+  closeModal();
+
+  currentTab="home";
+
+  render();
+
+
+  toast(
+   "Published to WorldVibe Cloud ☁️🎬"
+  );
+
+
+ }catch(error){
+
+  console.error(
+   "FIRESTORE POST ERROR:",
+   error
+  );
+
+  toast(
+   "Post database save failed. Please try again."
+  );
+
+ }
 
 }
-
 /* SEARCH */
 
 function openSearch(){
@@ -1914,6 +2037,14 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
+import {
+ getStorage,
+ ref,
+ uploadBytes,
+ getDownloadURL
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
 
 /* FIREBASE CONFIG */
 
@@ -1944,6 +2075,9 @@ const auth =
 
 const db =
  getFirestore(app);
+
+const storage =
+ getStorage(app);
 
 
 /* AUTH WINDOW */
@@ -2498,6 +2632,105 @@ async function(){
 };
 
 
+/* FIREBASE STORAGE UPLOAD */
+
+window.uploadToFirebaseStorage =
+async function(file){
+
+ if(!file){
+
+  toast(
+   "Please select a photo or video"
+  );
+
+  return null;
+
+ }
+
+
+ const user =
+  auth.currentUser;
+
+
+ if(!user){
+
+  toast(
+   "Please login first 🔐"
+  );
+
+  return null;
+
+ }
+
+
+ try{
+
+  const safeName =
+   file.name
+    .replace(/[^a-zA-Z0-9._-]/g,"_");
+
+
+  const filePath =
+   "posts/" +
+   user.uid +
+   "/" +
+   Date.now() +
+   "_" +
+   safeName;
+
+
+  const storageRef =
+   ref(
+    storage,
+    filePath
+   );
+
+
+  toast(
+   "Uploading to WorldVibe Cloud..."
+  );
+
+
+  await uploadBytes(
+   storageRef,
+   file
+  );
+
+
+  const downloadURL =
+   await getDownloadURL(
+    storageRef
+   );
+
+
+  toast(
+   "Upload complete ✅"
+  );
+
+
+  return downloadURL;
+
+
+ }catch(error){
+
+  console.error(
+   "STORAGE UPLOAD ERROR:",
+   error
+  );
+
+
+  toast(
+   "Cloud upload failed. Please try again."
+  );
+
+
+  return null;
+
+ }
+
+};
+
+
 /* LOGOUT */
 
 window.firebaseLogout =
@@ -2632,7 +2865,6 @@ onAuthStateChanged(
  });
 
 </script>
-
  projectId:"worldvibe-9f531",
 
  storageBucket:"worldvibe-9f531.firebasestorage.app",
