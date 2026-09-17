@@ -2304,7 +2304,7 @@ async function publishPost(){
    "Published to WorldVibe Cloud ☁️🎬"
   );
 
- }catch(error){
+}catch(error){
 
   console.error(
    "FIRESTORE POST ERROR:",
@@ -2312,11 +2312,11 @@ async function publishPost(){
   );
 
   toast(
-   "Post database save failed. Please try again."
+   "Firestore Error: " +
+   (error.code || error.message || "Unknown error")
   );
 
- }
-
+}
 }
 
 /* SEARCH */
