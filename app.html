@@ -2019,73 +2019,115 @@ window.firebaseLogin = async function(){
 
 window.firebaseSignup = async function(){
 
- const emailInput = document.getElementById("authEmail");
- const passwordInput = document.getElementById("authPassword");
- const message = document.getElementById("authMessage");
+ const emailInput =
+ document.getElementById("authEmail");
+
+ const passwordInput =
+ document.getElementById("authPassword");
+
+ const message =
+ document.getElementById("authMessage");
 
  if(!emailInput || !passwordInput || !message){
    alert("Signup form error. Please refresh and try again.");
    return;
  }
 
- const email = emailInput.value.trim();
- const password = passwordInput.value;
+ const email =
+ emailInput.value.trim();
+
+ const password =
+ passwordInput.value;
 
  if(!email){
-   message.textContent = "Please enter your email.";
+   message.textContent =
+   "Please enter your email.";
    return;
  }
 
  if(!password){
-   message.textContent = "Please enter a password.";
+   message.textContent =
+   "Please enter a password.";
    return;
  }
 
  if(password.length < 6){
-   message.textContent = "Password must be at least 6 characters.";
+   message.textContent =
+   "Password must be at least 6 characters.";
    return;
  }
 
- message.textContent = "Creating account...";
+ message.textContent =
+ "Creating account...";
 
  try{
 
-   const result = await createUserWithEmailAndPassword(
+   const result =
+   await createUserWithEmailAndPassword(
      auth,
      email,
      password
    );
 
-   console.log("ACCOUNT CREATED:", result.user);
+   const user =
+   result.user;
 
-   message.textContent = "Account created successfully ✅";
+   await setDoc(
+     doc(db,"users",user.uid),
+     {
+       uid:user.uid,
+       email:user.email,
+       name:"New WorldVibe User",
+       handle:"user_" + user.uid.slice(0,6),
+       bio:"",
+       avatar:"",
+       createdAt:new Date().toISOString()
+     }
+   );
 
-   toast("WorldVibe account created 🎉");
+   message.textContent =
+   "Account created successfully ✅";
 
-   setTimeout(function(){
-     closeModal();
-   },1000);
+   toast(
+     "WorldVibe account created 🎉"
+   );
+
+   setTimeout(
+     ()=>closeModal(),
+     1000
+   );
 
  }catch(error){
 
-   console.error("SIGNUP ERROR:",error);
+   console.error(
+     "SIGNUP ERROR:",
+     error
+   );
 
-   let text = error.code || error.message || "Signup failed.";
+   let text =
+   error.code ||
+   error.message ||
+   "Signup failed.";
 
    if(error.code === "auth/email-already-in-use"){
-     text = "This email already has an account. Please Login.";
+     text =
+     "This email already has an account. Please Login.";
    }
    else if(error.code === "auth/invalid-email"){
-     text = "Please enter a valid email address.";
+     text =
+     "Please enter a valid email address.";
    }
    else if(error.code === "auth/weak-password"){
-     text = "Password is too weak. Use at least 6 characters.";
+     text =
+     "Password is too weak. Use at least 6 characters.";
    }
    else if(error.code === "auth/network-request-failed"){
-     text = "Network error. Check your internet and try again.";
+     text =
+     "Network error. Check your internet and try again.";
    }
 
-   message.textContent = text;
+   message.textContent =
+   text;
 
  }
 
