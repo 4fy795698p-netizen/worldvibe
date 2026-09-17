@@ -2599,7 +2599,11 @@ async function(){
 
  message.textContent =
   "Logging in...";
+console.log("WORLDVIBE API KEY:", firebaseConfig.apiKey);
+console.log("WORLDVIBE PROJECT:", firebaseConfig.projectId);
 
+message.textContent =
+  "Logging in...";
  try{
 
   await signInWithEmailAndPassword(
@@ -2690,7 +2694,6 @@ async function(){
  }
 
 };
-
 
 /* SIGNUP */
 
