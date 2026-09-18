@@ -489,12 +489,24 @@ main::-webkit-scrollbar{display:none}
   WorldVibe 🌍🎬
  </div>
 
- <button
-  class="header-btn"
-  onclick="openSearch()"
- >
-  🔎
- </button>
+ <div style="display:flex;gap:8px;align-items:center">
+
+  <button
+   class="header-btn"
+   onclick="openSearch()"
+  >
+   🔎
+  </button>
+
+  <button
+   class="header-btn"
+   onclick="openAuth()"
+   id="loginHeaderBtn"
+  >
+   Login
+  </button>
+
+ </div>
 
 </header>
 
