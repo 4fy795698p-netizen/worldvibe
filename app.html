@@ -4,2372 +4,2505 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#050505">
-<meta name="description" content="WorldVibe - Create, Connect and Discover">
 <title>WorldVibe 🌍🎬</title>
 
 <style>
 *{box-sizing:border-box}
 html,body{
- margin:0;width:100%;height:100%;
- background:#050505;color:#fff;
- font-family:Arial,Helvetica,sans-serif
+  margin:0;
+  background:#050505;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif
 }
-body{overflow:hidden}
-button,input,textarea,select{font:inherit}
-button{border:0;cursor:pointer}
-button:disabled{opacity:.5;cursor:not-allowed}
-
-#app{
- width:100%;max-width:720px;height:100vh;
- margin:auto;background:#080808;position:relative;
- overflow:hidden
+body{
+  max-width:720px;
+  margin:auto;
+  min-height:100vh;
+  background:#0b0b0f
 }
+button,input,textarea{font:inherit}
+button{
+  border:0;
+  border-radius:12px;
+  padding:11px 14px;
+  background:#262633;
+  color:#fff;
+  cursor:pointer
+}
+button.primary{
+  background:#fff;
+  color:#000;
+  font-weight:700
+}
+button.danger{background:#451919}
 
 header{
- height:58px;display:flex;align-items:center;
- justify-content:space-between;padding:0 13px;
- border-bottom:1px solid #222;background:#080808;
- position:relative;z-index:20
+  position:sticky;
+  top:0;
+  z-index:5;
+  padding:14px 16px;
+  background:#0b0b0fee;
+  backdrop-filter:blur(12px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center
 }
-.logo{font-size:21px;font-weight:800}
-.header-actions{display:flex;gap:7px}
-.header-btn{
- min-width:38px;height:38px;border-radius:20px;
- background:#191919;color:#fff;padding:0 11px
+.logo{
+  font-weight:800;
+  font-size:20px
 }
+.page{
+  display:none;
+  padding:14px 14px 90px
+}
+.page.active{display:block}
 
-main{
- height:calc(100vh - 116px);
- overflow:auto;scrollbar-width:none
+nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(720px,100%);
+  z-index:10;
+  display:flex;
+  justify-content:space-around;
+  padding:9px;
+  background:#111118ee;
+  backdrop-filter:blur(14px);
+  border-top:1px solid #292934
 }
-main::-webkit-scrollbar{display:none}
-
-.bottom-nav{
- height:58px;position:absolute;left:0;right:0;bottom:0;
- z-index:30;display:flex;justify-content:space-around;
- align-items:center;background:#080808;border-top:1px solid #222
-}
-.nav{
- background:none;color:#777;display:flex;
- flex-direction:column;align-items:center;gap:2px;
- font-size:10px;padding:2px 8px
-}
-.nav-icon{font-size:21px}
-.nav.active{color:#fff}
-
-.feed{height:100%;overflow-y:auto;scroll-snap-type:y mandatory}
-.post{
- height:100%;min-height:520px;position:relative;
- scroll-snap-align:start;background:#111;overflow:hidden
-}
-.post-media{
- width:100%;height:100%;object-fit:cover;
- position:absolute;inset:0;background:#151515
-}
-.post-gradient{
- position:absolute;inset:0;
- background:linear-gradient(transparent 35%,rgba(0,0,0,.18) 55%,rgba(0,0,0,.94) 100%);
- pointer-events:none
-}
-.post-info{
- position:absolute;left:15px;right:78px;bottom:20px;z-index:3
-}
-.post-user{font-weight:800;font-size:16px}
-.post-handle{color:#aaa;font-size:13px;font-weight:400;margin-left:4px}
-.post-caption{margin-top:8px;line-height:1.4}
-.post-tags{color:#ddd;margin-top:5px}
-.post-actions{
- position:absolute;right:9px;bottom:18px;z-index:4;
- display:flex;flex-direction:column;gap:9px
-}
-.action{
- width:50px;min-height:48px;border-radius:25px;
- background:rgba(0,0,0,.55);color:#fff;
- display:flex;flex-direction:column;
- align-items:center;justify-content:center
-}
-.action-icon{font-size:21px}
-.action-count{font-size:10px;margin-top:2px}
-
-.section{padding:18px 15px}
-.section h2{margin:3px 0 15px}
-.muted{color:#999;font-size:13px}
-.empty{padding:55px 20px;text-align:center;color:#888;line-height:1.6}
-
-.btn{
- background:#fff;color:#000;padding:11px 16px;
- border-radius:10px;font-weight:700
-}
-.btn.dark{background:#202020;color:#fff}
-.btn.red{background:#ff3150;color:#fff}
-.btn.green{background:#22c55e;color:#fff}
-.btn.blue{background:#2563eb;color:#fff}
-.full{width:100%}
-
-.field{
- width:100%;background:#171717;color:#fff;
- border:1px solid #292929;border-radius:10px;
- padding:12px;outline:none
-}
-.field:focus{border-color:#777}
-textarea.field{resize:vertical}
-
-.row{display:flex;gap:9px;align-items:center}
-.wrap{flex-wrap:wrap}
-
-.search-box{
- display:flex;gap:8px;padding:13px
-}
-.search-box .field{flex:1}
-
-.tag-list{display:flex;flex-wrap:wrap;gap:8px}
-.tag{
- padding:9px 12px;border-radius:20px;
- background:#181818;color:#fff
-}
-
-.grid{
- display:grid;grid-template-columns:repeat(3,1fr);gap:2px
-}
-.grid-item{
- aspect-ratio:1;background:#171717;overflow:hidden;
- position:relative
-}
-.grid-item img,.grid-item video{
- width:100%;height:100%;object-fit:cover
-}
-.grid-play{
- position:absolute;right:6px;top:6px;
- background:rgba(0,0,0,.6);border-radius:50%;
- padding:5px
-}
-
-.profile{text-align:center;padding:25px 15px 15px}
-.avatar{
- width:92px;height:92px;border-radius:50%;
- object-fit:cover;background:#222;
- display:block;margin:auto;border:2px solid #333
-}
-.profile h2{margin:12px 0 3px}
-.stats{
- display:flex;justify-content:center;gap:35px;margin:18px 0
-}
-.stat b{display:block;font-size:18px}
-.stat span{color:#888;font-size:12px}
-
-.list{display:flex;flex-direction:column;gap:8px}
-.list-item{
- padding:14px;border-radius:12px;background:#151515;
- display:flex;align-items:center;justify-content:space-between;
- color:inherit;text-align:left;width:100%
+nav button{
+  background:transparent;
+  padding:8px;
+  font-size:12px
 }
 
 .card{
- background:#151515;border:1px solid #252525;
- border-radius:14px;padding:15px;margin-bottom:10px
+  background:#15151d;
+  border:1px solid #292934;
+  border-radius:16px;
+  margin:12px 0;
+  overflow:hidden
+}
+.pad{padding:13px}
+.media{
+  width:100%;
+  max-height:620px;
+  background:#000;
+  display:block;
+  object-fit:cover
+}
+.muted{color:#9b9ba8}
+.row{
+  display:flex;
+  gap:8px;
+  align-items:center
+}
+.between{justify-content:space-between}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#333;
+  object-fit:cover
 }
 
-.badge{
- display:inline-block;padding:5px 8px;border-radius:8px;
- background:#242424;font-size:11px;color:#ddd
+.stats{
+  display:flex;
+  justify-content:space-around;
+  text-align:center;
+  margin:18px 0
+}
+.stat b{
+  display:block;
+  font-size:18px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3px
+}
+.grid img,.grid video{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+  background:#111
+}
+
+input,textarea{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #333;
+  background:#12121a;
+  color:#fff;
+  margin:6px 0 12px
+}
+
+input[type="checkbox"]{
+  width:auto
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap
+}
+
+.notice{
+  padding:12px;
+  border-radius:12px;
+  background:#1c1c27;
+  margin:8px 0
 }
 
 .modal{
- position:absolute;inset:0;z-index:100;
- display:none;align-items:flex-end;
- background:rgba(0,0,0,.78)
+  position:fixed;
+  inset:0;
+  background:#000b;
+  z-index:20;
+  display:none;
+  align-items:flex-end
 }
 .modal.show{display:flex}
+
 .sheet{
- width:100%;max-height:92%;overflow:auto;
- background:#111;border-radius:20px 20px 0 0;padding:18px
-}
-.close{
- float:right;width:34px;height:34px;
- border-radius:50%;background:#242424;
- color:#fff;font-size:20px
-}
-
-.preview{
- width:100%;max-height:320px;object-fit:contain;
- background:#050505;border-radius:12px;margin:12px 0
+  background:#15151d;
+  width:100%;
+  max-width:720px;
+  margin:auto 0 0;
+  padding:18px;
+  border-radius:20px 20px 0 0;
+  max-height:90vh;
+  overflow:auto
 }
 
-.toast{
- position:absolute;left:50%;bottom:72px;
- transform:translateX(-50%);background:#fff;color:#000;
- padding:11px 16px;border-radius:10px;z-index:200;
- display:none;white-space:nowrap;max-width:90%;
- overflow:hidden;text-overflow:ellipsis
-}
-.toast.show{display:block}
-
-.file-button{
- display:block;text-align:center;width:100%;margin-bottom:12px
-}
-.file-button input{display:none}
-
-.comment-row{display:flex;gap:8px;margin-top:12px}
-.comment-row input{flex:1}
-
-.stat-card{
- flex:1;min-width:100px;
- background:#151515;border-radius:14px;
- padding:15px;text-align:center
-}
-.stat-card b{font-size:20px;display:block}
-.stat-card span{font-size:11px;color:#999}
-
-.coin-box{
- text-align:center;background:#171717;
- border-radius:18px;padding:22px;margin-bottom:12px
-}
-.coin-number{font-size:34px;font-weight:800}
-.money{font-size:30px;font-weight:800}
-
-.divider{height:1px;background:#272727;margin:15px 0}
-
-.spinner{
- width:22px;height:22px;border:3px solid #555;
- border-top-color:#fff;border-radius:50%;
- animation:spin .8s linear infinite;
- margin:auto
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-.light{background:#f5f5f5;color:#111}
-.light #app,.light header,.light .bottom-nav{background:#fff;color:#111}
-.light header,.light .bottom-nav{border-color:#ddd}
-.light .nav{color:#777}
-.light .nav.active{color:#111}
-.light .field,.light .list-item,.light .tag,
-.light .card,.light .stat-card,.light .coin-box{
- background:#f0f0f0;color:#111;border-color:#ddd
-}
-.light .sheet{background:#fff;color:#111}
-.light .header-btn{background:#eee;color:#111}
-
-@media(max-width:430px){
- .logo{font-size:19px}
- .post-info{right:70px}
- .action{width:46px}
- .stats{gap:25px}
+hr{
+  border:0;
+  border-top:1px solid #292934;
+  margin:15px 0
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
-
 <header>
- <div class="logo">WorldVibe 🌍🎬</div>
+  <div class="logo">WorldVibe 🌍🎬</div>
 
- <div class="header-actions">
-  <button class="header-btn" onclick="openSearch()">🔎</button>
-  <button class="header-btn" id="loginHeaderBtn">Login</button>
- </div>
+  <div class="row">
+    <button onclick="openSearch()">🔎</button>
+    <button id="authBtn" onclick="openAuth()">Login</button>
+  </div>
 </header>
 
-<main id="main"></main>
+<!-- HOME -->
+<section id="home" class="page active">
+  <h2>For You</h2>
+  <div id="feed"></div>
+</section>
 
-<nav class="bottom-nav">
+<!-- EXPLORE -->
+<section id="explore" class="page">
+  <h2>Explore</h2>
 
- <button class="nav active" data-tab="home" onclick="go('home')">
-  <span class="nav-icon">⌂</span>Home
- </button>
+  <input
+    id="searchInput"
+    placeholder="Search creators, captions, tags..."
+    oninput="renderExplore()"
+  >
 
- <button class="nav" data-tab="explore" onclick="go('explore')">
-  <span class="nav-icon">◉</span>Explore
- </button>
+  <div id="exploreGrid" class="grid"></div>
+</section>
 
- <button class="nav" data-tab="create" onclick="openCreate()">
-  <span class="nav-icon">＋</span>Create
- </button>
+<!-- CREATE -->
+<section id="create" class="page">
+  <h2>Create</h2>
 
- <button class="nav" data-tab="activity" onclick="go('activity')">
-  <span class="nav-icon">♡</span>Activity
- </button>
+  <input
+    id="mediaFile"
+    type="file"
+    accept="video/*,image/*"
+    onchange="previewMedia()"
+  >
 
- <button class="nav" data-tab="profile" onclick="go('profile')">
-  <span class="nav-icon">♙</span>Profile
- </button>
+  <div id="preview"></div>
+
+  <textarea
+    id="caption"
+    rows="4"
+    placeholder="Write a caption..."
+  ></textarea>
+
+  <input
+    id="tags"
+    placeholder="#travel #music #worldvibe"
+  >
+
+  <label>
+    <input
+      id="allowComments"
+      type="checkbox"
+      checked
+    >
+    Allow comments
+  </label>
+
+  <div class="actions">
+    <button class="primary" onclick="publishPost()">
+      Publish
+    </button>
+
+    <button onclick="saveDraft()">
+      Save Draft
+    </button>
+
+    <button onclick="loadDraft()">
+      Load Draft
+    </button>
+  </div>
+
+  <p id="uploadStatus" class="muted"></p>
+</section>
+
+<!-- ACTIVITY -->
+<section id="activity" class="page">
+  <h2>Activity</h2>
+  <div id="activityList"></div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+  <div class="row">
+    <img
+      id="avatar"
+      class="avatar"
+      alt="Avatar"
+    >
+
+    <div>
+      <h2 id="profileName">WorldVibe User</h2>
+      <div id="profileHandle" class="muted">
+        @worldvibeuser
+      </div>
+    </div>
+  </div>
+
+  <p id="profileBio">
+    Create • Connect • Discover
+  </p>
+
+  <div class="stats">
+
+    <div class="stat">
+      <b id="followers">0</b>
+      Followers
+    </div>
+
+    <div class="stat">
+      <b id="following">0</b>
+      Following
+    </div>
+
+    <div class="stat">
+      <b id="likes">0</b>
+      Likes
+    </div>
+
+    <div class="stat">
+      <b id="views">0</b>
+      Views
+    </div>
+
+  </div>
+
+  <div class="actions">
+
+    <button onclick="editProfile()">
+      Edit Profile
+    </button>
+
+    <button onclick="buyCoins()">
+      Buy Coins
+    </button>
+
+    <button onclick="showGifts()">
+      Gifts
+    </button>
+
+    <button onclick="withdraw()">
+      Withdraw
+    </button>
+
+  </div>
+
+  <div class="card pad">
+
+    <b>Creator Center</b>
+
+    <p>
+      Coins:
+      <span id="coins">0</span>
+    </p>
+
+    <p>
+      Earnings:
+      <span id="earnings">$0.00</span>
+    </p>
+
+  </div>
+
+  <h3>Your videos</h3>
+
+  <div id="profileGrid" class="grid"></div>
+
+</section>
+
+<!-- BOTTOM NAV -->
+<nav>
+
+  <button onclick="page('home')">
+    🏠<br>Home
+  </button>
+
+  <button onclick="page('explore')">
+    🔎<br>Explore
+  </button>
+
+  <button onclick="page('create')">
+    ➕<br>Create
+  </button>
+
+  <button onclick="page('activity')">
+    🔔<br>Activity
+  </button>
+
+  <button onclick="page('profile')">
+    👤<br>Profile
+  </button>
 
 </nav>
 
-<div id="toast" class="toast"></div>
-
-<div id="modal" class="modal" onclick="modalOutside(event)">
- <div class="sheet">
-  <button class="close" onclick="closeModal()">×</button>
-  <div id="sheet"></div>
- </div>
-</div>
-
-</div>
-
-<script>
-
-const STORAGE_KEY="WORLDVIBE_V5";
-
-let state=null;
-let currentTab="home";
-let searchQuery="";
-let selectedFile=null;
-let selectedAvatarFile=null;
-let cloudPostsLoading=false;
-
-function defaultState(){
- return {
-  user:{
-   uid:"",
-   name:"WorldVibe User",
-   handle:"@worldvibe_user",
-   bio:"Welcome to WorldVibe 🌍🎬",
-   avatar:""
-  },
-  posts:[],
-  following:[],
-  followers:[],
-  activity:[],
-  drafts:[],
-  savedIds:[],
-  settings:{theme:"dark"},
-  creator:{
-   coins:0,
-   earnings:0,
-   views:0
-  }
- };
-}
-
-try{
- state=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");
-}catch(e){
- state=null;
-}
-
-if(!state)state=defaultState();
-
-function save(){
- try{
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
- }catch(e){
-  console.log("LOCAL SAVE ERROR",e);
- }
-}
-
-function toast(message){
- const el=document.getElementById("toast");
- if(!el)return;
- el.textContent=message;
- el.classList.add("show");
- clearTimeout(window.toastTimer);
- window.toastTimer=setTimeout(()=>el.classList.remove("show"),2400);
-}
-
-function escapeHTML(value){
- return String(value??"")
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
-}
-
-function updateNav(){
- document.querySelectorAll(".nav").forEach(b=>{
-  b.classList.toggle("active",b.dataset.tab===currentTab);
- });
-}
-
-function go(tab){
- currentTab=tab;
- updateNav();
- render();
-
- if(tab==="home")loadCloudPosts();
-}
-
-function render(){
- document.body.classList.toggle(
-  "light",
-  state.settings.theme==="light"
- );
-
- updateNav();
-
- if(currentTab==="home")renderHome();
- else if(currentTab==="explore")renderExplore();
- else if(currentTab==="activity")renderActivity();
- else if(currentTab==="profile")renderProfile();
-}
-
-function getPost(id){
- return state.posts.find(p=>p.id===id);
-}
-
-function formatNumber(n){
- n=Number(n)||0;
- if(n>=1000000)return (n/1000000).toFixed(1)+"M";
- if(n>=1000)return (n/1000).toFixed(1)+"K";
- return String(n);
-}
-
-function avatarHTML(user){
- const src=user?.avatar||"";
- if(src){
-  return `<img class="avatar" src="${escapeHTML(src)}" alt="Avatar">`;
- }
- return `<div class="avatar" style="display:grid;place-items:center;font-size:42px">🌍</div>`;
-}
-
-/* HOME */
-
-function renderHome(){
-
- const posts=state.posts.filter(p=>!p.draft);
-
- if(!posts.length){
-  document.getElementById("main").innerHTML=`
-   <div class="empty">
-    <div style="font-size:60px">🌍🎬</div>
-    <h2>Welcome to WorldVibe</h2>
-    <p>Create the first post or refresh the cloud feed.</p>
-    <button class="btn" onclick="openCreate()">＋ Create Post</button>
-    <br><br>
-    <button class="btn dark" onclick="loadCloudPosts()">☁️ Load Cloud Posts</button>
-   </div>`;
-  return;
- }
-
- document.getElementById("main").innerHTML=
- `<div class="feed">${posts.map(postCard).join("")}</div>`;
-}
-
-function postCard(post){
-
- let media="";
-
- if(post.src){
-  if(post.type==="video"){
-   media=`
-    <video class="post-media"
-     src="${escapeHTML(post.src)}"
-     playsinline webkit-playsinline
-     autoplay muted loop preload="metadata"
-     onclick="toggleVideoSound(this)"></video>`;
-  }else{
-   media=`
-    <img class="post-media"
-     src="${escapeHTML(post.src)}"
-     alt="WorldVibe post">`;
-  }
- }else{
-  media=`
-   <div class="post-media"
-    style="display:grid;place-items:center;font-size:75px">
-    🌍🎬
-   </div>`;
- }
-
- const liked=!!post.liked;
- const saved=state.savedIds.includes(post.id);
-
- return `
- <article class="post">
-
-  ${media}
-  <div class="post-gradient"></div>
-
-  <div class="post-info">
-   <div class="post-user">
-    ${escapeHTML(post.user||"WorldVibe")}
-    <span class="post-handle">
-     ${escapeHTML(post.handle||"@worldvibe")}
-    </span>
-   </div>
-
-   <div class="post-caption">
-    ${escapeHTML(post.caption||"")}
-   </div>
-
-   <div class="post-tags">
-    ${escapeHTML(post.tags||"")}
-   </div>
-  </div>
-
-  <div class="post-actions">
-
-   <button class="action" onclick="likePost('${escapeHTML(post.id)}')">
-    <span class="action-icon">${liked?"❤️":"♡"}</span>
-    <span class="action-count">${formatNumber(post.likes)}</span>
-   </button>
-
-   <button class="action" onclick="comments('${escapeHTML(post.id)}')">
-    <span class="action-icon">💬</span>
-    <span class="action-count">${formatNumber(post.comments)}</span>
-   </button>
-
-   <button class="action" onclick="sharePost('${escapeHTML(post.id)}')">
-    <span class="action-icon">↗️</span>
-    <span class="action-count">Share</span>
-   </button>
-
-   <button class="action" onclick="savePost('${escapeHTML(post.id)}')">
-    <span class="action-icon">${saved?"🔖":"📑"}</span>
-    <span class="action-count">${saved?"Saved":"Save"}</span>
-   </button>
-
-   <button class="action" onclick="postMenu('${escapeHTML(post.id)}')">
-    <span class="action-icon">•••</span>
-   </button>
-
-  </div>
- </article>`;
-}
-
-function toggleVideoSound(video){
- video.muted=!video.muted;
- if(!video.muted)toast("Sound on 🔊");
-}
-
-/* CLOUD FEED */
-
-async function loadCloudPosts(){
-
- if(cloudPostsLoading)return;
-
- if(!window.firebaseReady){
-  return;
- }
-
- cloudPostsLoading=true;
-
- try{
-
-  const snap=await window.firebaseGetPosts();
-
-  const cloud=snap.map(data=>({
-   id:data.id,
-   user:data.user||"WorldVibe User",
-   handle:data.handle||"@worldvibe_user",
-   caption:data.caption||"",
-   tags:data.tags||"#WorldVibe",
-   likes:Number(data.likes)||0,
-   comments:Number(data.comments)||0,
-   views:Number(data.views)||0,
-   liked:false,
-   saved:false,
-   type:data.type||"image",
-   src:data.src||"",
-   uid:data.uid||"",
-   created:data.created||Date.now()
-  }));
-
-  const localMap=new Map(state.posts.map(p=>[p.id,p]));
-
-  cloud.forEach(p=>{
-   const old=localMap.get(p.id);
-   if(old){
-    p.liked=!!old.liked;
-   }
-   localMap.set(p.id,p);
-  });
-
-  state.posts=Array.from(localMap.values())
-   .sort((a,b)=>(b.created||0)-(a.created||0));
-
-  save();
-  render();
-
- }catch(error){
-  console.error(error);
- }finally{
-  cloudPostsLoading=false;
- }
-}
-
-/* LIKE */
-
-async function likePost(id){
-
- const post=getPost(id);
- if(!post)return;
-
- post.liked=!post.liked;
- post.likes=Math.max(0,(post.likes||0)+(post.liked?1:-1));
-
- if(post.liked){
-  state.activity.unshift("You liked a post ❤️");
- }
-
- save();
- render();
-
- if(window.firebaseUpdatePost){
-  try{
-   await window.firebaseUpdatePost(id,{
-    likes:post.likes
-   });
-  }catch(e){
-   console.log("Cloud like error",e);
-  }
- }
-}
-
-/* SAVE */
-
-function savePost(id){
-
- const index=state.savedIds.indexOf(id);
-
- if(index>=0){
-  state.savedIds.splice(index,1);
-  toast("Removed from saved");
- }else{
-  state.savedIds.push(id);
-  toast("Post saved 🔖");
- }
-
- save();
- render();
-}
-
-/* SHARE */
-
-async function sharePost(id){
-
- const post=getPost(id);
- if(!post)return;
-
- const text=`${post.caption||"WorldVibe post"} ${post.tags||""}`;
-
- try{
-  if(navigator.share){
-   await navigator.share({
-    title:"WorldVibe 🌍🎬",
-    text:text,
-    url:location.href
-   });
-  }else if(navigator.clipboard){
-   await navigator.clipboard.writeText(text+" "+location.href);
-   toast("Post link copied 📋");
-  }else{
-   toast("Sharing is not supported");
-  }
- }catch(e){}
-}
-
-/* COMMENTS */
-
-async function comments(id){
-
- const post=getPost(id);
- if(!post)return;
-
- document.getElementById("sheet").innerHTML=`
-  <h2>Comments 💬</h2>
-  <div id="commentList">
-   <div class="spinner"></div>
-  </div>
-
-  <div class="comment-row">
-   <input class="field" id="commentInput"
-    placeholder="Write a comment...">
-   <button class="btn" onclick="addComment('${escapeHTML(id)}')">
-    Post
-   </button>
-  </div>`;
-
- openModal();
-
- if(window.firebaseGetComments){
-
-  try{
-   const list=await window.firebaseGetComments(id);
-
-   const box=document.getElementById("commentList");
-   if(!box)return;
-
-   if(!list.length){
-    box.innerHTML=`<div class="empty">No comments yet.</div>`;
-   }else{
-    box.innerHTML=list.map(c=>`
-     <div class="list-item">
-      <div>
-       <b>${escapeHTML(c.name||"WorldVibe User")}</b>
-       <div class="muted">${escapeHTML(c.text||"")}</div>
-      </div>
-     </div>`).join("");
-   }
-
-  }catch(e){
-   console.error(e);
-  }
-
- }else{
-  showLocalComments(post);
- }
-}
-
-function showLocalComments(post){
-
- const box=document.getElementById("commentList");
- if(!box)return;
-
- const list=post.commentList||[];
-
- box.innerHTML=list.length
- ?list.map(c=>`
-   <div class="list-item">
-    💬 ${escapeHTML(c)}
-   </div>`).join("")
- :`<div class="empty">No comments yet.</div>`;
-}
-
-async function addComment(id){
-
- const input=document.getElementById("commentInput");
- if(!input)return;
-
- const text=input.value.trim();
- if(!text)return;
-
- const post=getPost(id);
- if(!post)return;
-
- if(window.firebaseAuth?.currentUser && window.firebaseAddComment){
-
-  try{
-
-   await window.firebaseAddComment(
-    id,
-    text,
-    state.user.name,
-    window.firebaseAuth.currentUser.uid
-   );
-
-   post.comments=(post.comments||0)+1;
-   save();
-
-   input.value="";
-   comments(id);
-
-   if(window.firebaseUpdatePost){
-    await window.firebaseUpdatePost(id,{
-     comments:post.comments
-    });
-   }
-
-   return;
-
-  }catch(e){
-   console.error(e);
-  }
- }
-
- if(!post.commentList)post.commentList=[];
- post.commentList.push(text);
- post.comments=(post.comments||0)+1;
-
- save();
- input.value="";
- comments(id);
-}
-
-/* POST MENU */
-
-function postMenu(id){
-
- const post=getPost(id);
- if(!post)return;
-
- const mine=
- window.firebaseAuth?.currentUser?.uid &&
- post.uid===window.firebaseAuth.currentUser.uid;
-
- document.getElementById("sheet").innerHTML=`
-  <h2>Post options</h2>
-
-  <div class="list">
-
-   <button class="list-item"
-    onclick="savePost('${escapeHTML(id)}');closeModal()">
-    🔖 Save / Unsave
-   </button>
-
-   <button class="list-item"
-    onclick="reportPost('${escapeHTML(id)}')">
-    🚩 Report
-   </button>
-
-   <button class="list-item"
-    onclick="toast('Post muted');closeModal()">
-    🔇 Mute
-   </button>
-
-   ${mine?`
-   <button class="list-item"
-    style="color:#ff4d68"
-    onclick="deletePost('${escapeHTML(id)}')">
-    🗑 Delete my post
-   </button>`:""}
-
-  </div>`;
-
- openModal();
-}
-
-async function reportPost(id){
-
- if(window.firebaseReportPost){
-
-  try{
-   await window.firebaseReportPost(
-    id,
-    window.firebaseAuth?.currentUser?.uid||"anonymous"
-   );
-  }catch(e){}
- }
-
- toast("Report submitted 🚩");
- closeModal();
-}
-
-async function deletePost(id){
-
- if(!confirm("Delete this post permanently?"))return;
-
- const post=getPost(id);
-
- if(window.firebaseDeletePost && post){
-  try{
-   await window.firebaseDeletePost(id);
-  }catch(e){
-   toast("Could not delete cloud post");
-   return;
-  }
- }
-
- state.posts=state.posts.filter(p=>p.id!==id);
- state.savedIds=state.savedIds.filter(x=>x!==id);
-
- save();
- closeModal();
- render();
-
- toast("Post deleted 🗑️");
-}
-
-/* EXPLORE */
-
-function renderExplore(){
-
- const posts=filteredPosts();
-
- const tags=[
-  ...new Set(
-   state.posts.flatMap(p=>
-    (p.tags||"").split(/\s+/)
-    .filter(t=>t.startsWith("#"))
-   )
-  )
- ].slice(0,40);
-
- document.getElementById("main").innerHTML=`
-  <div class="search-box">
-   <input class="field"
-    id="searchInput"
-    value="${escapeHTML(searchQuery)}"
-    placeholder="Search users, posts, hashtags..."
-    oninput="searchPosts(this.value)">
-   <button class="btn" onclick="searchPosts(document.getElementById('searchInput').value)">
-    🔎
-   </button>
-  </div>
-
-  <div class="section">
-
-   <h2>Trending 🔥</h2>
-
-   <div class="tag-list">
-    ${tags.length
-    ?tags.map(tag=>`
-      <button class="tag"
-       onclick="searchPosts('${escapeHTML(tag)}')">
-       ${escapeHTML(tag)}
-      </button>`).join("")
-    :`<span class="muted">Hashtags will appear here.</span>`}
-   </div>
-
-   <h2 style="margin-top:25px">
-    Discover ${searchQuery?`— "${escapeHTML(searchQuery)}"`:""}
-   </h2>
-
-   <div class="grid">
-    ${posts.length
-    ?posts.map(gridItem).join("")
-    :`<div class="empty">Nothing found.</div>`}
-   </div>
-
-  </div>`;
-}
-
-function gridItem(post){
-
- if(post.src){
-  return `
-   <div class="grid-item"
-    onclick="openPostFromGrid('${escapeHTML(post.id)}')">
-    ${post.type==="video"
-    ?`<video src="${escapeHTML(post.src)}" muted></video>
-      <span class="grid-play">▶</span>`
-    :`<img src="${escapeHTML(post.src)}" alt="Post">`}
-   </div>`;
- }
-
- return `
-  <div class="grid-item"
-   onclick="openPostFromGrid('${escapeHTML(post.id)}')"
-   style="display:grid;place-items:center;font-size:40px">
-   🌍
-  </div>`;
-}
-
-function openPostFromGrid(id){
- go("home");
- setTimeout(()=>{
-  const el=document.querySelector(".post");
-  if(el)el.scrollIntoView({behavior:"smooth"});
- },100);
-}
-
-function filteredPosts(){
-
- const q=searchQuery.trim().toLowerCase();
-
- if(!q)return state.posts;
-
- return state.posts.filter(post=>
-  (
-   `${post.caption||""} ${post.tags||""} ${post.user||""} ${post.handle||""}`
-  ).toLowerCase().includes(q)
- );
-}
-
-function searchPosts(value){
- searchQuery=value;
- renderExplore();
-}
-
-/* ACTIVITY */
-
-function renderActivity(){
-
- document.getElementById("main").innerHTML=`
-  <div class="section">
-   <div class="row" style="justify-content:space-between">
-    <h2>Activity 🔔</h2>
-    ${state.activity.length
-     ?`<button class="btn dark" onclick="clearActivity()">Clear</button>`
-     :""}
-   </div>
-
-   ${state.activity.length
-    ?`<div class="list">
-      ${state.activity.map(x=>`
-       <div class="list-item">
-        🔔 ${escapeHTML(x)}
-       </div>`).join("")}
-      </div>`
-    :`<div class="empty">
-       No activity yet.<br>
-       Likes, comments and account events appear here.
-      </div>`}
-  </div>`;
-}
-
-function clearActivity(){
- state.activity=[];
- save();
- render();
-}
-
-/* PROFILE */
-
-function renderProfile(){
-
- const mine=state.posts.filter(
-  p=>p.handle===state.user.handle ||
-     p.uid===state.user.uid
- );
-
- const followers=state.followers.length;
- const following=state.following.length;
-
- document.getElementById("main").innerHTML=`
-  <div class="profile">
-
-   ${state.user.avatar
-    ?`<img class="avatar"
-       src="${escapeHTML(state.user.avatar)}"
-       alt="Profile">`
-    :`<div class="avatar"
-       style="display:grid;place-items:center;font-size:42px">
-       🌍
-      </div>`}
-
-   <h2>${escapeHTML(state.user.name)}</h2>
-
-   <div class="muted">${escapeHTML(state.user.handle)}</div>
-
-   <p>${escapeHTML(state.user.bio)}</p>
-
-   <div class="stats">
-    <div class="stat">
-     <b>${mine.length}</b>
-     <span>Posts</span>
-    </div>
-    <div class="stat">
-     <b>${formatNumber(followers)}</b>
-     <span>Followers</span>
-    </div>
-    <div class="stat">
-     <b>${formatNumber(following)}</b>
-     <span>Following</span>
-    </div>
-   </div>
-
-   <div class="row" style="justify-content:center;flex-wrap:wrap">
-
-    <button class="btn" onclick="editProfile()">
-     Edit profile
-    </button>
-
-    <button class="btn dark" onclick="creatorCenter()">
-     💰 Creator
-    </button>
-
-    <button class="btn dark" onclick="settings()">
-     ⚙ Settings
-    </button>
-
-   </div>
-
-  </div>
-
-  <div class="section" style="padding-top:0">
-   <h3>Your Posts</h3>
-  </div>
-
-  <div class="grid">
-   ${mine.length
-    ?mine.map(gridItem).join("")
-    :`<div class="empty">Your posts will appear here.</div>`}
-  </div>`;
-}
-
-/* PROFILE EDIT */
-
-function editProfile(){
-
- selectedAvatarFile=null;
-
- document.getElementById("sheet").innerHTML=`
-  <h2>Edit profile 👤</h2>
-
-  <div style="text-align:center;margin:15px">
-   ${state.user.avatar
-    ?`<img class="avatar"
-       src="${escapeHTML(state.user.avatar)}">`
-    :`<div class="avatar"
-       style="display:grid;place-items:center;font-size:42px">
-       🌍
-      </div>`}
-  </div>
-
-  <label class="btn file-button">
-   🖼️ Change profile photo
-   <input type="file"
-    id="avatarInput"
-    accept="image/*"
-    onchange="selectAvatar(this)">
-  </label>
-
-  <input class="field" id="profileName"
-   value="${escapeHTML(state.user.name)}"
-   placeholder="Name">
-
-  <br><br>
-
-  <input class="field" id="profileHandle"
-   value="${escapeHTML(state.user.handle)}"
-   placeholder="@username">
-
-  <br><br>
-
-  <textarea class="field" id="profileBio"
-   rows="4" placeholder="Bio">${escapeHTML(state.user.bio)}</textarea>
-
-  <br><br>
-
-  <button class="btn full" onclick="saveProfile()">
-   Save profile
-  </button>`;
-
- openModal();
-}
-
-function selectAvatar(input){
-
- const file=input.files?.[0];
- if(!file)return;
-
- if(file.size>8*1024*1024){
-  toast("Profile photo must be under 8 MB");
-  input.value="";
-  return;
- }
-
- selectedAvatarFile=file;
-}
-
-async function saveProfile(){
-
- const name=document.getElementById("profileName")?.value.trim();
- const h=document.getElementById("profileHandle")?.value.trim();
- const bio=document.getElementById("profileBio")?.value.trim();
-
- if(!name||!h){
-  toast("Name and username are required");
-  return;
- }
-
- const handle=h.startsWith("@")?h:"@"+h;
-
- if(selectedAvatarFile && window.uploadAvatarToFirebase){
-
-  const url=await window.uploadAvatarToFirebase(
-   selectedAvatarFile
-  );
-
-  if(url)state.user.avatar=url;
- }
-
- state.user.name=name;
- state.user.handle=handle;
- state.user.bio=bio;
-
- save();
-
- if(window.saveFirebaseProfile){
-
-  const ok=await window.saveFirebaseProfile();
-
-  if(!ok)return;
- }
-
- closeModal();
- render();
-
- toast("Profile saved ✅");
-}
-
-/* CREATE */
-
-function openCreate(){
-
- selectedFile=null;
-
- document.getElementById("sheet").innerHTML=`
-  <h2>Create 🎬</h2>
-
-  <p class="muted">
-   Share a photo or video with WorldVibe.
-  </p>
-
-  <label class="btn file-button">
-   🎥 Select Video or Photo
-   <input id="mediaInput"
-    type="file"
-    accept="video/*,image/*"
-    onchange="selectMedia(this)">
-  </label>
-
-  <div id="previewBox"></div>
-
-  <input class="field"
-   id="createCaption"
-   maxlength="500"
-   placeholder="Write a caption...">
-
-  <br><br>
-
-  <input class="field"
-   id="createTags"
-   maxlength="300"
-   placeholder="#hashtags">
-
-  <br><br>
-
-  <label>
-   <input type="checkbox" id="allowComments" checked>
-   Allow comments
-  </label>
-
-  <br><br>
-
-  <button class="btn full"
-   onclick="publishPost()">
-   🚀 Publish
-  </button>
-
-  <br><br>
-
-  <button class="btn dark full"
-   onclick="saveDraft()">
-   📝 Save draft
-  </button>
-
-  <p class="muted">
-   Maximum upload size: 25 MB.
-  </p>`;
-
- openModal();
-}
-
-function selectMedia(input){
-
- const file=input.files?.[0];
- if(!file)return;
-
- if(file.size>25*1024*1024){
-  toast("Choose media under 25 MB");
-  input.value="";
-  selectedFile=null;
-  return;
- }
-
- selectedFile=file;
-
- const url=URL.createObjectURL(file);
- const box=document.getElementById("previewBox");
-
- if(file.type.startsWith("video/")){
-  box.innerHTML=`
-   <video class="preview"
-    src="${url}" controls playsinline></video>`;
- }else{
-  box.innerHTML=`
-   <img class="preview"
-    src="${url}" alt="Preview">`;
- }
-}
-
-/* PUBLISH */
-
-async function publishPost(){
-
- if(!selectedFile){
-  toast("Select a photo or video first");
-  return;
- }
-
- const user=window.firebaseAuth?.currentUser;
-
- if(!user){
-  toast("Please Login first 🔐");
-  window.openAuth();
-  return;
- }
-
- const caption=
-  document.getElementById("createCaption")?.value.trim()||"";
-
- const tags=
-  document.getElementById("createTags")?.value.trim()||"#WorldVibe";
-
- const allowComments=
-  document.getElementById("allowComments")?.checked!==false;
-
- if(!window.uploadToFirebaseStorage){
-  toast("Firebase Storage is not ready");
-  return;
- }
-
- const cloudURL=
-  await window.uploadToFirebaseStorage(selectedFile);
-
- if(!cloudURL)return;
-
- const type=
-  selectedFile.type.startsWith("video/")
-  ?"video":"image";
-
- const post={
-  id:"post_"+Date.now()+"_"+Math.random().toString(36).slice(2,8),
-  uid:user.uid,
-  user:state.user.name,
-  handle:state.user.handle,
-  caption:caption||"New WorldVibe post 🎬",
-  tags:tags,
-  likes:0,
-  comments:0,
-  views:0,
-  type:type,
-  src:cloudURL,
-  allowComments:allowComments,
-  created:Date.now()
- };
-
- try{
-
-  toast("Saving post to WorldVibe Cloud...");
-
-  await window.firebaseSetPost(
-   post.id,
-   post
-  );
-
-  state.posts.unshift(post);
-  state.activity.unshift("Your post was published 🎬");
-
-  save();
-
-  selectedFile=null;
-  closeModal();
-  currentTab="home";
-
-  render();
-
-  toast("Published successfully ☁️🎬");
-
- }catch(error){
-
-  console.error(error);
-
-  toast(
-   "Publish failed: "+
-   (error.code||"Firebase error")
-  );
- }
-}
-
-function saveDraft(){
-
- if(!selectedFile){
-  toast("Select media first");
-  return;
- }
-
- const caption=
-  document.getElementById("createCaption")?.value.trim()||"";
-
- state.drafts.unshift({
-  id:"draft_"+Date.now(),
-  caption:caption,
-  fileName:selectedFile.name,
-  created:Date.now()
- });
-
- save();
- closeModal();
- toast("Draft saved locally 📝");
-}
-
-/* SEARCH */
-
-function openSearch(){
- currentTab="explore";
- updateNav();
- renderExplore();
-
- setTimeout(()=>{
-  document.getElementById("searchInput")?.focus();
- },100);
-}
-
-/* CREATOR CENTER */
-
-function creatorCenter(){
-
- const c=state.creator||{
-  coins:0,
-  earnings:0,
-  views:0
- };
-
- document.getElementById("sheet").innerHTML=`
-  <h2>Creator Center 💰</h2>
-
-  <div class="card">
-   <div class="muted">Estimated creator earnings</div>
-   <div class="money">$${Number(c.earnings||0).toFixed(2)}</div>
-   <div class="muted">Demo balance — not withdrawable yet</div>
-  </div>
-
-  <div class="row wrap">
-
-   <div class="stat-card">
-    <b>${formatNumber(c.coins||0)}</b>
-    <span>Coins</span>
-   </div>
-
-   <div class="stat-card">
-    <b>${formatNumber(c.views||0)}</b>
-    <span>Views</span>
-   </div>
-
-   <div class="stat-card">
-    <b>${state.posts.length}</b>
-    <span>Posts</span>
-   </div>
-
-  </div>
-
-  <br>
-
-  <button class="btn blue full" onclick="coinStore()">
-   🪙 Buy Coins
-  </button>
-
-  <br><br>
-
-  <button class="btn dark full" onclick="giftCenter()">
-   🎁 Gifts
-  </button>
-
-  <br><br>
-
-  <button class="btn dark full" onclick="withdrawInfo()">
-   💵 Withdraw
-  </button>
-
-  <p class="muted" style="margin-top:15px">
-   Real creator payouts will require a production payment
-   and payout system before launch.
-  </p>`;
-
- openModal();
-}
-
-function coinStore(){
-
- document.getElementById("sheet").innerHTML=`
-  <h2>Buy Coins 🪙</h2>
-
-  <p class="muted">
-   Payment integration placeholder.
-   These buttons do not charge money yet.
-  </p>
-
-  <div class="list">
-
-   <button class="list-item" onclick="demoCoins(100)">
-    🪙 100 Coins
-    <b>$0.99</b>
-   </button>
-
-   <button class="list-item" onclick="demoCoins(550)">
-    🪙 550 Coins
-    <b>$4.99</b>
-   </button>
-
-   <button class="list-item" onclick="demoCoins(1200)">
-    🪙 1,200 Coins
-    <b>$9.99</b>
-   </button>
-
-   <button class="list-item" onclick="demoCoins(6500)">
-    🪙 6,500 Coins
-    <b>$49.99</b>
-   </button>
-
-  </div>`;
-
- openModal();
-}
-
-function demoCoins(amount){
-
- state.creator.coins=
-  (state.creator.coins||0)+amount;
-
- save();
-
- toast(amount+" demo coins added 🪙");
-
- creatorCenter();
-}
-
-function giftCenter(){
-
- document.getElementById("sheet").innerHTML=`
-  <h2>Gifts 🎁</h2>
-
-  <p class="muted">
-   Send virtual gifts to creators.
-  </p>
-
-  <div class="list">
-
-   <button class="list-item"
-    onclick="sendGift('❤️',10)">
-    ❤️ Heart <b>10 🪙</b>
-   </button>
-
-   <button class="list-item"
-    onclick="sendGift('🌹',50)">
-    🌹 Rose <b>50 🪙</b>
-   </button>
-
-   <button class="list-item"
-    onclick="sendGift('👑',500)">
-    👑 Crown <b>500 🪙</b>
-   </button>
-
-   <button class="list-item"
-    onclick="sendGift('🚀',1000)">
-    🚀 Rocket <b>1,000 🪙</b>
-   </button>
-
-  </div>`;
-
- openModal();
-}
-
-function sendGift(icon,cost){
-
- if((state.creator.coins||0)<cost){
-  toast("Not enough coins");
-  return;
- }
-
- state.creator.coins-=cost;
- save();
-
- toast(icon+" Gift sent 🎁");
-}
-
-function withdrawInfo(){
-
- document.getElementById("sheet").innerHTML=`
-  <h2>Withdraw 💵</h2>
-
-  <div class="card">
-   <div class="muted">Current demo balance</div>
-   <div class="money">
-    $${Number(state.creator.earnings||0).toFixed(2)}
-   </div>
-  </div>
-
-  <p>
-   Real withdrawals are not enabled in this V5 frontend.
-   A production version needs a verified payout provider,
-   creator verification, transaction records and backend
-   payout controls.
-  </p>
-
-  <button class="btn full" onclick="closeModal()">
-   Close
-  </button>`;
-
- openModal();
-}
-
-/* SETTINGS */
-
-function settings(){
-
- document.getElementById("sheet").innerHTML=`
-  <h2>Settings ⚙️</h2>
-
-  <div class="list">
-
-   <button class="list-item" onclick="toggleTheme()">
-    🌙 Theme
-    <span>${state.settings.theme}</span>
-   </button>
-
-   <button class="list-item" onclick="showSaved()">
-    🔖 Saved posts
-   </button>
-
-   <button class="list-item" onclick="showDrafts()">
-    📝 Drafts
-   </button>
-
-   <button class="list-item" onclick="loadCloudPosts();closeModal()">
-    ☁️ Sync cloud feed
-   </button>
-
-   <button class="list-item" onclick="exportData()">
-    📤 Export local data
-   </button>
-
-   <button class="list-item"
-    onclick="firebaseLogout();closeModal()">
-    🚪 Logout
-   </button>
-
-   <button class="list-item"
-    style="color:#ff4d68"
-    onclick="clearLocalData()">
-    🗑 Clear local data
-   </button>
-
-  </div>
-
-  <div class="divider"></div>
-
-  <p class="muted">
-   WorldVibe V5 • Firebase Authentication •
-   Cloud Firestore • Firebase Storage
-  </p>`;
-
- openModal();
-}
-
-function toggleTheme(){
-
- state.settings.theme=
-  state.settings.theme==="dark"?"light":"dark";
-
- save();
- closeModal();
- render();
-}
-
-function showSaved(){
-
- const saved=state.posts.filter(
-  p=>state.savedIds.includes(p.id)
- );
-
- document.getElementById("sheet").innerHTML=`
-  <h2>Saved 🔖</h2>
-
-  ${saved.length
-  ?`<div class="list">
-    ${saved.map(p=>`
-     <div class="list-item">
-      <span>${escapeHTML(p.caption)}</span>
-      <button class="btn dark"
-       onclick="closeModal();go('home')">
-       View
+<!-- AUTH MODAL -->
+<div id="authModal" class="modal">
+
+  <div class="sheet">
+
+    <h2>WorldVibe Login</h2>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Email"
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+    >
+
+    <div class="actions">
+
+      <button
+        class="primary"
+        onclick="login()"
+      >
+        Login
       </button>
-     </div>`).join("")}
-   </div>`
-  :`<div class="empty">No saved posts.</div>`}`;
 
- openModal();
-}
+      <button onclick="signup()">
+        Create account
+      </button>
 
-function showDrafts(){
+      <button onclick="closeModals()">
+        Close
+      </button>
 
- document.getElementById("sheet").innerHTML=`
-  <h2>Drafts 📝</h2>
+    </div>
 
-  ${state.drafts.length
-  ?`<div class="list">
-    ${state.drafts.map(d=>`
-     <div class="list-item">
-      <span>
-       ${escapeHTML(d.caption||"Untitled")}
-       <small class="muted">
-        ${escapeHTML(d.fileName||"")}
-       </small>
-      </span>
-     </div>`).join("")}
-   </div>`
-  :`<div class="empty">No drafts yet.</div>`}`;
+    <p
+      id="authStatus"
+      class="muted"
+    ></p>
 
- openModal();
-}
-
-function exportData(){
-
- const blob=new Blob(
-  [JSON.stringify(state,null,2)],
-  {type:"application/json"}
- );
-
- const url=URL.createObjectURL(blob);
- const a=document.createElement("a");
-
- a.href=url;
- a.download="worldvibe-data.json";
- a.click();
-
- URL.revokeObjectURL(url);
-
- toast("Data exported 📤");
-}
-
-function clearLocalData(){
-
- if(!confirm(
-  "Delete local WorldVibe data? Cloud posts will not be deleted."
- ))return;
-
- localStorage.removeItem(STORAGE_KEY);
- location.reload();
-}
-
-/* AUTH UI */
-
-window.openAuth=function(){
-
- document.getElementById("sheet").innerHTML=`
-  <h2>WorldVibe Login 🌍🎬</h2>
-
-  <p class="muted">
-   Login or create your real WorldVibe account.
-  </p>
-
-  <input class="field" id="authEmail"
-   type="email" autocomplete="email"
-   placeholder="Email">
-
-  <br><br>
-
-  <input class="field" id="authPassword"
-   type="password" autocomplete="current-password"
-   placeholder="Password">
-
-  <br><br>
-
-  <button class="btn full" onclick="firebaseLogin()">
-   🔐 Login
-  </button>
-
-  <br><br>
-
-  <button class="btn dark full" onclick="firebaseSignup()">
-   ✨ Create Account
-  </button>
-
-  <p id="authMessage" class="muted"></p>`;
-
- openModal();
-};
-
-window.firebaseLogin=async function(){
-
- const email=document.getElementById("authEmail")?.value.trim();
- const password=document.getElementById("authPassword")?.value;
- const msg=document.getElementById("authMessage");
-
- if(!email||!password){
-  if(msg)msg.textContent="Enter email and password.";
-  return;
- }
-
- if(!window.firebaseLoginFunction){
-  if(msg)msg.textContent="Firebase is still loading...";
-  return;
- }
-
- if(msg)msg.textContent="Logging in...";
-
- try{
-
-  await window.firebaseLoginFunction(email,password);
-
-  if(msg)msg.textContent="Login successful ✅";
-
-  toast("Welcome to WorldVibe 🌍");
-
-  setTimeout(()=>{
-   closeModal();
-  },800);
-
- }catch(error){
-
-  console.error(error);
-
-  let t=error.code||"Login failed";
-
-  if(error.code==="auth/invalid-credential")
-   t="Email or password is incorrect.";
-
-  if(error.code==="auth/user-not-found")
-   t="No account found.";
-
-  if(error.code==="auth/wrong-password")
-   t="Incorrect password.";
-
-  if(error.code==="auth/invalid-email")
-   t="Invalid email address.";
-
-  if(error.code==="auth/network-request-failed")
-   t="Network error.";
-
-  if(msg)msg.textContent=t;
- }
-};
-
-window.firebaseSignup=async function(){
-
- const email=document.getElementById("authEmail")?.value.trim();
- const password=document.getElementById("authPassword")?.value;
- const msg=document.getElementById("authMessage");
-
- if(!email||!password){
-  if(msg)msg.textContent="Enter email and password.";
-  return;
- }
-
- if(password.length<6){
-  if(msg)msg.textContent="Password needs at least 6 characters.";
-  return;
- }
-
- if(!window.firebaseSignupFunction){
-  if(msg)msg.textContent="Firebase is still loading...";
-  return;
- }
-
- if(msg)msg.textContent="Creating account...";
-
- try{
-
-  await window.firebaseSignupFunction(email,password);
-
-  if(msg)msg.textContent="Account created ✅";
-
-  toast("WorldVibe account created 🎉");
-
-  setTimeout(()=>{
-   closeModal();
-   render();
-  },900);
-
- }catch(error){
-
-  console.error(error);
-
-  let t=error.code||"Signup failed";
-
-  if(error.code==="auth/email-already-in-use")
-   t="This email already has an account. Login instead.";
-
-  if(error.code==="auth/invalid-email")
-   t="Invalid email address.";
-
-  if(error.code==="auth/weak-password")
-   t="Password is too weak.";
-
-  if(msg)msg.textContent=t;
- }
-};
-
-/* ACCOUNT */
-
-function accountMenu(user){
-
- document.getElementById("sheet").innerHTML=`
-  <h2>Account 👤</h2>
-
-  <div class="card">
-   <b>${escapeHTML(user.email||"")}</b>
-   <div class="muted">
-    ${escapeHTML(state.user.handle)}
-   </div>
   </div>
 
-  <button class="btn full" onclick="closeModal();go('profile')">
-   👤 My Profile
-  </button>
+</div>
 
-  <br><br>
+<!-- PROFILE MODAL -->
+<div id="profileModal" class="modal">
 
-  <button class="btn dark full" onclick="closeModal();creatorCenter()">
-   💰 Creator Center
-  </button>
+  <div class="sheet">
 
-  <br><br>
+    <h2>Edit Profile</h2>
 
-  <button class="btn red full"
-   onclick="firebaseLogout();closeModal()">
-   Logout
-  </button>`;
+    <input
+      id="editName"
+      placeholder="Name"
+    >
 
- openModal();
-}
+    <input
+      id="editHandle"
+      placeholder="@handle"
+    >
 
-/* MODAL */
+    <textarea
+      id="editBio"
+      placeholder="Bio"
+    ></textarea>
 
-function openModal(){
- document.getElementById("modal").classList.add("show");
-}
+    <input
+      id="avatarFile"
+      type="file"
+      accept="image/*"
+    >
 
-function closeModal(){
- document.getElementById("modal").classList.remove("show");
- selectedFile=null;
- selectedAvatarFile=null;
-}
+    <div class="actions">
 
-function modalOutside(e){
- if(e.target.id==="modal")closeModal();
-}
+      <button
+        class="primary"
+        onclick="saveProfile()"
+      >
+        Save
+      </button>
 
-/* INITIAL */
+      <button onclick="closeModals()">
+        Cancel
+      </button>
 
-document.getElementById("loginHeaderBtn").onclick=()=>{
- if(window.firebaseAuth?.currentUser){
-  accountMenu(window.firebaseAuth.currentUser);
- }else{
-  window.openAuth();
- }
-};
+    </div>
 
-save();
-render();
+  </div>
 
-</script>
+</div>
 
-<!-- ===================================================== -->
-<!-- FIREBASE V5 -->
-<!-- ===================================================== -->
+<!-- COMMENTS MODAL -->
+<div id="commentsModal" class="modal">
+
+  <div class="sheet">
+
+    <h2>Comments</h2>
+
+    <div id="comments"></div>
+
+    <input
+      id="commentText"
+      placeholder="Write a comment..."
+    >
+
+    <div class="actions">
+
+      <button
+        class="primary"
+        onclick="addComment()"
+      >
+        Post comment
+      </button>
+
+      <button onclick="closeModals()">
+        Close
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
 <script type="module">
 
-import {initializeApp}
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import {
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 import {
- getAuth,
- createUserWithEmailAndPassword,
- signInWithEmailAndPassword,
- signOut,
- onAuthStateChanged
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut
 }
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
- initializeFirestore,
- doc,
- setDoc,
- getDoc,
- getDocs,
- collection,
- query,
- orderBy,
- updateDoc,
- deleteDoc,
- addDoc,
- serverTimestamp
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  addDoc,
+  collection,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  serverTimestamp,
+  increment,
+  getDocs,
+  deleteDoc
 }
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 import {
- getStorage,
- ref,
- uploadBytes,
- getDownloadURL
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL
 }
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
 
 
-const firebaseConfig={
- apiKey:"AIzaSyArCb63lgx3tGMm1QPYQzeLNN7awL8Gx3A",
- authDomain:"worldvibe-9f531.firebaseapp.com",
- projectId:"worldvibe-9f531",
- storageBucket:"worldvibe-9f531.firebasestorage.app",
- messagingSenderId:"148680723994",
- appId:"1:148680723994:web:c9cf32cd47d7a3ec190ba3",
- measurementId:"G-WZ9G2B2EDP"
-};
+/* =========================
+   FIREBASE CONFIG
+========================= */
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=initializeFirestore(app);
-const storage=getStorage(app);
+const firebaseConfig = {
 
-window.firebaseAuth=auth;
-window.firebaseDB=db;
-window.firebaseStorage=storage;
-window.firebaseReady=true;
+  apiKey:
+  "AIzaSyArCb63lgx3tGMm1QPYQzeLNN7awL8Gx3A",
 
+  authDomain:
+  "worldvibe-9f531.firebaseapp.com",
 
-/* AUTH */
+  projectId:
+  "worldvibe-9f531",
 
-window.firebaseLoginFunction=
-async(email,password)=>{
- return await signInWithEmailAndPassword(
-  auth,email,password
- );
-};
+  storageBucket:
+  "worldvibe-9f531.firebasestorage.app",
 
-window.firebaseSignupFunction=
-async(email,password)=>{
+  messagingSenderId:
+  "148680723994",
 
- const result=
-  await createUserWithEmailAndPassword(
-   auth,email,password
-  );
+  appId:
+  "1:148680723994:web:c9cf32cd47d7a3ec190ba3",
 
- const user=result.user;
-
- await setDoc(
-  doc(db,"users",user.uid),
-  {
-   uid:user.uid,
-   email:user.email,
-   name:"WorldVibe User",
-   handle:"@user_"+user.uid.slice(0,6),
-   bio:"Welcome to WorldVibe 🌍🎬",
-   avatar:"",
-   following:[],
-   followers:[],
-   createdAt:new Date().toISOString()
-  }
- );
-
- return result;
+  measurementId:
+  "G-WZ9G2B2EDP"
 };
 
 
-/* PROFILE */
+const app = initializeApp(firebaseConfig);
 
-async function loadProfile(user){
+const auth = getAuth(app);
 
- if(!user)return;
+const db = getFirestore(app);
 
- try{
+const storage = getStorage(app);
 
-  const snap=
-   await getDoc(doc(db,"users",user.uid));
 
-  if(snap.exists()){
+/* =========================
+   GLOBAL STATE
+========================= */
 
-   const data=snap.data();
+let user = null;
 
-   state.user.uid=user.uid;
-   state.user.name=data.name||"WorldVibe User";
-   state.user.handle=
-    data.handle
-    ?(data.handle.startsWith("@")
-      ?data.handle
-      :"@"+data.handle)
-    :"@user_"+user.uid.slice(0,6);
+let posts = [];
 
-   state.user.bio=data.bio||"";
-   state.user.avatar=data.avatar||"";
+let activePost = null;
 
-   state.following=data.following||[];
-   state.followers=data.followers||[];
+let unsubscribePosts = null;
 
-   save();
-   render();
 
-  }else{
+/* =========================
+   HELPERS
+========================= */
 
-   await setDoc(
-    doc(db,"users",user.uid),
-    {
-     uid:user.uid,
-     email:user.email,
-     name:"WorldVibe User",
-     handle:"@user_"+user.uid.slice(0,6),
-     bio:"Welcome to WorldVibe 🌍🎬",
-     avatar:"",
-     following:[],
-     followers:[],
-     createdAt:new Date().toISOString()
-    }
-   );
-  }
+const $ = id =>
+  document.getElementById(id);
 
- }catch(error){
-  console.error("PROFILE LOAD ERROR",error);
- }
+
+function esc(value){
+
+  return String(value || "")
+    .replace(
+      /[&<>"']/g,
+      c => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[c])
+    );
+
 }
 
 
-/* SAVE PROFILE */
+/* =========================
+   PAGE NAVIGATION
+========================= */
 
-window.saveFirebaseProfile=
-async function(){
+window.page = function(pageName){
 
- const user=auth.currentUser;
- if(!user)return false;
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      x => x.classList.remove("active")
+    );
 
- try{
+  $(pageName)
+    .classList.add("active");
 
-  await setDoc(
-   doc(db,"users",user.uid),
-   {
-    uid:user.uid,
-    email:user.email,
-    name:state.user.name,
-    handle:state.user.handle,
-    bio:state.user.bio,
-    avatar:state.user.avatar,
-    following:state.following||[],
-    followers:state.followers||[],
-    updatedAt:new Date().toISOString()
-   },
-   {merge:true}
-  );
+  renderAll();
 
-  return true;
-
- }catch(error){
-
-  console.error(error);
-  toast("Cloud profile save failed");
-  return false;
- }
 };
 
 
-/* POSTS */
-
-window.firebaseSetPost=
-async function(postId,data){
-
- const user=auth.currentUser;
-
- if(!user)throw new Error("Login required");
-
- await setDoc(
-  doc(db,"posts",postId),
-  {
-   ...data,
-   uid:user.uid,
-   createdAt:new Date().toISOString()
-  }
- );
-};
-
-window.firebaseGetPosts=
-async function(){
-
- const q=query(
-  collection(db,"posts"),
-  orderBy("created","desc")
- );
-
- const snap=await getDocs(q);
-
- return snap.docs.map(d=>({
-  ...d.data(),
-  id:d.id
- }));
-};
-
-window.firebaseUpdatePost=
-async function(id,data){
-
- await updateDoc(
-  doc(db,"posts",id),
-  data
- );
-};
-
-window.firebaseDeletePost=
-async function(id){
-
- await deleteDoc(
-  doc(db,"posts",id)
- );
-};
-
-
-/* COMMENTS */
-
-window.firebaseAddComment=
-async function(postId,text,name,uid){
-
- await addDoc(
-  collection(db,"posts",postId,"comments"),
-  {
-   text:text,
-   name:name||"WorldVibe User",
-   uid:uid||"",
-   createdAt:serverTimestamp()
-  }
- );
-};
-
-window.firebaseGetComments=
-async function(postId){
-
- const q=query(
-  collection(db,"posts",postId,"comments"),
-  orderBy("createdAt","asc")
- );
-
- const snap=await getDocs(q);
-
- return snap.docs.map(d=>d.data());
-};
-
-
-/* REPORT */
-
-window.firebaseReportPost=
-async function(postId,uid){
-
- await addDoc(
-  collection(db,"reports"),
-  {
-   postId:postId,
-   uid:uid,
-   createdAt:new Date().toISOString(),
-   status:"open"
-  }
- );
-};
-
-
-/* STORAGE */
-
-window.uploadToFirebaseStorage=
-async function(file){
-
- const user=auth.currentUser;
-
- if(!user){
-  toast("Please login first 🔐");
-  return null;
- }
-
- try{
-
-  const safe=file.name.replace(
-   /[^a-zA-Z0-9._-]/g,
-   "_"
-  );
-
-  const path=
-   "posts/"+user.uid+"/"+
-   Date.now()+"_"+safe;
-
-  const storageRef=ref(storage,path);
-
-  toast("Uploading to cloud ☁️...");
-
-  await uploadBytes(storageRef,file);
-
-  const url=await getDownloadURL(storageRef);
-
-  toast("Upload complete ✅");
-
-  return url;
-
- }catch(error){
-
-  console.error("UPLOAD ERROR",error);
-
-  toast(
-   "Storage upload failed: "+
-   (error.code||"error")
-  );
-
-  return null;
- }
-};
-
-
-/* AVATAR STORAGE */
-
-window.uploadAvatarToFirebase=
-async function(file){
-
- const user=auth.currentUser;
-
- if(!user)return null;
-
- try{
-
-  const safe=file.name.replace(
-   /[^a-zA-Z0-9._-]/g,
-   "_"
-  );
-
-  const path=
-   "avatars/"+user.uid+"/"+
-   Date.now()+"_"+safe;
-
-  const avatarRef=ref(storage,path);
-
-  toast("Uploading profile photo...");
-
-  await uploadBytes(avatarRef,file);
-
-  return await getDownloadURL(avatarRef);
-
- }catch(error){
-
-  console.error(error);
-  toast("Profile photo upload failed");
-  return null;
- }
-};
-
-
-/* LOGOUT */
-
-window.firebaseLogout=
-async function(){
-
- try{
-  await signOut(auth);
-  toast("Logged out");
- }catch(error){
-  console.error(error);
- }
-};
-
-
-/* AUTH STATE */
-
-onAuthStateChanged(
- auth,
- async user=>{
-
-  const button=
-   document.getElementById("loginHeaderBtn");
+/* =========================
+   AUTH
+========================= */
+
+window.openAuth = function(){
 
   if(user){
 
-   state.user.uid=user.uid;
-   save();
-
-   if(button){
-    button.textContent="👤";
-    button.title=user.email||"Account";
-
-    button.onclick=()=>{
-     accountMenu(user);
-    };
-   }
-
-   await loadProfile(user);
-
-   if(currentTab==="home"){
-    await loadCloudPosts();
-   }
+    signOut(auth);
 
   }else{
 
-   if(button){
-    button.textContent="Login";
-    button.title="Login";
-
-    button.onclick=()=>{
-     window.openAuth();
-    };
-   }
+    $("authModal")
+      .classList.add("show");
 
   }
 
- }
+};
+
+
+window.closeModals = function(){
+
+  document
+    .querySelectorAll(".modal")
+    .forEach(
+      x => x.classList.remove("show")
+    );
+
+};
+
+
+window.login = async function(){
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      $("email").value,
+      $("password").value
+    );
+
+    $("authStatus")
+      .textContent =
+      "Login successful ✅";
+
+    setTimeout(
+      closeModals,
+      500
+    );
+
+  }catch(error){
+
+    $("authStatus")
+      .textContent =
+      error.message;
+
+  }
+
+};
+
+
+window.signup = async function(){
+
+  try{
+
+    await createUserWithEmailAndPassword(
+      auth,
+      $("email").value,
+      $("password").value
+    );
+
+    $("authStatus")
+      .textContent =
+      "Account created ✅";
+
+    setTimeout(
+      closeModals,
+      500
+    );
+
+  }catch(error){
+
+    $("authStatus")
+      .textContent =
+      error.message;
+
+  }
+
+};
+
+
+/* =========================
+   AUTH STATE
+========================= */
+
+onAuthStateChanged(
+  auth,
+  async currentUser => {
+
+    user = currentUser;
+
+    $("authBtn").textContent =
+      user ? "Logout" : "Login";
+
+    if(user){
+
+      await ensureUser();
+
+    }
+
+    renderAll();
+
+  }
 );
+
+
+/* =========================
+   CREATE USER DOCUMENT
+========================= */
+
+async function ensureUser(){
+
+  const userRef =
+    doc(
+      db,
+      "users",
+      user.uid
+    );
+
+  const snapshot =
+    await getDoc(userRef);
+
+  if(!snapshot.exists()){
+
+    const username =
+      user.email
+        ?.split("@")[0]
+        ?.replace(/[^a-zA-Z0-9_]/g,"")
+      || "worldvibeuser";
+
+    await setDoc(
+      userRef,
+      {
+
+        name:
+          username,
+
+        handle:
+          "@" + username,
+
+        bio:
+          "Create • Connect • Discover",
+
+        avatar:
+          "",
+
+        followers:
+          [],
+
+        following:
+          [],
+
+        likes:
+          0,
+
+        views:
+          0,
+
+        coins:
+          0,
+
+        earnings:
+          0,
+
+        created:
+          serverTimestamp()
+
+      }
+    );
+
+  }
+
+}
+
+
+/* =========================
+   LOAD POSTS
+========================= */
+
+function loadPosts(){
+
+  if(unsubscribePosts){
+
+    unsubscribePosts();
+
+  }
+
+  const postsQuery =
+    query(
+      collection(db,"posts"),
+      orderBy("created","desc"),
+      limit(50)
+    );
+
+  unsubscribePosts =
+    onSnapshot(
+      postsQuery,
+      snapshot => {
+
+        posts =
+          snapshot.docs.map(
+            item => ({
+              id:item.id,
+              ...item.data()
+            })
+          );
+
+        renderAll();
+
+      }
+    );
+
+}
+
+
+loadPosts();
+
+
+/* =========================
+   RENDER ALL
+========================= */
+
+function renderAll(){
+
+  renderFeed();
+
+  renderExplore();
+
+  renderActivity();
+
+  renderProfile();
+
+}
+
+
+/* =========================
+   POST CARD
+========================= */
+
+function postCard(post){
+
+  const liked =
+    (post.likedBy || [])
+      .includes(user?.uid);
+
+  const own =
+    user &&
+    post.uid === user.uid;
+
+  const media =
+    post.type === "image"
+
+      ?
+
+      `<img
+        class="media"
+        src="${esc(post.mediaUrl)}"
+        alt="WorldVibe post"
+      >`
+
+      :
+
+      `<video
+        class="media"
+        controls
+        playsinline
+        src="${esc(post.mediaUrl)}"
+        onplay="countView('${post.id}')"
+      ></video>`;
+
+
+  return `
+
+  <article class="card">
+
+    <div class="pad row between">
+
+      <div>
+
+        <b>
+          ${esc(
+            post.authorName ||
+            "WorldVibe User"
+          )}
+        </b>
+
+        <div class="muted">
+          ${esc(
+            post.authorHandle ||
+            "@worldvibeuser"
+          )}
+        </div>
+
+      </div>
+
+      ${
+        user && !own
+
+        ?
+
+        `<button
+          onclick="toggleFollow('${post.uid}')"
+        >
+          Follow
+        </button>`
+
+        :
+
+        ""
+      }
+
+    </div>
+
+    ${media}
+
+    <div class="pad">
+
+      <b>
+        ${esc(post.caption)}
+      </b>
+
+      <p class="muted">
+
+        ${
+          (post.tags || [])
+            .map(
+              tag =>
+              "#" + esc(tag)
+            )
+            .join(" ")
+        }
+
+      </p>
+
+      <div class="actions">
+
+        <button
+          onclick="toggleLike('${post.id}')"
+        >
+          ${liked ? "❤️" : "🤍"}
+          ${post.likes || 0}
+        </button>
+
+        <button
+          onclick="openComments('${post.id}')"
+        >
+          💬 ${post.commentsCount || 0}
+        </button>
+
+        <button
+          onclick="sharePost('${post.id}')"
+        >
+          ↗️ Share
+        </button>
+
+        <button
+          onclick="savePost('${post.id}')"
+        >
+          🔖 Save
+        </button>
+
+        ${
+          own
+
+          ?
+
+          `<button
+            class="danger"
+            onclick="deletePost('${post.id}')"
+          >
+            Delete
+          </button>`
+
+          :
+
+          ""
+        }
+
+      </div>
+
+    </div>
+
+  </article>
+
+  `;
+
+}
+
+
+/* =========================
+   HOME FEED
+========================= */
+
+function renderFeed(){
+
+  if(!$("feed")) return;
+
+  $("feed").innerHTML =
+    posts.length
+
+    ?
+
+    posts
+      .map(postCard)
+      .join("")
+
+    :
+
+    `
+    <div class="notice">
+      No videos yet.
+      Create the first WorldVibe post 🎬
+    </div>
+    `;
+
+}
+
+
+/* =========================
+   EXPLORE
+========================= */
+
+window.renderExplore = function(){
+
+  if(!$("exploreGrid")) return;
+
+  const search =
+    (
+      $("searchInput")
+        ?.value ||
+      ""
+    ).toLowerCase();
+
+  const results =
+    posts.filter(
+      post =>
+      (
+        String(post.caption || "") +
+        " " +
+        (post.tags || []).join(" ") +
+        " " +
+        String(post.authorName || "")
+      )
+      .toLowerCase()
+      .includes(search)
+    );
+
+
+  $("exploreGrid").innerHTML =
+    results
+      .map(
+        post =>
+
+        post.type === "image"
+
+        ?
+
+        `<img
+          src="${esc(post.mediaUrl)}"
+          alt="WorldVibe"
+        >`
+
+        :
+
+        `<video
+          src="${esc(post.mediaUrl)}"
+          muted
+          playsinline
+        ></video>`
+      )
+      .join("")
+
+    ||
+
+    `
+    <div class="notice">
+      Nothing found.
+    </div>
+    `;
+
+};
+
+
+/* =========================
+   LIKE
+========================= */
+
+window.toggleLike = async function(id){
+
+  if(!user){
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  const post =
+    posts.find(
+      x => x.id === id
+    );
+
+  if(!post) return;
+
+
+  const alreadyLiked =
+    (post.likedBy || [])
+      .includes(user.uid);
+
+
+  await updateDoc(
+    doc(db,"posts",id),
+    {
+
+      likedBy:
+        alreadyLiked
+
+        ?
+
+        arrayRemove(user.uid)
+
+        :
+
+        arrayUnion(user.uid),
+
+      likes:
+        increment(
+          alreadyLiked ? -1 : 1
+        )
+
+    }
+  );
+
+
+  if(!alreadyLiked){
+
+    await updateDoc(
+      doc(
+        db,
+        "users",
+        post.uid
+      ),
+      {
+        likes:
+          increment(1)
+      }
+    );
+
+    if(post.uid !== user.uid){
+
+      await addDoc(
+        collection(
+          db,
+          "users",
+          post.uid,
+          "notifications"
+        ),
+        {
+
+          text:
+            "Someone liked your video ❤️",
+
+          created:
+            serverTimestamp()
+
+        }
+      );
+
+    }
+
+  }
+
+};
+
+
+/* =========================
+   FOLLOW
+========================= */
+
+window.toggleFollow = async function(uid){
+
+  if(!user || user.uid === uid){
+
+    return;
+
+  }
+
+
+  const myRef =
+    doc(
+      db,
+      "users",
+      user.uid
+    );
+
+  const otherRef =
+    doc(
+      db,
+      "users",
+      uid
+    );
+
+
+  const me =
+    await getDoc(myRef);
+
+  const following =
+    me.data()?.following || [];
+
+
+  const alreadyFollowing =
+    following.includes(uid);
+
+
+  await updateDoc(
+    myRef,
+    {
+
+      following:
+        alreadyFollowing
+
+        ?
+
+        arrayRemove(uid)
+
+        :
+
+        arrayUnion(uid)
+
+    }
+  );
+
+
+  await updateDoc(
+    otherRef,
+    {
+
+      followers:
+        alreadyFollowing
+
+        ?
+
+        arrayRemove(user.uid)
+
+        :
+
+        arrayUnion(user.uid)
+
+    }
+  );
+
+
+  if(!alreadyFollowing){
+
+    await addDoc(
+      collection(
+        db,
+        "users",
+        uid,
+        "notifications"
+      ),
+      {
+
+        text:
+          "You have a new follower 👤",
+
+        created:
+          serverTimestamp(),
+
+        from:
+          user.uid
+
+      }
+    );
+
+  }
+
+};
+
+
+/* =========================
+   VIEW COUNT
+========================= */
+
+window.countView = async function(id){
+
+  if(!user) return;
+
+
+  const sessionKey =
+    "worldvibe_view_" + id;
+
+
+  if(
+    sessionStorage.getItem(
+      sessionKey
+    )
+  ){
+
+    return;
+
+  }
+
+
+  sessionStorage.setItem(
+    sessionKey,
+    "1"
+  );
+
+
+  const post =
+    posts.find(
+      x => x.id === id
+    );
+
+
+  await updateDoc(
+    doc(
+      db,
+      "posts",
+      id
+    ),
+    {
+
+      views:
+        increment(1)
+
+    }
+  );
+
+
+  if(post){
+
+    await updateDoc(
+      doc(
+        db,
+        "users",
+        post.uid
+      ),
+      {
+
+        views:
+          increment(1)
+
+      }
+    );
+
+  }
+
+};
+
+
+/* =========================
+   COMMENTS
+========================= */
+
+window.openComments = async function(id){
+
+  activePost = id;
+
+  $("commentsModal")
+    .classList.add("show");
+
+
+  const commentQuery =
+    query(
+      collection(
+        db,
+        "posts",
+        id,
+        "comments"
+      ),
+      orderBy(
+        "created",
+        "asc"
+      )
+    );
+
+
+  const snapshot =
+    await getDocs(
+      commentQuery
+    );
+
+
+  $("comments").innerHTML =
+    snapshot.docs
+      .map(
+        item => {
+
+          const data =
+            item.data();
+
+          return `
+
+          <div class="notice">
+
+            <b>
+              ${esc(
+                data.authorName ||
+                "User"
+              )}
+            </b>
+
+            <br>
+
+            ${esc(
+              data.text ||
+              ""
+            )}
+
+          </div>
+
+          `;
+
+        }
+      )
+      .join("")
+
+    ||
+
+    `
+    <p class="muted">
+      No comments yet.
+    </p>
+    `;
+
+};
+
+
+window.addComment = async function(){
+
+  if(!user){
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  if(!activePost){
+
+    return;
+
+  }
+
+
+  const text =
+    $("commentText")
+      .value
+      .trim();
+
+
+  if(!text) return;
+
+
+  const username =
+    user.email
+      ?.split("@")[0]
+      || "User";
+
+
+  await addDoc(
+    collection(
+      db,
+      "posts",
+      activePost,
+      "comments"
+    ),
+    {
+
+      uid:
+        user.uid,
+
+      authorName:
+        username,
+
+      text:
+        text,
+
+      created:
+        serverTimestamp()
+
+    }
+  );
+
+
+  await updateDoc(
+    doc(
+      db,
+      "posts",
+      activePost
+    ),
+    {
+
+      commentsCount:
+        increment(1)
+
+    }
+  );
+
+
+  const post =
+    posts.find(
+      x => x.id === activePost
+    );
+
+
+  if(
+    post &&
+    post.uid !== user.uid
+  ){
+
+    await addDoc(
+      collection(
+        db,
+        "users",
+        post.uid,
+        "notifications"
+      ),
+      {
+
+        text:
+          "Someone commented on your video 💬",
+
+        created:
+          serverTimestamp(),
+
+        from:
+          user.uid
+
+      }
+    );
+
+  }
+
+
+  $("commentText")
+    .value = "";
+
+
+  openComments(activePost);
+
+};
+
+
+/* =========================
+   SHARE
+========================= */
+
+window.sharePost = async function(id){
+
+  const url =
+    location.href
+      .split("?")[0] +
+    "?post=" +
+    id;
+
+
+  if(
+    navigator.share
+  ){
+
+    await navigator.share({
+
+      title:
+        "WorldVibe",
+
+      text:
+        "Watch this on WorldVibe 🌍🎬",
+
+      url:
+        url
+
+    });
+
+  }else{
+
+    try{
+
+      await navigator.clipboard
+        .writeText(url);
+
+      alert(
+        "Share link copied ✅"
+      );
+
+    }catch{
+
+      alert(url);
+
+    }
+
+  }
+
+};
+
+
+/* =========================
+   SAVE POST
+========================= */
+
+window.savePost = async function(id){
+
+  if(!user){
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  await setDoc(
+    doc(
+      db,
+      "users",
+      user.uid,
+      "saved",
+      id
+    ),
+    {
+
+      postId:
+        id,
+
+      created:
+        serverTimestamp()
+
+    }
+  );
+
+
+  alert(
+    "Saved 🔖"
+  );
+
+};
+
+
+/* =========================
+   DELETE POST
+========================= */
+
+window.deletePost = async function(id){
+
+  if(!user) return;
+
+
+  const post =
+    posts.find(
+      x => x.id === id
+    );
+
+
+  if(
+    !post ||
+    post.uid !== user.uid
+  ){
+
+    return;
+
+  }
+
+
+  if(
+    !confirm(
+      "Delete this post?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  await deleteDoc(
+    doc(
+      db,
+      "posts",
+      id
+    )
+  );
+
+};
+
+
+/* =========================
+   MEDIA PREVIEW
+========================= */
+
+window.previewMedia = function(){
+
+  const file =
+    $("mediaFile")
+      .files[0];
+
+
+  if(!file){
+
+    $("preview")
+      .innerHTML = "";
+
+    return;
+
+  }
+
+
+  if(
+    file.type
+      .startsWith("image/")
+  ){
+
+    const url =
+      URL.createObjectURL(
+        file
+      );
+
+    $("preview")
+      .innerHTML =
+      `
+      <img
+        class="media"
+        src="${url}"
+        alt="Preview"
+      >
+      `;
+
+  }else{
+
+    const url =
+      URL.createObjectURL(
+        file
+      );
+
+    $("preview")
+      .innerHTML =
+      `
+      <video
+        class="media"
+        controls
+        playsinline
+        src="${url}"
+      ></video>
+      `;
+
+  }
+
+};
+
+
+/* =========================
+   PUBLISH POST
+========================= */
+
+window.publishPost = async function(){
+
+  if(!user){
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  const file =
+    $("mediaFile")
+      .files[0];
+
+
+  if(!file){
+
+    alert(
+      "Select a video or image first."
+    );
+
+    return;
+
+  }
+
+
+  $("uploadStatus")
+    .textContent =
+    "Uploading...";
+
+
+  try{
+
+    const safeName =
+      file.name
+        .replace(
+          /[^a-zA-Z0-9._-]/g,
+          "_"
+        );
+
+
+    const storageRef =
+      ref(
+        storage,
+        `posts/${user.uid}/${Date.now()}_${safeName}`
+      );
+
+
+    await uploadBytes(
+      storageRef,
+      file
+    );
+
+
+    const mediaUrl =
+      await getDownloadURL(
+        storageRef
+      );
+
+
+    const userSnapshot =
+      await getDoc(
+        doc(
+          db,
+          "users",
+          user.uid
+        )
+      );
+
+
+    const profile =
+      userSnapshot.data()
+      || {};
+
+
+    const tags =
+      $("tags")
+        .value
+        .split(/\s+/)
+        .map(
+          x =>
+          x.replace(
+            /^#/,
+            ""
+          )
+        )
+        .filter(Boolean);
+
+
+    await addDoc(
+      collection(
+        db,
+        "posts"
+      ),
+      {
+
+        uid:
+          user.uid,
+
+        authorName:
+          profile.name ||
+          "WorldVibe User",
+
+        authorHandle:
+          profile.handle ||
+          "@worldvibeuser",
+
+        authorAvatar:
+          profile.avatar ||
+          "",
+
+        caption:
+          $("caption")
+            .value
+            .trim(),
+
+        tags:
+          tags,
+
+        type:
+          file.type
+            .startsWith("image/")
+            ? "image"
+            : "video",
+
+        mediaUrl:
+          mediaUrl,
+
+        likes:
+          0,
+
+        likedBy:
+          [],
+
+        commentsCount:
+          0,
+
+        views:
+          0,
+
+        allowComments:
+          $("allowComments")
+            .checked,
+
+        created:
+          serverTimestamp()
+
+      }
+    );
+
+
+    $("uploadStatus")
+      .textContent =
+      "Published successfully ✅";
+
+
+    $("caption")
+      .value = "";
+
+    $("tags")
+      .value = "";
+
+    $("mediaFile")
+      .value = "";
+
+    $("preview")
+      .innerHTML = "";
+
+
+  }catch(error){
+
+    console.error(error);
+
+    $("uploadStatus")
+      .textContent =
+      "Upload failed: " +
+      error.message;
+
+  }
+
+};
+
+
+/* =========================
+   DRAFT
+========================= */
+
+window.saveDraft = function(){
+
+  const draft = {
+
+    caption:
+      $("caption").value,
+
+    tags:
+      $("tags").value
+
+  };
+
+
+  localStorage.setItem(
+    "worldvibe_draft",
+    JSON.stringify(draft)
+  );
+
+
+  alert(
+    "Draft saved on this device ✅"
+  );
+
+};
+
+
+window.loadDraft = function(){
+
+  const saved =
+    localStorage.getItem(
+      "worldvibe_draft"
+    );
+
+
+  if(!saved){
+
+    alert(
+      "No draft found."
+    );
+
+    return;
+
+  }
+
+
+  const draft =
+    JSON.parse(saved);
+
+
+  $("caption")
+    .value =
+    draft.caption || "";
+
+
+  $("tags")
+    .value =
+    draft.tags || "";
+
+
+  alert(
+    "Draft loaded ✅"
+  );
+
+};
+
+
+/* =========================
+   EDIT PROFILE
+========================= */
+
+window.editProfile = async function(){
+
+  if(!user){
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  const snapshot =
+    await getDoc(
+      doc(
+        db,
+        "users",
+        user.uid
+      )
+    );
+
+
+  const profile =
+    snapshot.data()
+    || {};
+
+
+  $("editName")
+    .value =
+    profile.name || "";
+
+
+  $("editHandle")
+    .value =
+    profile.handle || "";
+
+
+  $("editBio")
+    .value =
+    profile.bio || "";
+
+
+  $("profileModal")
+    .classList.add("show");
+
+};
+
+
+/* =========================
+   SAVE PROFILE
+========================= */
+
+window.saveProfile = async function(){
+
+  if(!user) return;
+
+
+  const updateData = {
+
+    name:
+      $("editName")
+        .value
+        .trim(),
+
+    handle:
+      $("editHandle")
+        .value
+        .trim(),
+
+    bio:
+      $("editBio")
+        .value
+        .trim()
+
+  };
+
+
+  const file =
+    $("avatarFile")
+      .files[0];
+
+
+  if(file){
+
+    const safeName =
+      file.name
+        .replace(
+          /[^a-zA-Z0-9._-]/g,
+          "_"
+        );
+
+
+    const avatarRef =
+      ref(
+        storage,
+        `avatars/${user.uid}/${Date.now()}_${safeName}`
+      );
+
+
+    await uploadBytes(
+      avatarRef,
+      file
+    );
+
+
+    updateData.avatar =
+      await getDownloadURL(
+        avatarRef
+      );
+
+  }
+
+
+  await updateDoc(
+    doc(
+      db,
+      "users",
+      user.uid
+    ),
+    updateData
+  );
+
+
+  closeModals();
+
+  renderProfile();
+
+};
+
+
+/* =========================
+   PROFILE
+========================= */
+
+async function renderProfile(){
+
+  if(!user){
+
+    $("profileName")
+      .textContent =
+      "WorldVibe User";
+
+    $("profileHandle")
+      .textContent =
+      "@worldvibeuser";
+
+    $("profileBio")
+      .textContent =
+      "Create • Connect • Discover";
+
+    return;
+
+  }
+
+
+  try{
+
+    const snapshot =
+      await getDoc(
+        doc(
+          db,
+          "users",
+          user.uid
+        )
+      );
+
+
+    const profile =
+      snapshot.data()
+      || {};
+
+
+    $("profileName")
+      .textContent =
+      profile.name ||
+      "WorldVibe User";
+
+
+    $("profileHandle")
+      .textContent =
+      profile.handle ||
+      "@worldvibeuser";
+
+
+    $("profileBio")
+      .textContent =
+      profile.bio ||
+      "Create • Connect • Discover";
+
+
+    $("followers")
+      .textContent =
+      (profile.followers || [])
+        .length;
+
+
+    $("following")
+      .textContent =
+      (profile.following || [])
+        .length;
+
+
+    $("likes")
+      .textContent =
+      profile.likes || 0;
+
+
+    $("views")
+      .textContent =
+      profile.views || 0;
+
+
+    $("coins")
+      .textContent =
+      profile.coins || 0;
+
+
+    $("earnings")
+      .textContent =
+      "$" +
+      Number(
+        profile.earnings || 0
+      ).toFixed(2);
+
+
+    if(profile.avatar){
+
+      $("avatar")
+        .src =
+        profile.avatar;
+
+    }else{
+
+      $("avatar")
+        .removeAttribute(
+          "src"
+        );
+
+    }
+
+
+    $("profileGrid")
+      .innerHTML =
+      posts
+        .filter(
+          post =>
+          post.uid === user.uid
+        )
+        .map(
+          post =>
+
+          post.type === "image"
+
+          ?
+
+          `<img
+            src="${esc(post.mediaUrl)}"
+            alt="WorldVibe"
+          >`
+
+          :
+
+          `<video
+            src="${esc(post.mediaUrl)}"
+            muted
+            playsinline
+          ></video>`
+        )
+        .join("");
+
+  }catch(error){
+
+    console.error(
+      "Profile error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+async function renderActivity(){
+
+  if(!$("activityList"))
+    return;
+
+
+  if(!user){
+
+    $("activityList")
+      .innerHTML =
+      `
+      <div class="notice">
+        Login to see notifications.
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  try{
+
+    const notificationQuery =
+      query(
+        collection(
+          db,
+          "users",
+          user.uid,
+          "notifications"
+        ),
+        orderBy(
+          "created",
+          "desc"
+        ),
+        limit(50)
+      );
+
+
+    const snapshot =
+      await getDocs(
+        notificationQuery
+      );
+
+
+    $("activityList")
+      .innerHTML =
+      snapshot.docs
+        .map(
+          item =>
+
+          `
+          <div class="notice">
+            ${esc(
+              item.data().text ||
+              "Activity"
+            )}
+          </div>
+          `
+        )
+        .join("")
+
+      ||
+
+      `
+      <p class="muted">
+        No notifications yet.
+      </p>
+      `;
+
+  }catch(error){
+
+    console.error(error);
+
+    $("activityList")
+      .innerHTML =
+      `
+      <div class="notice">
+        Notifications are loading...
+      </div>
+      `;
+
+  }
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+window.openSearch = function(){
+
+  page("explore");
+
+  setTimeout(
+    () =>
+    $("searchInput")
+      ?.focus(),
+    100
+  );
+
+};
+
+
+/* =========================
+   CREATOR MONEY FEATURES
+========================= */
+
+window.buyCoins = function(){
+
+  alert(
+    "Real Coins are not activated yet. A verified payment provider and secure server-side verification are required before real-money payments."
+  );
+
+};
+
+
+window.showGifts = function(){
+
+  alert(
+    "Real Gifts are not activated yet. They require a verified payment system and secure creator ledger."
+  );
+
+};
+
+
+window.withdraw = function(){
+
+  alert(
+    "Creator Withdrawals are not activated yet. A verified payout provider and secure server-side balance system are required."
+  );
+
+};
 
 </script>
 
