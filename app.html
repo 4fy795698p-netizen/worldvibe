@@ -2454,9 +2454,7 @@ const app =
 const auth =
  getAuth(app);
 
-const db = initializeFirestore(app, {
- experimentalForceLongPolling: true
-});
+const db = initializeFirestore(app);
 
 const storage =
  getStorage(app);
