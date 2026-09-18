@@ -502,11 +502,20 @@ main::-webkit-scrollbar{display:none}
   class="header-btn"
   id="loginHeaderBtn"
   type="button"
-  onclick="openAuth()"
 >
   Login
 </button>
-
+<script>
+document
+  .getElementById("loginHeaderBtn")
+  .addEventListener("click", function(){
+    if(window.openAuth){
+      window.openAuth();
+    }else{
+      alert("Login system is still loading. Please refresh.");
+    }
+  });
+</script>
  </div>
 
 </header>
