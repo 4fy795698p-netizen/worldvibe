@@ -3164,72 +3164,35 @@ async function(){
 
 window.firebaseSetPost = async function(postId, data){
 
-  toast("Testing Firestore connection...");
-
   try{
 
-    const user =
-      window.firebaseAuth &&
-      window.firebaseAuth.currentUser;
-
-    if(!user){
-      throw new Error("Firebase user is not logged in.");
-    }
-
-    const testRef =
+    await setDoc(
       doc(
         db,
-        "users",
-        user.uid
-      );
-
-    const timeoutPromise =
-      new Promise((_, reject) =>
-        setTimeout(
-          () => reject(
-            new Error(
-              "Firestore READ timed out after 10 seconds"
-            )
-          ),
-          10000
-        )
-      );
-
-    const readPromise =
-      getDoc(testRef);
-
-    const result =
-      await Promise.race([
-        readPromise,
-        timeoutPromise
-      ]);
-
-    console.log(
-      "FIRESTORE READ RESULT:",
-      result.exists()
+        "posts",
+        postId
+      ),
+      data
     );
 
     toast(
-      "Firestore connection OK ✅"
-    );
-
-    throw new Error(
-      "TEST ONLY: Firestore connection works. Post was NOT saved yet."
+      "Firestore save completed ✅"
     );
 
   }catch(error){
 
     console.error(
-      "FIRESTORE TEST ERROR:",
+      "FIRESTORE POST ERROR:",
       error
     );
 
     toast(
-      error.message ||
-      "Firestore test failed"
+      "Firestore Error: " +
+      (error.code || error.message || "Unknown error")
     );
 
     throw error;
+
   }
 
 };
