@@ -509,11 +509,22 @@ main::-webkit-scrollbar{display:none}
 document
   .getElementById("loginHeaderBtn")
   .addEventListener("click", function(){
+
     if(window.openAuth){
       window.openAuth();
-    }else{
-      alert("Login system is still loading. Please refresh.");
+      return;
     }
+
+    setTimeout(function(){
+
+      if(window.openAuth){
+        window.openAuth();
+      }else{
+        alert("Login system failed to load. Please refresh.");
+      }
+
+    }, 1000);
+
   });
 </script>
  </div>
