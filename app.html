@@ -3323,49 +3323,20 @@ async function(){
 
 };
 
-
 /* AUTH STATUS */
 
 onAuthStateChanged(
  auth,
  async(user)=>{
 
-  const header =
-   document.querySelector(
-    "header"
-   );
-
-  if(!header)return;
-
-  let authButton =
+  const authButton =
    document.getElementById(
-    "authButton"
+    "loginHeaderBtn"
    );
 
-  if(!authButton){
-
-   authButton =
-    document.createElement(
-     "button"
-    );
-
-   authButton.id =
-    "authButton";
-
-   authButton.className =
-    "header-btn";
-
-   header.appendChild(
-    authButton
-   );
-
-  }
+  if(!authButton)return;
 
   if(user){
-
-   await loadFirebaseProfile(
-    user
-   );
 
    authButton.textContent =
     "👤";
@@ -3375,7 +3346,7 @@ onAuthStateChanged(
     "Account";
 
    authButton.onclick =
-    ()=>{
+    function(){
 
      document.getElementById(
       "sheet"
@@ -3421,21 +3392,26 @@ onAuthStateChanged(
 
     };
 
+   loadFirebaseProfile(user);
+
   }else{
 
    authButton.textContent =
-    "🔐";
+    "Login";
 
    authButton.title =
     "Login";
 
    authButton.onclick =
-    ()=>openAuth();
+    function(){
+
+     window.openAuth();
+
+    };
 
   }
 
  });
-
 </script>
 
 </body>
