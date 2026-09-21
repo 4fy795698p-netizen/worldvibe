@@ -859,7 +859,7 @@ function loadPosts(){
   const postsQuery =
     query(
       collection(db,"posts"),
-      orderBy("created","desc"),
+      orderBy("createdAt","desc"),
       limit(50)
     );
 
