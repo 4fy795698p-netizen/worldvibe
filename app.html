@@ -864,23 +864,36 @@ function loadPosts(){
     );
 
   unsubscribePosts =
-    onSnapshot(
-      postsQuery,
-      snapshot => {
+  onSnapshot(
+    postsQuery,
+    snapshot => {
 
-        posts =
-          snapshot.docs.map(
-            item => ({
-              id:item.id,
-              ...item.data()
-            })
-          );
+      posts =
+        snapshot.docs.map(
+          item => ({
+            id:item.id,
+            ...item.data()
+          })
+        );
 
-        renderAll();
+      renderAll();
 
+    },
+    error => {
+
+      console.error("Posts listener error:", error);
+
+      const feed = $("feed");
+
+      if (feed) {
+        feed.innerHTML =
+          `<div class="notice">
+            Feed error: ${esc(error.message || error)}
+          </div>`;
       }
-    );
 
+    }
+  );
 }
 
 
